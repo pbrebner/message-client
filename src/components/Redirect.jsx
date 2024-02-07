@@ -5,14 +5,14 @@ function Redirect() {
     const [loggedIn, setLoggedIn] = useOutletContext();
     const navigate = useNavigate();
 
-    // This isn't going to quite do what I want
+    // Not sure if this will work as intended
     useEffect(() => {
         if (loggedIn) {
             navigate("../channels");
         } else {
             navigate("../login");
         }
-    });
+    }, []);
 
     return <div className="redirect"></div>;
 }
