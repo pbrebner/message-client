@@ -56,6 +56,17 @@
     gap: 5px;
 }
 
+.inputGuide {
+    height: 0px;
+    overflow: hidden;
+    color: white;
+    transition: height 0.2s ease-in-out;
+}
+
+.inputGuide.display {
+    height: 20px;
+}
+
 .registerBtn {
     padding: 10px 15px;
     font-weight: 600;

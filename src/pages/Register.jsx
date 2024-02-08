@@ -11,7 +11,15 @@ function Register() {
 
     const navigate = useNavigate();
 
-    // TODO: add info below inputs on focus to help the user
+    // TODO: Check if this is the proper react way to do things
+    function handleFocus(e) {
+        e.target.nextElementSibling.classList.add("display");
+    }
+
+    function handleBlur(e) {
+        e.target.nextElementSibling.classList.remove("display");
+    }
+
     return (
         <div className="register">
             <div className="registerContainer">
@@ -26,10 +34,11 @@ function Register() {
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            autoComplete="off"
                         />
                     </div>
                     <div className="formElement">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Display Name</label>
                         <input
                             type="text"
                             name="name"
@@ -37,7 +46,13 @@ function Register() {
                             placeholder="Enter your name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                            autoComplete="off"
                         />
+                        <p className="inputGuide">
+                            This is how others will see you.
+                        </p>
                     </div>
                     <div className="formElement">
                         <label htmlFor="password">Password</label>
@@ -48,7 +63,12 @@ function Register() {
                             placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
                         />
+                        <p className="inputGuide">
+                            Password must be minimum 6 characters.
+                        </p>
                     </div>
                     <div className="formElement">
                         <label htmlFor="confirmPassword">
