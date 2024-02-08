@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Outlet } from "react-router-dom";
 
 import "./App.css";
 
 function App() {
+    let [loggedIn, setLoggedIn] = useState(false);
+
+    // Need to redirect to appropriate page depending if user is logged in
+    // Initially checks if logged in when page is refreshed
+    useEffect(() => {
+        setLoggedIn(localStorage.getItem("userAuth") || false);
+    }, []);
+
     return (
-        <>
-            <div>
-                <h1>Vite + React</h1>
-            </div>
-        </>
+        <div className="app">
+            <Outlet context={[loggedIn, setLoggedIn]} />
+        </div>
     );
 }
 
