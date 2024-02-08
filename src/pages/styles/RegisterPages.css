@@ -78,6 +78,18 @@
     cursor: pointer;
 }
 
+.registerErrorContainer,
+.loginErrorContainer {
+    align-self: center;
+}
+
+.registerErrorList,
+.loginErrorList {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: red;
+}
+
 .formAltText {
     color: white;
 }
