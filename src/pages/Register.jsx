@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import "./styles/RegisterPages.css";
+
 function Register() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -13,7 +15,7 @@ function Register() {
     return (
         <div className="register">
             <div className="registerContainer">
-                <h2>Register</h2>
+                <h2 className="title">Register</h2>
                 <form className="registerForm">
                     <div className="formElement">
                         <label htmlFor="email">Email</label>
@@ -62,10 +64,10 @@ function Register() {
                         />
                     </div>
                     <div className="formElement">
-                        <button>Continue</button>
+                        <button className="registerBtn">Continue</button>
                     </div>
                 </form>
-                <p>
+                <p className="formAltText">
                     Already have an account?{" "}
                     <Link to="../login" className="registerLink">
                         Log In

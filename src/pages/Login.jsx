@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import "./styles/RegisterPages.css";
+
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -10,7 +12,7 @@ function Login() {
     return (
         <div className="login">
             <div className="loginContainer">
-                <h2>Login</h2>
+                <h2 className="title">Login</h2>
                 <form className="loginForm">
                     <div className="formElement">
                         <label htmlFor="email">Email</label>
@@ -35,10 +37,10 @@ function Login() {
                         />
                     </div>
                     <div className="formElement">
-                        <button>Continue</button>
+                        <button className="registerBtn">Continue</button>
                     </div>
                 </form>
-                <p>
+                <p className="formAltText">
                     Need an account?{" "}
                     <Link to="../register" className="registerLink">
                         Register

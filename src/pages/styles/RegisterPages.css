@@ -1,0 +1,82 @@
+/* Stylesheet for Register and login pages */
+
+.register,
+.login {
+    background-color: var(--background);
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registerContainer,
+.loginContainer {
+    padding: 40px;
+    background-color: var(--background-alt);
+    border: 1px solid var(--accent-grey);
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    width: 90vw;
+    max-width: 400px;
+}
+
+.registerContainer .title,
+.loginContainer .title {
+    font-size: 1.8rem;
+    color: var(--grey-text);
+}
+
+.registerForm,
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.registerForm label,
+.loginForm label {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.registerForm input,
+.loginForm input {
+    padding: 5px;
+    font-size: 1.1rem;
+}
+
+.formElement {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.registerBtn {
+    padding: 10px 15px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: white;
+    background-color: var(--accent-purple);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.formAltText {
+    color: white;
+}
+
+.registerLink {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--accent-purple);
+}
+
+.registerLink:hover {
+    text-decoration: underline;
+}
