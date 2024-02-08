@@ -8,9 +8,9 @@ function Redirect() {
     // Not sure if this will work as intended
     useEffect(() => {
         if (loggedIn) {
-            navigate("../channels");
+            navigate("./message-client/channels");
         } else {
-            navigate("../login");
+            navigate("./message-client/login");
         }
     }, []);
 
