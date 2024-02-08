@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import Button from "../components/Button";
 import "./styles/RegisterPages.css";
 
 function Register() {
@@ -9,7 +10,57 @@ function Register() {
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
 
+    const [showLoader, setShowLoader] = useState(false);
+
+    const [formError, setFormError] = useState("");
+    const [error, setError] = useState("");
+
     const navigate = useNavigate();
+
+    async function handleRegister(e) {
+        e.preventDefault();
+        setShowLoader(true);
+
+        setFormError("");
+        setError("");
+
+        const formData = JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+            passwordConfirm: passwordConfirm,
+        });
+
+        try {
+            const response = await fetch(
+                "https://message-api.fly.dev/api/users",
+                {
+                    method: "post",
+                    body: formData,
+                    headers: { "content-Type": "application/json" },
+                }
+            );
+
+            console.log(response);
+            const result = await response.json();
+            console.log(result.errors);
+
+            setShowLoader(false);
+
+            if (response.status == 400) {
+                setFormError(result.errors);
+            } else if (!response.ok) {
+                throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                );
+            } else {
+                navigate("/message-client/login");
+            }
+        } catch (err) {
+            // TODO: Add general errors to page
+            setError(err.message);
+        }
+    }
 
     // TODO: Check if this is the proper react way to do things
     function handleFocus(e) {
@@ -84,8 +135,25 @@ function Register() {
                         />
                     </div>
                     <div className="formElement">
-                        <button className="registerBtn">Continue</button>
+                        <Button
+                            styleRef={"registerBtn"}
+                            text="Continue"
+                            onClick={handleRegister}
+                            loading={showLoader}
+                            disabled={showLoader}
+                        />
                     </div>
+                    {formError && (
+                        <div className="registerErrorContainer">
+                            <ul className="registerErrorList">
+                                {formError.map((error, index) => (
+                                    <li key={index} className="registerError">
+                                        {error.msg}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </form>
                 <p className="formAltText">
                     Already have an account?{" "}
