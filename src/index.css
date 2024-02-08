@@ -3,3 +3,11 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+:root {
+    --background: rgb(28, 27, 34);
+    --background-alt: rgb(24, 24, 28);
+    --accent-purple: rgb(93, 79, 171);
+    --accent-grey: rgb(59, 52, 52);
+    --grey-text: rgb(219, 223, 224);
+}
