@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import ChannelCard from "./ChannelCard";
 
-function ChannelSidebar({ setSelectedChannel }) {
+function ChannelSidebar() {
     const [channels, setChannels] = useState("");
     const [numChannels, setNumChannels] = useState(0);
 

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import MessageCard from "./MessageCard";
 
-function Messages({ selectedChannel }) {
+function Messages() {
     const [messages, setMessages] = useState("");
     const [numMessages, setNumMessages] = useState(0);
     const [newMessage, setNewMessage] = useState("");
@@ -10,12 +11,14 @@ function Messages({ selectedChannel }) {
     const [formError, setFormError] = useState("");
     const [error, setError] = useState("");
 
+    const { channelId } = useParams();
+
     //Get all Channel Messages
     useEffect(() => {
         async function getMessages() {
             try {
                 const response = await fetch(
-                    `https://message-api.fly.dev/api/channels/${selectedChannel._id}/messages`,
+                    `https://message-api.fly.dev/api/channels/${channelId}/messages`,
                     {
                         headers: {
                             "Content-Type": "application/json",
@@ -58,7 +61,7 @@ function Messages({ selectedChannel }) {
         // Make request to create new Message
         try {
             const response = await fetch(
-                `https://message-api.fly.dev/api/channels/${selectedChannel._id}/messages`,
+                `https://message-api.fly.dev/api/channels/${channelId}/messages`,
                 {
                     method: "post",
                     body: formData,
