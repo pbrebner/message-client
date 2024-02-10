@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import ChannelCard from "./ChannelCard";
+import "./styles/ChannelSidebar.css";
 
 function ChannelSidebar() {
     const [channels, setChannels] = useState("");
@@ -55,7 +57,7 @@ function ChannelSidebar() {
             users: [],
         });
 
-        // Make request to create new Message
+        // Make request to create new Channel
         try {
             const response = await fetch(
                 "https://message-api.fly.dev/api/channels",
@@ -94,8 +96,24 @@ function ChannelSidebar() {
 
     return (
         <div className="channelSidebar">
-            <button onClick={createNewChannel}>Create New Channel</button>
-            <ChannelCard />
+            <Link to="../channels" className="channelSidebarLink">
+                Friends
+            </Link>
+            <div className="directMessagesHeader">
+                <p>Direct Messages</p>
+                <button onClick={console.log("Creating new channel")}>
+                    &#x2B;
+                </button>
+            </div>
+            {channels.length > 0 ? (
+                <div className="channelCardContainer">
+                    {channels.map((channel) => (
+                        <ChannelCard key={channel._id} channel={channel} />
+                    ))}
+                </div>
+            ) : (
+                <div>You don't have any channels.</div>
+            )}
         </div>
     );
 }

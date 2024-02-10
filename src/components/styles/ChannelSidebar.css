@@ -1,0 +1,47 @@
+.channelSidebar {
+    padding: 10px;
+    color: white;
+    background-color: var(--background);
+
+    min-height: 100vh;
+    min-width: 300px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.channelSidebarLink {
+    text-decoration: none;
+    padding: 10px;
+    color: var(--grey-text);
+    font-size: 1.6rem;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.channelSidebarLink:hover {
+    background-color: var(--background-alt);
+}
+
+.directMessagesHeader {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.directMessagesHeader p {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.directMessagesHeader button {
+    color: white;
+    font-size: 1.6rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
