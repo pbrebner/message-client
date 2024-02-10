@@ -1,0 +1,9 @@
+.channelsPage {
+    display: flex;
+}
+
+.vl {
+    width: 1px;
+    min-height: 100vh;
+    background-color: var(--accent-grey);
+}
