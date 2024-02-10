@@ -1,0 +1,47 @@
+.channelCard {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.channelCard:hover {
+    background-color: var(--background-alt);
+}
+
+.channelCardInnerContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.channelCardImage {
+    height: 40px;
+    width: 40px;
+
+    background-color: antiquewhite;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.channelCardText {
+    font-weight: 600;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.deleteChannelCard {
+    color: white;
+    font-size: 1.2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
