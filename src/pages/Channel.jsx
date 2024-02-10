@@ -6,6 +6,8 @@ import ChannelSidebar from "../components/ChannelSidebar";
 import Messages from "../components/Messages";
 import UserSidebar from "../components/UserSidebar";
 
+import "./styles/Channels.css";
+
 function Channel() {
     const [error, setError] = useState("");
 
@@ -16,7 +18,9 @@ function Channel() {
     return (
         <div className="channelsPage">
             <ChannelSidebar />
+            <div className="vl"></div>
             <Messages />
+            <div className="vl"></div>
             <UserSidebar />
         </div>
     );

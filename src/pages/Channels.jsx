@@ -3,8 +3,9 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 
 // TODO: Create a channels header (either in this compnent or make new header component)
 import ChannelSidebar from "../components/ChannelSidebar";
-// TODO: Create a friends list component
-import UserSidebar from "../components/UserSidebar";
+import Friends from "../components/Friends";
+
+import "./styles/Channels.css";
 
 function Channels() {
     const [user, setUser] = useState("");
@@ -58,8 +59,8 @@ function Channels() {
     return (
         <div className="channelsPage">
             <ChannelSidebar />
-            <div>Some other column of info</div>
-            <UserSidebar />
+            <div className="vl"></div>
+            <Friends />
         </div>
     );
 }
