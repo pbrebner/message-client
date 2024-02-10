@@ -1,0 +1,36 @@
+.messageCard {
+    padding: 5px;
+
+    display: grid;
+    grid-template-columns: 60px 1fr;
+}
+
+.messageImage {
+    height: 40px;
+    width: 40px;
+
+    background-color: antiquewhite;
+    color: black;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.messageHeader {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.messageUser {
+    font-weight: 700;
+}
+
+.messageDate {
+    font-size: 0.9rem;
+}
