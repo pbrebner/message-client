@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    cursor: pointer;
+    gap: 10px;
 }
 
 .channelCard:hover {
@@ -11,9 +11,12 @@
 }
 
 .channelCardInnerContainer {
+    flex: 1;
+    text-decoration: none;
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
 }
 
 .channelCardImage {
@@ -28,6 +31,7 @@
 }
 
 .channelCardText {
+    color: white;
     font-weight: 600;
 
     display: -webkit-box;

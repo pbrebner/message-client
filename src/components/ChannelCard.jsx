@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./styles/ChannelCard.css";
 
 function ChannelCard({ channel }) {
-    const navigate = useNavigate();
-
     let channelUsers = "";
     channel.users.forEach((user, index) => {
         if (index != 0) {
@@ -18,20 +16,19 @@ function ChannelCard({ channel }) {
         console.log("Deleting Channel");
     }
 
-    function handleClick() {
-        navigate(`/message-client/channels/${channel._id}`);
-    }
-
     return (
-        <div className="channelCard" onClick={handleClick}>
-            <div className="channelCardInnerContainer">
+        <div className="channelCard">
+            <Link
+                to={`../messages/${channel._id}`}
+                className="channelCardInnerContainer"
+            >
                 <div className="channelCardImage">Img</div>
                 {channel.title ? (
                     <div className="channelCardText">{channel.title}</div>
                 ) : (
                     <div className="channelCardText">{channelUsers}</div>
                 )}
-            </div>
+            </Link>
             <button className="deleteChannelCard" onClick={deleteChannel}>
                 &#x2715;
             </button>
