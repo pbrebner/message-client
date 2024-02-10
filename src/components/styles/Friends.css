@@ -1,0 +1,11 @@
+.friends {
+    flex: 1;
+    min-height: 100vh;
+    font-size: 2rem;
+    color: var(--grey-text);
+    background-color: var(--background);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

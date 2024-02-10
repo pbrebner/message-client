@@ -1,3 +1,5 @@
+import "./styles/Friends.css";
+
 function Friends() {
     return (
         <div className="friends">
