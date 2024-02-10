@@ -1,3 +1,5 @@
+import "./styles/UserSidebar.css";
+
 function UserSidebar() {
     //TODO: Fetch data for channel users and display data
 

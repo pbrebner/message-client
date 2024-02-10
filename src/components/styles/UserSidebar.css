@@ -1,0 +1,15 @@
+.userSidebar {
+    display: none;
+    padding: 20px;
+    color: var(--grey-text);
+    background-color: var(--background);
+
+    min-width: 300px;
+    min-height: 100vh;
+}
+
+@media (min-width: 1000px) {
+    .userSidebar {
+        display: block;
+    }
+}
