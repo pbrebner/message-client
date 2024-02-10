@@ -58,7 +58,7 @@ function Login() {
                 localStorage.setItem("userId", result.body._id);
 
                 setLoggedIn(true);
-                navigate("/blog-client/channels");
+                navigate("/message-client/channels");
             }
         } catch (err) {
             // TODO: Add general errors to page
