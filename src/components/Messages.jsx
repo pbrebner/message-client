@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import MessageCard from "./MessageCard";
+import "./styles/Messages.css";
 
 function Messages() {
     const [messages, setMessages] = useState("");
@@ -46,7 +47,7 @@ function Messages() {
             }
         }
         getMessages();
-    }, [numMessages]);
+    }, [numMessages, channelId]);
 
     async function createNewMessage(e) {
         e.preventDefault();
@@ -96,8 +97,21 @@ function Messages() {
     }
 
     return (
-        <div className="messages">
-            <MessageCard />
+        <div className="messagesSection">
+            <div className="messagesContainer">
+                {messages.length > 0 ? (
+                    messages.map((message) => (
+                        <MessageCard
+                            key={message._id}
+                            message={message}
+                            numMessages={numMessages}
+                            setNumMessages={setNumMessages}
+                        />
+                    ))
+                ) : (
+                    <div>No messages yet</div>
+                )}
+            </div>
             <form className="newMessageForm">
                 <div className="formElement">
                     <input
