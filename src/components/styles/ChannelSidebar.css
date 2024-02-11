@@ -9,7 +9,24 @@
 }
 
 .channelSidebarHeader {
+    padding: 7px 20px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.channelSearchForm {
+    width: 100%;
+}
+
+.channelSearch {
     padding: 5px;
+    width: 100%;
+
+    border-radius: 5px;
+    border: none;
 }
 
 .channelSidebarMain {

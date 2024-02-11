@@ -97,7 +97,15 @@ function ChannelSidebar() {
     return (
         <div className="channelSidebar">
             <div className="channelSidebarHeader">
-                This is the sidebar header
+                <form className="channelSearchForm">
+                    <input
+                        type="text"
+                        name="channelSearch"
+                        id="channelSearch"
+                        className="channelSearch"
+                        placeholder="Find a conversation"
+                    />
+                </form>
             </div>
             <div className="hl"></div>
             <div className="channelSidebarMain">
