@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 
 import ChannelHeader from "../components/ChannelHeader";
 import Messages from "../components/Messages";
@@ -8,20 +8,54 @@ import UserSidebar from "../components/UserSidebar";
 import "./styles/Channels.css";
 
 function Channel() {
+    const [channel, setChannel] = useState("");
     const [error, setError] = useState("");
 
-    const navigate = useNavigate();
+    const { channelId } = useParams();
 
-    //TODO: Confirm that the user is logged In, otherwise redirect to login
+    //Get channel
+    useEffect(() => {
+        async function getChannel() {
+            try {
+                const response = await fetch(
+                    `https://message-api.fly.dev/api/channels/${channelId}`,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            authorization: `Bearer ${localStorage.getItem(
+                                "token"
+                            )}`,
+                        },
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `This is an HTTP error: The status is ${response.status}`
+                    );
+                }
+
+                const data = await response.json();
+                console.log(data);
+
+                setChannel(data);
+                setError("");
+            } catch (err) {
+                setError(err.message);
+                setUser("");
+            }
+        }
+        getChannel();
+    }, [channelId]);
 
     return (
         <div className="channelSection">
-            <ChannelHeader />
+            <ChannelHeader users={channel.users} />
             <div className="hl"></div>
             <div className="channelMain">
                 <Messages />
                 <div className="vl"></div>
-                <UserSidebar />
+                <UserSidebar users={channel.users} />
             </div>
         </div>
     );
