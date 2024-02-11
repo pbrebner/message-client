@@ -1,9 +1,19 @@
 .channelSidebar {
-    padding: 10px;
     color: white;
     background-color: var(--background);
 
     min-width: 300px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.channelSidebarHeader {
+    padding: 5px;
+}
+
+.channelSidebarMain {
+    padding: 10px;
 
     display: flex;
     flex-direction: column;

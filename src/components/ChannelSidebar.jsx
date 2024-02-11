@@ -96,24 +96,30 @@ function ChannelSidebar() {
 
     return (
         <div className="channelSidebar">
-            <Link to="../channels" className="channelSidebarLink">
-                Friends
-            </Link>
-            <div className="directMessagesHeader">
-                <p>Direct Messages</p>
-                <button onClick={console.log("Creating new channel")}>
-                    &#x2B;
-                </button>
+            <div className="channelSidebarHeader">
+                This is the sidebar header
             </div>
-            {channels.length > 0 ? (
-                <div className="channelCardContainer">
-                    {channels.map((channel) => (
-                        <ChannelCard key={channel._id} channel={channel} />
-                    ))}
+            <div className="hl"></div>
+            <div className="channelSidebarMain">
+                <Link to="../channels" className="channelSidebarLink">
+                    Friends
+                </Link>
+                <div className="directMessagesHeader">
+                    <p>Direct Messages</p>
+                    <button onClick={console.log("Creating new channel")}>
+                        &#x2B;
+                    </button>
                 </div>
-            ) : (
-                <div>You don't have any channels.</div>
-            )}
+                {channels.length > 0 ? (
+                    <div className="channelCardContainer">
+                        {channels.map((channel) => (
+                            <ChannelCard key={channel._id} channel={channel} />
+                        ))}
+                    </div>
+                ) : (
+                    <div>You don't have any channels.</div>
+                )}
+            </div>
         </div>
     );
 }
