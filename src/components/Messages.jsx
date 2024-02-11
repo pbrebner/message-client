@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import MessageCard from "./MessageCard";
+import Button from "../components/Button";
 import "./styles/Messages.css";
 
 function Messages() {
     const [messages, setMessages] = useState("");
     const [numMessages, setNumMessages] = useState(0);
     const [newMessage, setNewMessage] = useState("");
+
+    const [showLoader, setShowLoader] = useState(false);
 
     const [formError, setFormError] = useState("");
     const [error, setError] = useState("");
@@ -51,6 +54,7 @@ function Messages() {
 
     async function createNewMessage(e) {
         e.preventDefault();
+        setShowLoader(true);
 
         setFormError("");
         setError("");
@@ -78,6 +82,8 @@ function Messages() {
             console.log(response);
             const result = await response.json();
             console.log(result);
+
+            setShowLoader(false);
 
             // Handle any errors
             if (response.status == 400) {
@@ -113,17 +119,29 @@ function Messages() {
                 )}
             </div>
             <form className="newMessageForm">
-                <div className="formElement">
-                    <input
-                        type="text"
-                        name="message"
-                        id="message"
-                        placeholder="New Message"
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                    />
-                </div>
+                <input
+                    type="text"
+                    name="newMessage"
+                    id="newMessage"
+                    placeholder="New Message"
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                />
+                <div className="newMessageFormDivider"></div>
+                <Button
+                    onClick={createNewMessage}
+                    text="Send"
+                    loading={showLoader}
+                    disabled={showLoader}
+                />
             </form>
+            {formError && (
+                <div className="newMessageError">
+                    {formError.map((error) => (
+                        <div>{error.msg}</div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
