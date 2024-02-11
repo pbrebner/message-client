@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-// TODO: Create a channels header (either in this compnent or make new header component)
+import ChannelHeader from "../components/ChannelHeader";
 import Messages from "../components/Messages";
 import UserSidebar from "../components/UserSidebar";
 
@@ -16,9 +16,13 @@ function Channel() {
 
     return (
         <div className="channelSection">
-            <Messages />
-            <div className="vl"></div>
-            <UserSidebar />
+            <ChannelHeader />
+            <div className="hl"></div>
+            <div className="channelMain">
+                <Messages />
+                <div className="vl"></div>
+                <UserSidebar />
+            </div>
         </div>
     );
 }
