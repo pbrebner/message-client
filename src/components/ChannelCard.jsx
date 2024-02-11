@@ -19,7 +19,7 @@ function ChannelCard({ channel }) {
     return (
         <div className="channelCard">
             <Link
-                to={`../messages/${channel._id}`}
+                to={`../channels/${channel._id}`}
                 className="channelCardInnerContainer"
             >
                 <div className="channelCardImage">Img</div>

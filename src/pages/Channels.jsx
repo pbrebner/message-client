@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 
 // TODO: Create a channels header (either in this compnent or make new header component)
 import ChannelSidebar from "../components/ChannelSidebar";
@@ -60,7 +60,7 @@ function Channels() {
         <div className="channelsPage">
             <ChannelSidebar />
             <div className="vl"></div>
-            <Friends />
+            <Outlet />
         </div>
     );
 }
