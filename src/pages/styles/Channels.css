@@ -1,5 +1,6 @@
 .channelsPage {
     display: flex;
+    min-height: 100vh;
 }
 
 .channelSection {
@@ -9,6 +10,7 @@
 }
 
 .channelMain {
+    flex: 1;
     display: flex;
 }
 

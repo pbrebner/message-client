@@ -5,7 +5,6 @@
     background-color: var(--background);
 
     min-width: 300px;
-    min-height: 100vh;
 }
 
 @media (min-width: 1000px) {
