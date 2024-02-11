@@ -1,9 +1,17 @@
-.friends {
+.friendsSection {
     flex: 1;
     min-height: 100vh;
-    font-size: 2rem;
+
     color: var(--grey-text);
     background-color: var(--background);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.friends {
+    flex: 1;
+    font-size: 2rem;
 
     display: flex;
     align-items: center;

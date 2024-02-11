@@ -1,0 +1,43 @@
+.friendsHeader {
+    padding: 7px 20px;
+    height: 50px;
+
+    color: white;
+    background-color: var(--background);
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.friendsHeaderTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.friendsHeaderDivider {
+    width: 1px;
+    height: 100%;
+    background-color: var(--accent-grey);
+}
+
+.friendsHeaderBtns {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.friendsHeaderBtn {
+    padding: 8px 12px;
+    font-size: 1.2rem;
+    color: inherit;
+    border-radius: 10px;
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+.friendsHeaderBtn:hover {
+    background-color: var(--background-alt);
+}
