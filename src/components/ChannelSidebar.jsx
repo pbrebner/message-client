@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import DirectMessagesHeader from "./DirectMessagesHeader";
 import ChannelCard from "./ChannelCard";
 import "./styles/ChannelSidebar.css";
 
 function ChannelSidebar() {
     const [channels, setChannels] = useState("");
     const [numChannels, setNumChannels] = useState(0);
+
+    const [newChannelOpen, setNewChannelOpen] = useState(false);
 
     const [formError, setFormError] = useState("");
     const [error, setError] = useState("");
@@ -46,54 +49,17 @@ function ChannelSidebar() {
         getChannels();
     }, [numChannels]);
 
-    async function createNewChannel(e) {
-        e.preventDefault();
+    //TODO: Create a channel search function
 
-        setFormError("");
-        setError("");
-
-        const formData = JSON.stringify({
-            title: "",
-            users: [],
-        });
-
-        // Make request to create new Channel
-        try {
-            const response = await fetch(
-                "https://message-api.fly.dev/api/channels",
-                {
-                    method: "post",
-                    body: formData,
-                    headers: {
-                        "Content-Type": "application/json",
-                        authorization: `Bearer ${localStorage.getItem(
-                            "token"
-                        )}`,
-                    },
-                }
-            );
-
-            console.log(response);
-            const result = await response.json();
-            console.log(result);
-
-            // Handle any errors
-            if (response.status == 400) {
-                setFormError(result.errors);
-            } else if (!response.ok) {
-                throw new Error(
-                    `This is an HTTP error: The status is ${response.status}`
-                );
-            } else {
-                //setNewMessage("");
-                let val = numChannels + 1;
-                setNumChannels(val);
-            }
-        } catch (err) {
-            setError(err.message);
-        }
+    function openNewChannel() {
+        setNewChannelOpen(true);
     }
 
+    function closeNewChannel() {
+        setNewChannelOpen(false);
+    }
+
+    //TODO: Add scroll bar on cardContainer during overflow
     return (
         <div className="channelSidebar">
             <div className="channelSidebarHeader">
@@ -112,12 +78,13 @@ function ChannelSidebar() {
                 <Link to="../channels" className="channelSidebarLink">
                     Friends
                 </Link>
-                <div className="directMessagesHeader">
-                    <p>Direct Messages</p>
-                    <button onClick={console.log("Creating new channel")}>
-                        &#x2B;
-                    </button>
-                </div>
+                <DirectMessagesHeader
+                    newChannelOpen={newChannelOpen}
+                    openNewChannel={openNewChannel}
+                    closeNewChannel={closeNewChannel}
+                    numChannels={numChannels}
+                    setNumChannels={setNumChannels}
+                />
                 {channels.length > 0 ? (
                     <div className="channelCardContainer">
                         {channels.map((channel) => (
@@ -128,6 +95,10 @@ function ChannelSidebar() {
                     <div>You don't have any channels.</div>
                 )}
             </div>
+            <div
+                className={`overlay ${newChannelOpen ? "display" : ""}`}
+                onClick={closeNewChannel}
+            ></div>
         </div>
     );
 }
