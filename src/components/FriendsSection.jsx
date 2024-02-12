@@ -1,7 +1,7 @@
 import FriendsHeader from "./FriendsHeader";
 import "./styles/Friends.css";
 
-function Friends() {
+function FriendsSection() {
     return (
         <div className="friendsSection">
             <FriendsHeader />
@@ -11,4 +11,4 @@ function Friends() {
     );
 }
 
-export default Friends;
+export default FriendsSection;

@@ -3,7 +3,6 @@ import { useNavigate, Outlet } from "react-router-dom";
 
 // TODO: Create a channels header (either in this compnent or make new header component)
 import ChannelSidebar from "../components/ChannelSidebar";
-import Friends from "../components/Friends";
 
 import "./styles/Channels.css";
 
