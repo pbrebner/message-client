@@ -42,10 +42,19 @@
     word-wrap: break-word;
 }
 
-.deleteChannelCard {
-    color: white;
+.deleteChannelCardBtn {
+    display: none;
+    color: var(--accent-grey);
     font-size: 1.2rem;
     background: none;
     border: none;
     cursor: pointer;
+}
+
+.deleteChannelCardBtn:hover {
+    color: white;
+}
+
+.deleteChannelCardBtn.display {
+    display: block;
 }
