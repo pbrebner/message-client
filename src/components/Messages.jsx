@@ -109,6 +109,7 @@ function Messages() {
                     messages.map((message) => (
                         <MessageCard
                             key={message._id}
+                            channelId={channelId}
                             message={message}
                             numMessages={numMessages}
                             setNumMessages={setNumMessages}

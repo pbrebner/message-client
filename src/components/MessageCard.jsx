@@ -4,19 +4,90 @@ import { formatDate } from "../utils/dates.js";
 import like from "../assets/icons/like.png";
 import "./styles/MessageCard.css";
 
-function MessageCard({ message, numMessages, setNumMessages }) {
+function MessageCard({ channelId, message, numMessages, setNumMessages }) {
     const [hover, setHover] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
-    const [messageLikes, setMessageLikes] = useState(0);
+    const [messageLikes, setMessageLikes] = useState(message.likes);
 
-    // TODO: Set it up so only the user can delete his own messages
+    const userId = localStorage.getItem("userId");
 
     async function likeMessage() {
-        console.log("Liked message");
+        let likes = messageLikes + 1;
+        setMessageLikes(likes);
+
+        setError("");
+
+        const bodyData = JSON.stringify({
+            likes: likes,
+        });
+
+        // Make request to update message likes
+        try {
+            const response = await fetch(
+                `https://message-api.fly.dev/api/channels/${channelId}/messages/${message._id}`,
+                {
+                    method: "put",
+                    body: bodyData,
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                }
+            );
+
+            const result = await response.json();
+            console.log(result);
+
+            if (!response.ok) {
+                throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                );
+            }
+        } catch (err) {
+            setError(err.message);
+        }
     }
 
     async function deleteMessage() {
-        console.log("Deleting message");
+        setError("");
+
+        // Make request to delete message
+        try {
+            const response = await fetch(
+                `https://message-api.fly.dev/api/channels/${channelId}/messages/${message._id}`,
+                {
+                    method: "delete",
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                }
+            );
+
+            const result = await response.json();
+            console.log(result);
+
+            toggleModal();
+
+            if (!response.ok) {
+                throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                );
+            } else {
+                let val = numMessages - 1;
+                setNumMessages(val);
+            }
+        } catch (err) {
+            setError(err.message);
+        }
+    }
+
+    async function replyMessage() {
+        console.log("Replying to message");
     }
 
     function toggleModal() {
@@ -44,10 +115,10 @@ function MessageCard({ message, numMessages, setNumMessages }) {
                     </div>
                 </div>
                 <p className="messageContents">{message.content}</p>
-                {message.likes > 0 && (
+                {messageLikes > 0 && (
                     <div className="messageLikes">
                         <img src={like} />
-                        <div>{message.likes}</div>
+                        <div>{messageLikes}</div>
                     </div>
                 )}
             </div>
@@ -64,13 +135,17 @@ function MessageCard({ message, numMessages, setNumMessages }) {
                 </button>
             </div>
             <div className={`messageCardModal ${modalOpen ? "display" : ""}`}>
-                <button className="messageCardModalBtn">Reply</button>
-                <button
-                    className="messageCardModalBtn deleteMessageBtn"
-                    onClick={deleteMessage}
-                >
-                    Delete Message
+                <button className="messageCardModalBtn" onClick={replyMessage}>
+                    Reply
                 </button>
+                {message.user._id == userId && (
+                    <button
+                        className="messageCardModalBtn deleteMessageBtn"
+                        onClick={deleteMessage}
+                    >
+                        Delete Message
+                    </button>
+                )}
             </div>
             <div
                 className={`overlay ${modalOpen ? "display" : ""}`}
