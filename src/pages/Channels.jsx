@@ -8,6 +8,7 @@ import "./styles/Channels.css";
 
 function Channels() {
     const [user, setUser] = useState("");
+    // Might need to track number of channels and number of friends
 
     const [error, setError] = useState("");
 
@@ -59,7 +60,7 @@ function Channels() {
         <div className="channelsPage">
             <ChannelSidebar />
             <div className="vl"></div>
-            <Outlet />
+            <Outlet context={user} />
         </div>
     );
 }

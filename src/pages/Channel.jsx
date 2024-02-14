@@ -9,9 +9,12 @@ import "./styles/Channels.css";
 
 function Channel() {
     const [channel, setChannel] = useState("");
+    const [otherUsers, setOtherUsers] = useState([]);
+
     const [error, setError] = useState("");
 
     const { channelId } = useParams();
+    const user = useOutletContext();
 
     //Get channel
     useEffect(() => {
@@ -39,23 +42,35 @@ function Channel() {
                 console.log(data);
 
                 setChannel(data);
+                getOtherUsers(data.users);
                 setError("");
             } catch (err) {
                 setError(err.message);
-                setUser("");
             }
         }
         getChannel();
     }, [channelId]);
 
+    // Gets all other channel users
+    function getOtherUsers(users) {
+        let channelUsersTemp = [];
+        users.forEach((channelUser) => {
+            if (user._id != channelUser._id) {
+                channelUsersTemp.push(channelUser);
+            }
+        });
+
+        setOtherUsers(channelUsersTemp);
+    }
+
     return (
         <div className="channelSection">
-            <ChannelHeader users={channel.users} />
+            <ChannelHeader otherUsers={otherUsers} />
             <div className="hl"></div>
             <div className="channelMain">
                 <Messages />
                 <div className="vl"></div>
-                <UserSidebar users={channel.users} />
+                <UserSidebar otherUsers={otherUsers} />
             </div>
         </div>
     );
