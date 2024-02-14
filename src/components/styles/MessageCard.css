@@ -1,24 +1,33 @@
 .messageCard {
-    padding: 5px;
+    padding: 10px;
 
     display: grid;
     grid-template-columns: 60px 1fr;
+    position: relative;
+}
+
+.messageCard.hover {
+    background-color: var(--background-alt);
+}
+
+.messageImageContainer {
+    width: 45px;
+    height: 45px;
+
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid var(--accent-grey);
 }
 
 .messageImage {
-    height: 40px;
-    width: 40px;
-
-    background-color: antiquewhite;
-    color: black;
-    font-size: 0.8rem;
-    text-align: center;
+    width: 100%;
 }
 
 .message {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .messageHeader {
@@ -33,4 +42,104 @@
 
 .messageDate {
     font-size: 0.9rem;
+}
+
+.messageLikes {
+    padding: 5px;
+    background-color: var(--background-alt);
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.messageLikes img {
+    height: 20px;
+}
+
+/* Styling for Message Card Btns */
+.messageCardBtns {
+    display: none;
+    padding: 5px;
+
+    position: absolute;
+    right: 10px;
+    top: -20px;
+
+    background-color: var(--background);
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px 1px black;
+}
+
+.messageCardBtns.display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reactBtn,
+.moreBtn {
+    padding: 2px;
+    color: var(--grey-text);
+    font-size: 1rem;
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+.reactBtn img {
+    height: 20px;
+}
+
+/* Styling for message card menu */
+.messageCardModal {
+    padding: 5px;
+    background-color: black;
+    box-shadow: 2px 2px 2px 2px black;
+    border-radius: 5px;
+
+    display: none;
+
+    position: absolute;
+    right: 50px;
+    top: -20px;
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+.messageCardModal.display {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    pointer-events: all;
+}
+
+.messageCardModalBtn {
+    background: none;
+    border: none;
+    padding: 5px;
+    font-weight: 600;
+    color: var(--grey-text);
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.messageCardModalBtn:hover {
+    background-color: var(--accent-purple);
+    color: white;
+}
+
+.deleteMessageBtn {
+    color: red;
+}
+
+.deleteMessageBtn:hover {
+    background-color: red;
+    color: white;
 }
