@@ -1,5 +1,41 @@
 .channelHeader {
-    padding: 5px;
-    color: white;
+    padding: 7px 20px;
+    height: 50px;
+
+    color: var(--grey-text);
     background-color: var(--background);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.channelHeaderUsers {
+    display: flex;
+    gap: 15px;
+
+    overflow: hidden;
+}
+
+.channelHeaderUser {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.channelHeaderUserImg {
+    flex-shrink: 0;
+    height: 30px;
+    width: 30px;
+
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.channelHeaderUserImg img {
+    width: 100%;
+}
+
+.channelHeaderBtn {
+    padding: 3px;
 }
