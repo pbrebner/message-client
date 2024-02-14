@@ -1,0 +1,97 @@
+.friendCard {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.friendCard:hover,
+.friendCard.hover {
+    background-color: var(--background-alt);
+}
+
+.friendCardMain {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.friendCardImageContainer {
+    height: 45px;
+    width: 45px;
+
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.friendCardImageContainer img {
+    width: 100%;
+}
+
+.friendName {
+    font-size: 1.2rem;
+}
+
+.friendCardActions {
+    display: flex;
+    gap: 20px;
+    position: relative;
+}
+
+.friendCardBtn {
+    padding: 3px;
+
+    cursor: pointer;
+}
+
+/* Styling for friend card modal */
+.friendCardModal {
+    padding: 5px;
+    background-color: black;
+    box-shadow: 2px 2px 2px 2px black;
+    border-radius: 5px;
+
+    display: none;
+
+    position: absolute;
+    right: 45px;
+    top: 0px;
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+.friendCardModal.display {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    pointer-events: all;
+}
+
+.friendCardModalBtn {
+    background: none;
+    border: none;
+    padding: 5px;
+    font-weight: 600;
+    color: var(--grey-text);
+    min-width: 100px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.friendCardModalBtn:hover {
+    background-color: var(--accent-purple);
+    color: white;
+}
+
+.deleteFriendBtn {
+    color: red;
+}
+
+.deleteFriendBtn:hover {
+    background-color: red;
+    color: white;
+}
