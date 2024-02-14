@@ -2,7 +2,7 @@
     padding: 7px 20px;
     height: 50px;
 
-    color: white;
+    color: var(--grey-text);
     background-color: var(--background);
 
     display: flex;
@@ -28,7 +28,7 @@
 }
 
 .friendsHeaderBtn {
-    padding: 8px 12px;
+    padding: 4px 12px;
     font-size: 1.2rem;
     color: inherit;
     border-radius: 10px;
@@ -38,6 +38,21 @@
     cursor: pointer;
 }
 
+.friendsHeaderBtn.selected {
+    background-color: var(--background-alt);
+    color: white;
+}
+
 .friendsHeaderBtn:hover {
     background-color: var(--background-alt);
+    color: white;
+}
+
+.addFriendBtn {
+    background-color: rgb(36, 128, 70);
+}
+
+.addFriendBtn:hover {
+    background-color: rgb(49, 172, 94);
+    color: white;
 }
