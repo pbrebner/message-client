@@ -4,11 +4,60 @@
     color: var(--grey-text);
     background-color: var(--background);
 
-    min-width: 300px;
+    min-width: 250px;
+    max-width: 350px;
+}
+
+.userCard {
+    padding: 20px;
+    background-color: black;
+
+    border-radius: 20px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.userCardMain {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.userCardImg {
+    height: 50px;
+    width: 50px;
+
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.userCardImg img {
+    width: 100%;
+}
+
+.userCardName {
+    font-size: 1.4rem;
+}
+
+.userCardDivider {
+    height: 1px;
+    width: 100%;
+    background-color: var(--accent-grey);
+}
+
+.userCardSupp {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 @media (min-width: 1000px) {
     .userSidebar {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
     }
 }
