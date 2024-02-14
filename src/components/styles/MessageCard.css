@@ -61,7 +61,7 @@
 /* Styling for Message Card Btns */
 .messageCardBtns {
     display: none;
-    padding: 5px;
+    padding: 2px;
 
     position: absolute;
     right: 10px;
@@ -75,18 +75,23 @@
 .messageCardBtns.display {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 2px;
 }
 
 .reactBtn,
 .moreBtn {
-    padding: 2px;
+    padding: 10px;
     color: var(--grey-text);
     font-size: 1rem;
     background: none;
     border: none;
 
     cursor: pointer;
+}
+
+.reactBtn:hover,
+.moreBtn:hover {
+    background-color: var(--background-alt);
 }
 
 .reactBtn img {
@@ -124,6 +129,7 @@
     padding: 5px;
     font-weight: 600;
     color: var(--grey-text);
+    min-width: 100px;
 
     border-radius: 5px;
 

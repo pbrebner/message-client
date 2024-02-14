@@ -11,6 +11,8 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
 
     const userId = localStorage.getItem("userId");
 
+    const [error, setError] = useState("");
+
     async function likeMessage() {
         let likes = messageLikes + 1;
         setMessageLikes(likes);
@@ -86,6 +88,7 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
         }
     }
 
+    // Currently not possible with API
     async function replyMessage() {
         console.log("Replying to message");
     }
