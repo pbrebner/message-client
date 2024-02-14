@@ -27,6 +27,12 @@
     background-color: var(--accent-grey);
 }
 
+.friendCardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 /* Styling for AddFriend */
 
 .addFriendForm {
