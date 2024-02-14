@@ -1,0 +1,59 @@
+.friendsSection {
+    flex: 1;
+    min-height: 100vh;
+
+    color: var(--grey-text);
+    background-color: var(--background);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.friendsContainer {
+    flex: 1;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.friendsTitle {
+    font-size: 1.6rem;
+}
+
+.friendsDivider {
+    height: 1px;
+    background-color: var(--accent-grey);
+}
+
+/* Styling for AddFriend */
+
+.addFriendForm {
+    padding: 5px;
+    background-color: var(--background-alt);
+    border-radius: 10px;
+
+    display: flex;
+    gap: 5px;
+}
+
+.addFriend {
+    flex: 1;
+    padding: 5px;
+    font-size: 1.2rem;
+
+    color: white;
+    background: none;
+    border: none;
+}
+
+.friendRequestBtn {
+    padding: 8px;
+    color: white;
+    background-color: var(--accent-purple);
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
