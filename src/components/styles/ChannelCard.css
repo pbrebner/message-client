@@ -19,15 +19,16 @@
     cursor: pointer;
 }
 
-.channelCardImage {
+.channelCardImg {
     height: 40px;
     width: 40px;
 
-    background-color: antiquewhite;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.channelCardImg img {
+    width: 100%;
 }
 
 .channelCardText {

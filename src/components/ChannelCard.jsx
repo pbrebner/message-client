@@ -6,12 +6,18 @@ import "./styles/ChannelCard.css";
 function ChannelCard({ channel }) {
     const [hover, setHover] = useState(false);
 
-    let channelUsers = "";
-    channel.users.forEach((user, index) => {
+    const userId = localStorage.getItem("userId");
+
+    const filteredChannelUsers = channel.users.filter(
+        (user) => user._id != userId
+    );
+    console.log(filteredChannelUsers);
+    let channelUserNames = "";
+    filteredChannelUsers.forEach((user, index) => {
         if (index != 0) {
-            channelUsers = channelUsers + ", " + user.name;
+            channelUserNames = channelUserNames + ", " + user.name;
         } else {
-            channelUsers = channelUsers + user.name;
+            channelUserNames = channelUserNames + user.name;
         }
     });
 
@@ -29,16 +35,25 @@ function ChannelCard({ channel }) {
                 to={`../channels/${channel._id}`}
                 className="channelCardInnerContainer"
             >
-                <div className="channelCardImage">Img</div>
+                {filteredChannelUsers.length > 0 ? (
+                    <div className="channelCardImg">
+                        <img src={filteredChannelUsers[0].avatar} />
+                    </div>
+                ) : (
+                    <div className="channelCardImg">
+                        <img src={filteredChannelUsers[0].avatar} />
+                    </div>
+                )}
                 {channel.title ? (
                     <div className="channelCardText">{channel.title}</div>
                 ) : (
-                    <div className="channelCardText">{channelUsers}</div>
+                    <div className="channelCardText">{channelUserNames}</div>
                 )}
             </Link>
             <button
                 className={`deleteChannelCardBtn ${hover ? "display" : ""}`}
                 onClick={deleteChannel}
+                title="Delete Channel"
             >
                 &#x2715;
             </button>
