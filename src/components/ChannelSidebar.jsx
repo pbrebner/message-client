@@ -11,6 +11,8 @@ function ChannelSidebar() {
 
     const [newChannelOpen, setNewChannelOpen] = useState(false);
 
+    const userId = localStorage.getItem("userId");
+
     const [formError, setFormError] = useState("");
     const [error, setError] = useState("");
 
@@ -48,6 +50,15 @@ function ChannelSidebar() {
         }
         getChannels();
     }, [numChannels]);
+
+    // Removes the users own value from channel
+    function getFilteredChannels(channels) {
+        channels.map((channel) => {
+            channel.users = channel.users.filter((user) => user._id != userId);
+        });
+
+        return channels;
+    }
 
     //TODO: Create a channel search function
 
