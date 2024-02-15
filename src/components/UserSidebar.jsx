@@ -6,7 +6,7 @@ function UserSidebar({ otherUsers }) {
         <div className="userSidebar">
             {otherUsers &&
                 otherUsers.map((user) => (
-                    <div className="userCard">
+                    <div key={user._id} className="userCard">
                         <div className="userCardMain">
                             <div className="userCardImg">
                                 <img src={user.avatar} />
