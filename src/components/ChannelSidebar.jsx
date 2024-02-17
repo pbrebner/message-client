@@ -12,7 +12,6 @@ function ChannelSidebar() {
 
     const userId = localStorage.getItem("userId");
 
-    const [formError, setFormError] = useState("");
     const [error, setError] = useState("");
 
     //Get all users channels

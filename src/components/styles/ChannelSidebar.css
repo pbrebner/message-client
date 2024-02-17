@@ -18,6 +18,7 @@
 }
 
 .channelSidebarMain {
+    flex: 1;
     padding: 10px;
 
     display: flex;
@@ -38,6 +39,11 @@
 
 .channelSidebarLink:hover {
     background-color: var(--background-alt);
+}
+
+.channelCardContainer {
+    flex: 1;
+    overflow-y: auto;
 }
 
 /* Styling for Overlay*/
