@@ -10,8 +10,6 @@ function ChannelSidebar() {
     const [channels, setChannels] = useState("");
     const [numChannels, setNumChannels] = useState(0);
 
-    const [newChannelOpen, setNewChannelOpen] = useState(false);
-
     const userId = localStorage.getItem("userId");
 
     const [formError, setFormError] = useState("");
@@ -62,14 +60,6 @@ function ChannelSidebar() {
         return channels;
     }
 
-    function openNewChannel() {
-        setNewChannelOpen(true);
-    }
-
-    function closeNewChannel() {
-        setNewChannelOpen(false);
-    }
-
     //TODO: Add scroll bar on cardContainer during overflow
     return (
         <div className="channelSidebar">
@@ -82,9 +72,6 @@ function ChannelSidebar() {
                     Friends
                 </Link>
                 <DirectMessagesHeader
-                    newChannelOpen={newChannelOpen}
-                    openNewChannel={openNewChannel}
-                    closeNewChannel={closeNewChannel}
                     numChannels={numChannels}
                     setNumChannels={setNumChannels}
                 />
@@ -103,10 +90,6 @@ function ChannelSidebar() {
                     <div>You don't have any channels.</div>
                 )}
             </div>
-            <div
-                className={`overlay ${newChannelOpen ? "display" : ""}`}
-                onClick={closeNewChannel}
-            ></div>
         </div>
     );
 }
