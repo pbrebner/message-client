@@ -39,7 +39,11 @@ function FriendsSection() {
                     {user.friends && user.friends.length > 0 ? (
                         <div className="friendCardContainer">
                             {user.friends.map((friend) => (
-                                <FriendCard key={friend._id} friend={friend} />
+                                <FriendCard
+                                    key={friend._id}
+                                    friend={friend}
+                                    friends={user.friends}
+                                />
                             ))}
                         </div>
                     ) : (
