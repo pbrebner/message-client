@@ -17,18 +17,6 @@
     justify-content: center;
 }
 
-.channelSearchForm {
-    width: 100%;
-}
-
-.channelSearch {
-    padding: 5px;
-    width: 100%;
-
-    border-radius: 5px;
-    border: none;
-}
-
 .channelSidebarMain {
     padding: 10px;
 

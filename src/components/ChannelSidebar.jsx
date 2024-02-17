@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import ChannelSearch from "./ChannelSearch";
 import DirectMessagesHeader from "./DirectMessagesHeader";
 import ChannelCard from "./ChannelCard";
 import "./styles/ChannelSidebar.css";
@@ -74,15 +75,7 @@ function ChannelSidebar() {
     return (
         <div className="channelSidebar">
             <div className="channelSidebarHeader">
-                <form className="channelSearchForm">
-                    <input
-                        type="text"
-                        name="channelSearch"
-                        id="channelSearch"
-                        className="channelSearch"
-                        placeholder="Find a conversation"
-                    />
-                </form>
+                <ChannelSearch channels={channels} />
             </div>
             <div className="hl"></div>
             <div className="channelSidebarMain">
