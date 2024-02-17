@@ -42,7 +42,8 @@ function ChannelSidebar() {
                 const data = await response.json();
                 console.log(data);
 
-                setChannels(data);
+                setChannels(getFilteredChannels(data));
+                setNumChannels(data.length);
                 setError("");
             } catch (err) {
                 setError(err.message);
@@ -60,8 +61,6 @@ function ChannelSidebar() {
 
         return channels;
     }
-
-    //TODO: Create a channel search function
 
     function openNewChannel() {
         setNewChannelOpen(true);
@@ -92,7 +91,12 @@ function ChannelSidebar() {
                 {channels.length > 0 ? (
                     <div className="channelCardContainer">
                         {channels.map((channel) => (
-                            <ChannelCard key={channel._id} channel={channel} />
+                            <ChannelCard
+                                key={channel._id}
+                                channel={channel}
+                                numChannels={numChannels}
+                                setNumChannels={setNumChannels}
+                            />
                         ))}
                     </div>
                 ) : (
