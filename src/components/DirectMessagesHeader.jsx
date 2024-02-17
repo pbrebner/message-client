@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import uniqid from "uniqid";
 
 import Button from "./Button";
 import "./styles/DirectMessagesHeader.css";
@@ -15,13 +17,23 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
     const [formError, setFormError] = useState("");
     const [error, setError] = useState("");
 
+    const navigate = useNavigate();
+
+    // TODO: Actually limit the amount of users to 9
+
     async function createNewChannel() {
+        setShowLoader(true);
         setFormError("");
         setError("");
 
+        let apiUsers = [];
+        userList.forEach((user) => {
+            apiUsers.push(user.name);
+        });
+
         const formData = JSON.stringify({
             title: channelTitle,
-            users: userList,
+            users: apiUsers,
         });
 
         // Make request to create new Channel
@@ -44,6 +56,8 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
             const result = await response.json();
             console.log(result);
 
+            setShowLoader(false);
+
             // Handle any errors
             if (response.status == 400) {
                 setFormError(result.errors);
@@ -52,26 +66,28 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
-                setUserList([]);
+                closeNewChannel();
                 let val = numChannels + 1;
                 setNumChannels(val);
+                // TODO: Need to navigate to the channel
             }
         } catch (err) {
             setError(err.message);
         }
     }
 
-    //TODO: Create a key for each user
+    // Adds users on enter key
     function handleUserAdd(e) {
         if (e.key == "Enter") {
-            setUserList([...userList, e.target.value]);
+            setUserList([...userList, { id: uniqid(), name: e.target.value }]);
             setAddUser("");
         }
     }
 
-    //TODO: Create function to remove a user fro the list
-    function deleteListUser(e) {
-        e.preventDefault();
+    // Deletes the specified user from the list
+    function deleteListUser(id) {
+        const tempUserList = userList.filter((user) => user.id != id);
+        setUserList(tempUserList);
     }
 
     function openNewChannel() {
@@ -116,19 +132,6 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
                         <div className="userListInfo">
                             You can add {9 - userList.length} more friends.
                         </div>
-                        {userList.length > 0 && (
-                            <div className="userList">
-                                {userList.map((user) => (
-                                    <div className="userListEntry">
-                                        <div>{user}</div>
-                                        <button onClick={deleteListUser}>
-                                            &#x2715;
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
                         <input
                             type="text"
                             name="newChannelUsers"
@@ -141,11 +144,38 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
                             onKeyDown={handleUserAdd}
                         />
                     </div>
+                    {formError && (
+                        <div className="newChannelErrorContainer">
+                            <ul className="newChannelErrorList">
+                                {formError.map((error, index) => (
+                                    <li key={index} className="newChannelError">
+                                        {error.msg}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </form>
+                {userList.length > 0 && (
+                    <div className="userList">
+                        {userList.map((user) => (
+                            <div key={user.id} className="userListEntry">
+                                <div>{user.name}</div>
+                                <button onClick={() => deleteListUser(user.id)}>
+                                    &#x2715;
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                )}
                 <div className="newChannelModalDivider"></div>
-                <button className="newChannelBtn" onClick={closeNewChannel}>
-                    Create DM
-                </button>
+                <Button
+                    styleRef="newChannelBtn"
+                    onClick={createNewChannel}
+                    text="Create DM"
+                    loading={showLoader}
+                    disabled={showLoader}
+                />
             </div>
             <div
                 className={`overlay ${newChannelOpen ? "display" : ""}`}

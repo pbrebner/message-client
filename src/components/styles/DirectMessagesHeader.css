@@ -98,6 +98,12 @@
     cursor: pointer;
 }
 
+.newChannelModalDivider {
+    height: 1px;
+    width: 100%;
+    background-color: var(--accent-grey);
+}
+
 .newChannelModal .newChannelBtn {
     padding: 5px;
     background-color: var(--accent-purple);
@@ -107,4 +113,16 @@
     border-radius: 5px;
 
     cursor: pointer;
+}
+
+/* Errors */
+
+.newChannelErrorContainer {
+    align-self: center;
+}
+
+.newChannelErrorList {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: red;
 }
