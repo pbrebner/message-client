@@ -1,7 +1,12 @@
 import { useState } from "react";
 
+import Button from "./Button";
+import "./styles/AddFriend.css";
+
 function AddFriend() {
     const [newFriend, setNewFriend] = useState("");
+
+    const [showLoader, setShowLoader] = useState(false);
 
     const [formError, setFormError] = useState("");
     const [error, setError] = useState("");
@@ -23,13 +28,27 @@ function AddFriend() {
                     id="addFriend"
                     className="addFriend"
                     placeholder="You can add friends with their name."
+                    value={newFriend}
+                    onChange={(e) => setNewFriend(e.target.value)}
                 />
-                <button
-                    className="friendRequestBtn"
+                <Button
+                    styleRef="friendRequestBtn"
                     onClick={sendFriendRequest}
-                >
-                    Send Friend Request
-                </button>
+                    text="Send Friend Request"
+                    loading={showLoader}
+                    disabled={showLoader}
+                />
+                {formError && (
+                    <div className="friendRequestErrorContainer">
+                        <ul className="friendRequestErrorList">
+                            {formError.map((error, index) => (
+                                <li key={index} className="friendRequestError">
+                                    {error.msg}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </form>
             <div className="friendsDivider"></div>
         </div>

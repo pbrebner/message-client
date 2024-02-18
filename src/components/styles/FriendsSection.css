@@ -32,34 +32,3 @@
     flex-direction: column;
     gap: 10px;
 }
-
-/* Styling for AddFriend */
-
-.addFriendForm {
-    padding: 5px;
-    background-color: var(--background-alt);
-    border-radius: 10px;
-
-    display: flex;
-    gap: 5px;
-}
-
-.addFriend {
-    flex: 1;
-    padding: 5px;
-    font-size: 1.2rem;
-
-    color: white;
-    background: none;
-    border: none;
-}
-
-.friendRequestBtn {
-    padding: 8px;
-    color: white;
-    background-color: var(--accent-purple);
-    border: none;
-    border-radius: 10px;
-
-    cursor: pointer;
-}
