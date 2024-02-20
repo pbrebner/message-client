@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 import Button from "./Button";
 import "./styles/AddFriend.css";
@@ -11,10 +12,55 @@ function AddFriend() {
     const [formError, setFormError] = useState("");
     const [error, setError] = useState("");
 
-    // TODO: Make request to add new friend (API need to be updated)
+    const user = useOutletContext();
+
+    // TODO: Need to have numFriends and setNumFriends as props
     async function sendFriendRequest(e) {
         e.preventDefault();
-        console.log("Sending friend request");
+
+        setShowLoader(true);
+        setError("");
+        setFormError("");
+
+        const formData = JSON.stringify({
+            targetUser: newFriend,
+        });
+
+        // Make request to create new Friend Request
+        try {
+            const response = await fetch(
+                `https://message-api.fly.dev/api/users/${user._id}/friends`,
+                {
+                    method: "post",
+                    body: formData,
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                }
+            );
+
+            const result = await response.json();
+            console.log(result);
+
+            setShowLoader(false);
+
+            // Handle any errors
+            if (response.status == 400) {
+                setFormError(result.errors);
+            } else if (!response.ok) {
+                throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                );
+            } else {
+                //let val = numFriends + 1;
+                //setNumFriends(val);
+            }
+        } catch (err) {
+            setError(err.message);
+        }
     }
 
     return (
