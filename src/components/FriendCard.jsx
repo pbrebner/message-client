@@ -4,7 +4,7 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import "./styles/FriendCard.css";
 
-function FriendCard({ friend }) {
+function FriendCard({ friend, numFriends, setNumFriends }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
@@ -16,7 +16,7 @@ function FriendCard({ friend }) {
     let online = "";
     friend.online ? (online = "online") : (online = "offline");
 
-    // TODO: Need to recieve num channels as props
+    // TODO: Need to recieve num channels in context
     async function createNewChannel() {
         setShowLoader(true);
         setError("");
@@ -52,6 +52,7 @@ function FriendCard({ friend }) {
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
+                // TODO: Only add more channels if new channel is created
                 let val = numChannels + 1;
                 setNumChannels(val);
                 navigate(`../channel/${result.channelId}`);
@@ -61,7 +62,6 @@ function FriendCard({ friend }) {
         }
     }
 
-    // Need to recieve number of friends as props
     async function deleteFriend() {
         setShowLoader(true);
         setError("");

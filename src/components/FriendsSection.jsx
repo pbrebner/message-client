@@ -8,6 +8,7 @@ import "./styles/FriendsSection.css";
 
 function FriendsSection() {
     const [friends, setFriends] = useState("");
+    const [numFriends, setNumFriends] = useState(0);
 
     const [showAll, setShowAll] = useState(true);
     const [showPending, setShowPending] = useState(false);
@@ -45,12 +46,13 @@ function FriendsSection() {
                 console.log(data);
 
                 setFriends(data);
+                setNumFriends(data.length);
             } catch (err) {
                 setError(err.message);
             }
         }
         getFriends();
-    }, []);
+    }, [numFriends]);
 
     function showNone() {
         setShowAll(false);
@@ -82,6 +84,8 @@ function FriendsSection() {
                                         <FriendCard
                                             key={friend._id}
                                             friend={friend}
+                                            numFriends={numFriends}
+                                            setNumFriends={setNumFriends}
                                         />
                                     );
                                 }
@@ -100,7 +104,12 @@ function FriendsSection() {
                     <div className="friendsDivider"></div>
                 </div>
             )}
-            {showAdd && <AddFriend />}
+            {showAdd && (
+                <AddFriend
+                    numFriends={numFriends}
+                    setNumFriends={setNumFriends}
+                />
+            )}
         </div>
     );
 }

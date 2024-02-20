@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import Button from "./Button";
 import "./styles/AddFriend.css";
 
-function AddFriend() {
+function AddFriend({ numFriends, setNumFriends }) {
     const [newFriend, setNewFriend] = useState("");
 
     const [showLoader, setShowLoader] = useState(false);
@@ -55,8 +55,8 @@ function AddFriend() {
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
-                //let val = numFriends + 1;
-                //setNumFriends(val);
+                let val = numFriends + 1;
+                setNumFriends(val);
             }
         } catch (err) {
             setError(err.message);
