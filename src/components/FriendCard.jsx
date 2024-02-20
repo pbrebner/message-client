@@ -1,15 +1,17 @@
 import { useState } from "react";
+import { useOutletContext, useNavigate } from "react-router-dom";
 
 import Button from "./Button";
 import "./styles/FriendCard.css";
 
-function FriendCard({ friend, friends }) {
+function FriendCard({ friend }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
     const [error, setError] = useState("");
 
-    const userId = localStorage.getItem("userId");
+    const user = useOutletContext();
+    const navigate = useNavigate();
 
     let online = "";
     friend.online ? (online = "online") : (online = "offline");
@@ -20,7 +22,7 @@ function FriendCard({ friend, friends }) {
         setError("");
 
         const formData = JSON.stringify({
-            users: friend.name,
+            users: [friend.targetUser.name],
         });
 
         // Make request to create new Channel
@@ -39,7 +41,6 @@ function FriendCard({ friend, friends }) {
                 }
             );
 
-            console.log(response);
             const result = await response.json();
             console.log(result);
 
@@ -53,7 +54,7 @@ function FriendCard({ friend, friends }) {
             } else {
                 let val = numChannels + 1;
                 setNumChannels(val);
-                // TODO: Need to navigate to the new channel
+                navigate(`../channel/${result.channelId}`);
             }
         } catch (err) {
             setError(err.message);
@@ -65,19 +66,12 @@ function FriendCard({ friend, friends }) {
         setShowLoader(true);
         setError("");
 
-        const updatedFriends = friends.filter((n) => n.name != friend.name);
-
-        const formData = JSON.stringify({
-            friends: updatedFriends,
-        });
-
-        // Make request to upate user
+        // Make request to delete friend
         try {
             const response = await fetch(
-                `https://message-api.fly.dev/api/users/${userId}`,
+                `https://message-api.fly.dev/api/users/${user._id}/friends/${friend._id}`,
                 {
-                    method: "put",
-                    body: formData,
+                    method: "delete",
                     headers: {
                         "Content-Type": "application/json",
                         authorization: `Bearer ${localStorage.getItem(
@@ -114,10 +108,10 @@ function FriendCard({ friend, friends }) {
         <div className={`friendCard ${modalOpen ? "hover" : ""}`}>
             <div className="friendCardMain">
                 <div className="friendCardImageContainer">
-                    <img src={friend.avatar} alt="Avatar" />
+                    <img src={friend.targetUser.avatar} alt="Avatar" />
                 </div>
                 <div className="friendCardInfo">
-                    <div className="friendName">{friend.name}</div>
+                    <div className="friendName">{friend.targetUser.name}</div>
                     <dir>{online}</dir>
                 </div>
             </div>
