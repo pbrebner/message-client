@@ -8,7 +8,6 @@ import "./styles/FriendsSection.css";
 
 function FriendsSection() {
     const [friends, setFriends] = useState("");
-    // TODO: Figure out the num friend in the friend card
     const [numAllFriends, setNumAllFriends] = useState(0);
 
     const [pendingFriends, setPendingFriends] = useState("");
@@ -84,7 +83,9 @@ function FriendsSection() {
                 <div className="friendsOuterContainer">
                     {friends && friends.length > 0 ? (
                         <div className="friendsContainer">
-                            <div className="friendsTitle">All Friends</div>
+                            <div className="friendsTitle">
+                                All Friends - {friends.length}
+                            </div>
                             <div className="friendsDivider"></div>
                             <div className="friendCardContainer">
                                 {friends.map((friend) => (
@@ -98,7 +99,7 @@ function FriendsSection() {
                             </div>
                         </div>
                     ) : (
-                        <div>You don't have any friends</div>
+                        <div>You don't have any friends yet.</div>
                     )}
                 </div>
             )}

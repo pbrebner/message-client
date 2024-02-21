@@ -9,13 +9,16 @@
     flex-direction: column;
 }
 
-.friendsContainer {
+.friendsOuterContainer {
     flex: 1;
     padding: 20px;
+}
 
+.friendsContainer,
+.friendInnerContainer {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .friendsTitle {
