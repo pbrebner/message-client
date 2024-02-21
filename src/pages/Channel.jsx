@@ -14,7 +14,8 @@ function Channel() {
     const [error, setError] = useState("");
 
     const { channelId } = useParams();
-    const user = useOutletContext();
+    //const user = useOutletContext();
+    const userId = localStorage.getItem("userId");
 
     //Get channel
     useEffect(() => {
@@ -55,7 +56,7 @@ function Channel() {
     function getOtherUsers(users) {
         let channelUsersTemp = [];
         users.forEach((channelUser) => {
-            if (user._id != channelUser._id) {
+            if (userId != channelUser._id) {
                 channelUsersTemp.push(channelUser);
             }
         });
