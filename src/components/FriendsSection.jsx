@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useState, useEffect } from "react";
+// import { useOutletContext } from "react-router-dom";
 
 import FriendsHeader from "./FriendsHeader";
 import FriendCard from "./FriendCard";
@@ -18,7 +18,7 @@ function FriendsSection() {
 
     const [error, setError] = useState("");
 
-    const user = useOutletContext();
+    //const user = useOutletContext();
 
     // Fetch user friends
     useEffect(() => {
@@ -27,7 +27,9 @@ function FriendsSection() {
 
             try {
                 const response = await fetch(
-                    `https://message-api.fly.dev/api/users/${user._id}/friends`,
+                    `https://message-api.fly.dev/api/users/${localStorage.getItem(
+                        "userId"
+                    )}/friends`,
                     {
                         headers: {
                             "Content-Type": "application/json",
