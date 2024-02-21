@@ -8,7 +8,10 @@ import "./styles/FriendsSection.css";
 
 function FriendsSection() {
     const [friends, setFriends] = useState("");
-    const [numFriends, setNumFriends] = useState(0);
+    // TODO: Figure out the num friend in the friend card
+    const [numAllFriends, setNumAllFriends] = useState(0);
+
+    const [pendingFriends, setPendingFriends] = useState("");
 
     const [showAll, setShowAll] = useState(true);
     const [showPending, setShowPending] = useState(false);
@@ -45,14 +48,19 @@ function FriendsSection() {
                 const data = await response.json();
                 console.log(data);
 
-                setFriends(data);
-                setNumFriends(data.length);
+                setFriends(data.filter((friend) => friend.status == 3));
+                setNumAllFriends(data.length);
+                setPendingFriends(
+                    data.filter(
+                        (friend) => friend.status == 1 || friend.status == 2
+                    )
+                );
             } catch (err) {
                 setError(err.message);
             }
         }
         getFriends();
-    }, [numFriends]);
+    }, [numAllFriends]);
 
     function showNone() {
         setShowAll(false);
@@ -73,23 +81,21 @@ function FriendsSection() {
             />
             <div className="hl"></div>
             {showAll && (
-                <div className="friendsContainer">
-                    <div className="friendsTitle">All Friends</div>
-                    <div className="friendsDivider"></div>
+                <div className="friendsOuterContainer">
                     {friends && friends.length > 0 ? (
-                        <div className="friendCardContainer">
-                            {friends.map((friend) => {
-                                if (friend.status == 3) {
-                                    return (
-                                        <FriendCard
-                                            key={friend._id}
-                                            friend={friend}
-                                            numFriends={numFriends}
-                                            setNumFriends={setNumFriends}
-                                        />
-                                    );
-                                }
-                            })}
+                        <div className="friendsContainer">
+                            <div className="friendsTitle">All Friends</div>
+                            <div className="friendsDivider"></div>
+                            <div className="friendCardContainer">
+                                {friends.map((friend) => (
+                                    <FriendCard
+                                        key={friend._id}
+                                        friend={friend}
+                                        numFriends={numAllFriends}
+                                        setNumFriends={setNumAllFriends}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     ) : (
                         <div>You don't have any friends</div>
@@ -97,17 +103,63 @@ function FriendsSection() {
                 </div>
             )}
             {showPending && (
-                <div className="friendsContainer">
-                    <div className="friendsTitle">
-                        Pending Friends: Coming soon
-                    </div>
-                    <div className="friendsDivider"></div>
+                <div className="friendsOuterContainer">
+                    {pendingFriends && pendingFriends.length > 0 ? (
+                        <div className="friendsContainer">
+                            <div className="friendsInnerContainer">
+                                <div className="friendsTitle">
+                                    Friend Requests
+                                </div>
+                                <div className="friendsDivider"></div>
+                                <div className="friendCardContainer">
+                                    {pendingFriends.map((friend) => {
+                                        if (friend.status == 2) {
+                                            return (
+                                                <FriendCard
+                                                    key={friend._id}
+                                                    friend={friend}
+                                                    numFriends={numAllFriends}
+                                                    setNumFriends={
+                                                        setNumAllFriends
+                                                    }
+                                                />
+                                            );
+                                        }
+                                    })}
+                                </div>
+                            </div>
+                            <div className="friendsInnerContainer">
+                                <div className="friendsTitle">
+                                    Pending Friends
+                                </div>
+                                <div className="friendsDivider"></div>
+                                <div className="friendCardContainer">
+                                    {pendingFriends.map((friend) => {
+                                        if (friend.status == 1) {
+                                            return (
+                                                <FriendCard
+                                                    key={friend._id}
+                                                    friend={friend}
+                                                    numFriends={numAllFriends}
+                                                    setNumFriends={
+                                                        setNumAllFriends
+                                                    }
+                                                />
+                                            );
+                                        }
+                                    })}
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div>You don't have any pending friends.</div>
+                    )}
                 </div>
             )}
             {showAdd && (
                 <AddFriend
-                    numFriends={numFriends}
-                    setNumFriends={setNumFriends}
+                    numFriends={numAllFriends}
+                    setNumFriends={setNumAllFriends}
                 />
             )}
         </div>
