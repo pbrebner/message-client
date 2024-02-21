@@ -66,7 +66,7 @@ function Channel() {
 
     return (
         <div className="channelSection">
-            <ChannelHeader otherUsers={otherUsers} />
+            <ChannelHeader otherUsers={otherUsers} channel={channel} />
             <div className="hl"></div>
             <div className="channelMain">
                 <Messages />
