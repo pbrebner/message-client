@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 import Button from "./Button";
 import "./styles/ChannelHeader.css";
@@ -11,6 +12,8 @@ function ChannelHeader({ otherUsers, channel }) {
 
     const [error, setError] = useState("");
     const [formError, setFormError] = useState("");
+
+    const [addUserDM, setAddUserDM] = useOutletContext();
 
     async function handleAddUser() {
         setShowLoader(true);
@@ -51,6 +54,8 @@ function ChannelHeader({ otherUsers, channel }) {
                 );
             } else {
                 setAddUserOpen(false);
+                const val = addUserDM + 1;
+                setAddUserDM(val);
             }
         } catch (err) {
             setError(err.message);

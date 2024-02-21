@@ -6,7 +6,7 @@ import DirectMessagesHeader from "./DirectMessagesHeader";
 import ChannelCard from "./ChannelCard";
 import "./styles/ChannelSidebar.css";
 
-function ChannelSidebar({ numChannels, setNumChannels }) {
+function ChannelSidebar({ numChannels, setNumChannels, addUserDM }) {
     const [channels, setChannels] = useState("");
     // const [numChannels, setNumChannels] = useState(0);
 
@@ -48,7 +48,7 @@ function ChannelSidebar({ numChannels, setNumChannels }) {
             }
         }
         getChannels();
-    }, [numChannels]);
+    }, [numChannels, addUserDM]);
 
     // Removes the users own value from channel
     function getFilteredChannels(channels) {

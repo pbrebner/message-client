@@ -10,6 +10,9 @@ function Channels() {
     //const [channels, setChannels] = useState("");
     const [numChannels, setNumChannels] = useState(0);
 
+    // Used just to trigger component refresh
+    const [addUserDM, setAddUserDM] = useState(0);
+
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
@@ -63,9 +66,18 @@ function Channels() {
             <ChannelSidebar
                 numChannels={numChannels}
                 setNumChannels={setNumChannels}
+                addUserDM={addUserDM}
             />
             <div className="vl"></div>
-            <Outlet context={[user, numChannels, setNumChannels]} />
+            <Outlet
+                context={[
+                    user,
+                    numChannels,
+                    setNumChannels,
+                    addUserDM,
+                    setAddUserDM,
+                ]}
+            />
         </div>
     );
 }
