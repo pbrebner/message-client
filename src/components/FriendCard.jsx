@@ -62,6 +62,43 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
         }
     }
 
+    async function acceptFriendRequest() {
+        setShowLoader(true);
+        setError("");
+
+        // Make request to update Friend
+        try {
+            const response = await fetch(
+                `https://message-api.fly.dev/api/users/${user._id}/friends/${friend._id}`,
+                {
+                    method: "put",
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                }
+            );
+
+            const result = await response.json();
+            console.log(result);
+
+            setShowLoader(false);
+
+            if (!response.ok) {
+                throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                );
+            } else {
+                let val = numFriends + 1;
+                setNumFriends(val);
+            }
+        } catch (err) {
+            setError(err.message);
+        }
+    }
+
     async function deleteFriend() {
         setShowLoader(true);
         setError("");
@@ -115,29 +152,63 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
                     <dir>{online}</dir>
                 </div>
             </div>
-            <div className="friendCardActions">
-                <Button
-                    styleRef="friendCardBtn"
-                    onClick={createNewChannel}
-                    text="Message"
-                    loading={showLoader}
-                    disabled={showLoader}
-                />
-                <button className="friendCardBtn" onClick={toggleModal}>
-                    More
-                </button>
-                <div
-                    className={`friendCardModal ${modalOpen ? "display" : ""}`}
-                >
+            {friend.status == 3 && (
+                <div className="friendCardActions">
                     <Button
-                        styleRef="friendCardModalBtn deleteFriendBtn"
+                        styleRef="friendCardBtn"
+                        onClick={createNewChannel}
+                        text="Message"
+                        loading={showLoader}
+                        disabled={showLoader}
+                    />
+                    <button className="friendCardBtn" onClick={toggleModal}>
+                        More
+                    </button>
+                    <div
+                        className={`friendCardModal ${
+                            modalOpen ? "display" : ""
+                        }`}
+                    >
+                        <Button
+                            styleRef="friendCardModalBtn deleteFriendBtn"
+                            onClick={deleteFriend}
+                            text="Delete"
+                            loading={showLoader}
+                            disabled={showLoader}
+                        />
+                    </div>
+                </div>
+            )}
+            {friend.status == 2 && (
+                <div className="friendCardActions">
+                    <Button
+                        styleRef="friendCardBtn"
+                        onClick={acceptFriendRequest}
+                        text="Accept"
+                        loading={showLoader}
+                        disabled={showLoader}
+                    />
+                    <Button
+                        styleRef="friendCardBtn deleteFriendBtn"
                         onClick={deleteFriend}
                         text="Delete"
                         loading={showLoader}
                         disabled={showLoader}
                     />
                 </div>
-            </div>
+            )}
+
+            {friend.status == 1 && (
+                <div className="friendCardActions">
+                    <Button
+                        styleRef="friendCardBtn"
+                        onClick={deleteFriend}
+                        text="Withdraw Request"
+                        loading={showLoader}
+                        disabled={showLoader}
+                    />
+                </div>
+            )}
 
             <div
                 className={`overlay ${modalOpen ? "display" : ""}`}
