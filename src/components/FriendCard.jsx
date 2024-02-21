@@ -10,13 +10,12 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
 
     const [error, setError] = useState("");
 
-    const user = useOutletContext();
+    const [user, numChannels, setNumChannels] = useOutletContext();
     const navigate = useNavigate();
 
     let online = "";
     friend.online ? (online = "online") : (online = "offline");
 
-    // TODO: Need to recieve num channels in context
     async function createNewChannel() {
         setShowLoader(true);
         setError("");
@@ -52,9 +51,10 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
-                // TODO: Only add more channels if new channel is created
-                let val = numChannels + 1;
-                setNumChannels(val);
+                if (result.newChannel) {
+                    let val = numChannels + 1;
+                    setNumChannels(val);
+                }
                 navigate(`../channel/${result.channelId}`);
             }
         } catch (err) {

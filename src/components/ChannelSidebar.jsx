@@ -6,9 +6,9 @@ import DirectMessagesHeader from "./DirectMessagesHeader";
 import ChannelCard from "./ChannelCard";
 import "./styles/ChannelSidebar.css";
 
-function ChannelSidebar() {
+function ChannelSidebar({ numChannels, setNumChannels }) {
     const [channels, setChannels] = useState("");
-    const [numChannels, setNumChannels] = useState(0);
+    // const [numChannels, setNumChannels] = useState(0);
 
     const userId = localStorage.getItem("userId");
 
@@ -40,7 +40,7 @@ function ChannelSidebar() {
                 console.log(data);
 
                 setChannels(getFilteredChannels(data));
-                setNumChannels(data.length);
+                // setNumChannels(data.length);
                 setError("");
             } catch (err) {
                 setError(err.message);

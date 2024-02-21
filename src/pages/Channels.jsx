@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 
-// TODO: Create a channels header (either in this compnent or make new header component)
 import ChannelSidebar from "../components/ChannelSidebar";
 
 import "./styles/Channels.css";
 
 function Channels() {
     const [user, setUser] = useState("");
-    // Might need to track number of channels and number of friends
+    //const [channels, setChannels] = useState("");
+    const [numChannels, setNumChannels] = useState(0);
 
     const [error, setError] = useState("");
 
@@ -47,6 +47,8 @@ function Channels() {
                 console.log(data);
 
                 setUser(data.user);
+                //setChannels(data.user.channels);
+                setNumChannels(data.user.channels.length);
                 setError("");
             } catch (err) {
                 setError(err.message);
@@ -58,9 +60,12 @@ function Channels() {
 
     return (
         <div className="channelsPage">
-            <ChannelSidebar />
+            <ChannelSidebar
+                numChannels={numChannels}
+                setNumChannels={setNumChannels}
+            />
             <div className="vl"></div>
-            <Outlet context={user} />
+            <Outlet context={[user, numChannels, setNumChannels]} />
         </div>
     );
 }
