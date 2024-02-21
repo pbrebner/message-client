@@ -67,9 +67,11 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
                 );
             } else {
                 closeNewChannel();
-                let val = numChannels + 1;
-                setNumChannels(val);
-                // TODO: Need to navigate to the channel
+                if (result.newChannel) {
+                    let val = numChannels + 1;
+                    setNumChannels(val);
+                }
+                navigate(`../channel/${result.channelId}`);
             }
         } catch (err) {
             setError(err.message);
