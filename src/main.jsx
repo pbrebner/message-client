@@ -14,7 +14,6 @@ import Account from "./pages/Account.jsx";
 
 import "./index.css";
 
-// TODO: Fix the channel Routes and add Outlet to Children
 const router = createBrowserRouter([
     {
         path: "/message-client",
