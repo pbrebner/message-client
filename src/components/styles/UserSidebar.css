@@ -6,6 +6,9 @@
 
     min-width: 250px;
     max-width: 350px;
+
+    max-height: calc(100vh - 51px);
+    overflow-y: auto;
 }
 
 .userCard {

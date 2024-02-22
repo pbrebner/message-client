@@ -17,9 +17,11 @@
 .vl {
     width: 1px;
     background-color: var(--accent-grey);
+    flex-shrink: 0;
 }
 
 .hl {
     height: 1px;
     background-color: var(--accent-grey);
+    flex-shrink: 0;
 }
