@@ -1,6 +1,7 @@
 .friendsSection {
     flex: 1;
     min-height: 100vh;
+    max-height: 100vh;
 
     color: var(--grey-text);
     background-color: var(--background);
@@ -11,6 +12,7 @@
 
 .friendsOuterContainer {
     flex: 1;
+    overflow: auto;
 }
 
 .friendsContainer {
@@ -27,7 +29,7 @@
 }
 
 .friendsTitle {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 
 .friendsDivider {
@@ -39,4 +41,17 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+/* Friend Search */
+
+.friendSearchForm {
+    width: 100%;
+}
+
+.friendSearch {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
 }
