@@ -19,8 +19,6 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
 
     const navigate = useNavigate();
 
-    // TODO: Actually limit the amount of users to 9
-
     async function createNewChannel() {
         setShowLoader(true);
         setFormError("");
@@ -81,8 +79,16 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
     // Adds users on enter key
     function handleUserAdd(e) {
         if (e.key == "Enter") {
-            setUserList([...userList, { id: uniqid(), name: e.target.value }]);
-            setAddUser("");
+            // Can only add unique names
+            if (userList.find((user) => user.name == e.target.value)) {
+                setAddUser("");
+            } else {
+                setUserList([
+                    ...userList,
+                    { id: uniqid(), name: e.target.value },
+                ]);
+                setAddUser("");
+            }
         }
     }
 
@@ -132,7 +138,7 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
                     <div className="newChannelFormElement">
                         <label htmlFor="newChannelUsers">Select Friends</label>
                         <div className="userListInfo">
-                            You can add {9 - userList.length} more friends.
+                            You can add {5 - userList.length} more friends.
                         </div>
                         <input
                             type="text"
@@ -144,6 +150,7 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
                             value={addUser}
                             onChange={(e) => setAddUser(e.target.value)}
                             onKeyDown={handleUserAdd}
+                            disabled={userList.length >= 5}
                         />
                     </div>
                     {formError && (
