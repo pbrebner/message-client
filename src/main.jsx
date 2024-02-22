@@ -7,7 +7,7 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import Redirect from "./components/Redirect.jsx";
 import Channels from "./pages/Channels.jsx";
 import FriendsSection from "./components/FriendsSection.jsx";
-import Channel from "./pages/Channel.jsx";
+import ChannelSection from "./components/ChannelSection.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import Account from "./pages/Account.jsx";
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
                 element: <Channels />,
                 children: [
                     { index: true, element: <FriendsSection /> },
-                    { path: ":channelId", element: <Channel /> },
+                    { path: ":channelId", element: <ChannelSection /> },
                 ],
             },
             {

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
 
-import ChannelHeader from "../components/ChannelHeader";
-import Messages from "../components/Messages";
-import UserSidebar from "../components/UserSidebar";
+import ChannelHeader from "./ChannelHeader";
+import Messages from "./Messages";
+import UserSidebar from "./UserSidebar";
 
-import "./styles/Channels.css";
+//import "../pages/styles/Channels.css";
 
-function Channel() {
+function ChannelSection() {
     const [channel, setChannel] = useState("");
     const [otherUsers, setOtherUsers] = useState([]);
 
@@ -77,4 +77,4 @@ function Channel() {
     );
 }
 
-export default Channel;
+export default ChannelSection;

@@ -55,7 +55,7 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
                     let val = numChannels + 1;
                     setNumChannels(val);
                 }
-                navigate(`../channel/${result.channelId}`);
+                navigate(`/message-client/channels/${result.channelId}`);
             }
         } catch (err) {
             setError(err.message);
