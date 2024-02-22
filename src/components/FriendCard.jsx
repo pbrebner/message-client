@@ -189,9 +189,9 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
                         disabled={showLoader}
                     />
                     <Button
-                        styleRef="friendCardBtn deleteFriendBtn"
+                        styleRef="friendCardBtn"
                         onClick={deleteFriend}
-                        text="Delete"
+                        text="Decline"
                         loading={showLoader}
                         disabled={showLoader}
                     />

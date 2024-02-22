@@ -11,14 +11,19 @@
 
 .friendsOuterContainer {
     flex: 1;
-    padding: 20px;
 }
 
-.friendsContainer,
-.friendInnerContainer {
+.friendsContainer {
+    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.friendsInnerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .friendsTitle {
