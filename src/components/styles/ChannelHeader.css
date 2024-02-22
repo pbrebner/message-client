@@ -39,6 +39,11 @@
     width: 100%;
 }
 
+.channelHeaderActions {
+    display: flex;
+    gap: 20px;
+}
+
 .channelHeaderBtn {
     padding: 5px;
     background-color: var(--accent-purple);
@@ -54,7 +59,7 @@
 }
 
 /* Styling for new Channel modal */
-.addUserModal {
+.channelHeaderModal {
     padding: 20px;
     background-color: var(--background);
     box-shadow: 2px 2px 2px 2px black;
@@ -71,41 +76,42 @@
     pointer-events: none;
 }
 
-.addUserModal.display {
+.channelHeaderModal.display {
     display: flex;
     flex-direction: column;
     gap: 10px;
     pointer-events: all;
 }
 
-.addUserForm {
+.channelHeaderForm {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.addUserFormElement {
+.channelHeaderFormElement {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.addUserForm label {
+.channelHeaderForm label {
     font-size: 1.4rem;
 }
 
-.addUserForm input {
+.channelHeaderForm input {
     width: 100%;
     padding: 5px;
 }
 
-.addUserModalDivider {
+.channelHeaderModalDivider {
     height: 1px;
     width: 100%;
     background-color: var(--accent-grey);
 }
 
-.addUserModal .addUserBtn {
+.channelHeaderModal .addUserBtn,
+.channelHeaderModal .addTitleBtn {
     padding: 5px;
     background-color: var(--accent-purple);
     color: var(--grey-text);
@@ -116,17 +122,18 @@
     cursor: pointer;
 }
 
-.addUserModal .addUserBtn:hover {
+.channelHeaderModal .addUserBtn:hover,
+.channelHeaderModal .addTitleBtn:hover {
     color: white;
 }
 
 /* Errors */
 
-.addUserErrorContainer {
+.channelHeaderErrorContainer {
     align-self: center;
 }
 
-.addUserErrorList {
+.channelHeaderErrorList {
     font-size: 0.9rem;
     font-weight: 500;
     color: red;

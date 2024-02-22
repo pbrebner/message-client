@@ -8,21 +8,22 @@ function ChannelHeader({ otherUsers, channel }) {
     const [addUser, setAddUser] = useState("");
     const [addUserOpen, setAddUserOpen] = useState(false);
 
+    const [addTitle, setAddTitle] = useState("");
+    const [addTitleOpen, setAddTitleOpen] = useState(false);
+
     const [showLoader, setShowLoader] = useState(false);
 
     const [error, setError] = useState("");
     const [formError, setFormError] = useState("");
 
-    const [addUserDM, setAddUserDM] = useOutletContext();
+    const [updateChannel, setUpdateChannel] = useOutletContext();
 
-    async function handleAddUser() {
+    async function handleUpdateChannel() {
         setShowLoader(true);
         setFormError("");
         setError("");
 
-        const formData = JSON.stringify({
-            users: [addUser],
-        });
+        const formData = getFormData();
 
         // Make request to update Channel
         try {
@@ -53,17 +54,41 @@ function ChannelHeader({ otherUsers, channel }) {
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
-                setAddUserOpen(false);
-                const val = addUserDM + 1;
-                setAddUserDM(val);
+                closeModals();
+
+                const val = updateChannel + 1;
+                setUpdateChannel(val);
             }
         } catch (err) {
             setError(err.message);
         }
     }
 
+    function getFormData() {
+        if (addTitle) {
+            return JSON.stringify({
+                title: addTitle,
+            });
+        } else {
+            return JSON.stringify({
+                users: [addUser],
+            });
+        }
+    }
+
+    function toggleAddTitleOpen() {
+        addTitleOpen === true ? setAddTitleOpen(false) : setAddTitleOpen(true);
+    }
+
     function toggleAddUserOpen() {
         addUserOpen === true ? setAddUserOpen(false) : setAddUserOpen(true);
+    }
+
+    function closeModals() {
+        setAddTitle("");
+        setAddUser("");
+        setAddTitleOpen(false);
+        setAddUserOpen(false);
     }
 
     return (
@@ -80,6 +105,21 @@ function ChannelHeader({ otherUsers, channel }) {
                     ))}
             </div>
             <div className="channelHeaderActions">
+                {channel.title ? (
+                    <button
+                        className="channelHeaderBtn"
+                        onClick={toggleAddTitleOpen}
+                    >
+                        Update Title
+                    </button>
+                ) : (
+                    <button
+                        className="channelHeaderBtn"
+                        onClick={toggleAddTitleOpen}
+                    >
+                        Add Title
+                    </button>
+                )}
                 <button
                     className="channelHeaderBtn"
                     onClick={toggleAddUserOpen}
@@ -87,9 +127,54 @@ function ChannelHeader({ otherUsers, channel }) {
                     Add User to DM
                 </button>
             </div>
-            <div className={`addUserModal ${addUserOpen ? "display" : ""}`}>
-                <form className="addUserForm">
-                    <div className="addUserFormElement">
+            <div
+                className={`channelHeaderModal ${
+                    addTitleOpen ? "display" : ""
+                }`}
+            >
+                <form className="channelHeaderForm">
+                    <div className="channelHeaderFormElement">
+                        <label htmlFor="addTitle">Update Channel Title</label>
+                        <input
+                            type="text"
+                            name="addTitle"
+                            id="addTitle"
+                            className="addTitle"
+                            placeholder="Enter a channel title."
+                            autoComplete="off"
+                            value={addTitle}
+                            onChange={(e) => setAddTitle(e.target.value)}
+                        />
+                    </div>
+                    {formError && (
+                        <div className="channelHeaderErrorContainer">
+                            <ul className="channelHeaderErrorList">
+                                {formError.map((error, index) => (
+                                    <li
+                                        key={index}
+                                        className="channelHeaderError"
+                                    >
+                                        {error.msg}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </form>
+                <div className="channelHeaderModalDivider"></div>
+                <Button
+                    styleRef="addTitleBtn"
+                    onClick={handleUpdateChannel}
+                    text="Update Title"
+                    loading={showLoader}
+                    disabled={showLoader}
+                />
+            </div>
+            <div
+                className={`channelHeaderModal ${addUserOpen ? "display" : ""}`}
+            >
+                <form className="channelHeaderForm">
+                    <div className="channelHeaderFormElement">
                         <label htmlFor="addUser">Select Friend</label>
                         <input
                             type="text"
@@ -103,10 +188,13 @@ function ChannelHeader({ otherUsers, channel }) {
                         />
                     </div>
                     {formError && (
-                        <div className="addUserErrorContainer">
-                            <ul className="addUserErrorList">
+                        <div className="channelHeaderErrorContainer">
+                            <ul className="channelHeaderErrorList">
                                 {formError.map((error, index) => (
-                                    <li key={index} className="addUserError">
+                                    <li
+                                        key={index}
+                                        className="channelHeaderError"
+                                    >
                                         {error.msg}
                                     </li>
                                 ))}
@@ -114,18 +202,20 @@ function ChannelHeader({ otherUsers, channel }) {
                         </div>
                     )}
                 </form>
-                <div className="addUserModalDivider"></div>
+                <div className="channelHeaderModalDivider"></div>
                 <Button
                     styleRef="addUserBtn"
-                    onClick={handleAddUser}
+                    onClick={handleUpdateChannel}
                     text="Add User to DM"
                     loading={showLoader}
                     disabled={showLoader}
                 />
             </div>
             <div
-                className={`overlay ${addUserOpen ? "display" : ""}`}
-                onClick={toggleAddUserOpen}
+                className={`overlay ${
+                    addUserOpen || addTitleOpen ? "display" : ""
+                }`}
+                onClick={closeModals}
             ></div>
         </div>
     );

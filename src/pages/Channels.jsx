@@ -11,7 +11,7 @@ function Channels() {
     const [numChannels, setNumChannels] = useState(0);
 
     // Used just to trigger component refresh
-    const [addUserDM, setAddUserDM] = useState(0);
+    const [updateChannel, setUpdateChannel] = useState(0);
 
     const [error, setError] = useState("");
 
@@ -66,7 +66,7 @@ function Channels() {
             <ChannelSidebar
                 numChannels={numChannels}
                 setNumChannels={setNumChannels}
-                addUserDM={addUserDM}
+                updateChannel={updateChannel}
             />
             <div className="vl"></div>
             <Outlet
@@ -74,8 +74,8 @@ function Channels() {
                     user,
                     numChannels,
                     setNumChannels,
-                    addUserDM,
-                    setAddUserDM,
+                    updateChannel,
+                    setUpdateChannel,
                 ]}
             />
         </div>

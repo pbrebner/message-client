@@ -14,7 +14,7 @@ function ChannelSection() {
     const [error, setError] = useState("");
 
     const { channelId } = useParams();
-    const addUserDM = useOutletContext();
+    const updateChannel = useOutletContext();
     const userId = localStorage.getItem("userId");
 
     //Get channel
@@ -50,7 +50,7 @@ function ChannelSection() {
             }
         }
         getChannel();
-    }, [channelId, addUserDM]);
+    }, [channelId, updateChannel]);
 
     // Gets all other channel users
     function getOtherUsers(users) {
