@@ -1,0 +1,60 @@
+.accountInfo {
+    padding: 40px;
+    background-color: black;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.accountInfoHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accountInfoHeader div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.accountImg {
+    height: 150px;
+    width: 150px;
+
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.accountImg img {
+    width: 100%;
+}
+
+.accountName {
+    font-size: 1.8rem;
+}
+
+.accountInfoMain {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.accountInfoSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accountInfoSection div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.accountInfoSection p {
+    font-size: 1.2rem;
+    font-weight: 600;
+}

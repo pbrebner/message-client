@@ -1,20 +1,27 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
+import AccountInfo from "../components/AccountInfo";
 import Button from "../components/Button";
 import "./styles/Account.css";
 
 function Account() {
     const [user, setUser] = useState("");
 
-    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [name, setName] = useState("");
+    const [bio, setBio] = useState("");
+    const [email, setEmail] = useState("");
+    const [avatar, setAvatar] = useState("");
 
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
     const [error, setError] = useState("");
 
     const [loggedIn, setLoggedIn] = useOutletContext();
     const navigate = useNavigate();
+
+    //TODO: Check if user is logged in a redirect if neccessary
 
     // Fetch the User
     useEffect(() => {
@@ -47,6 +54,10 @@ function Account() {
                 console.log(data);
 
                 setUser(data.user);
+                setName(data.user.name);
+                setBio(data.user.bio);
+                setEmail(data.user.email);
+                setAvatar(data.user.avatar);
                 setError("");
             } catch (err) {
                 setError(err.message);
@@ -54,7 +65,7 @@ function Account() {
             }
         }
         getUser();
-    }, []);
+    }, [user]);
 
     function handleLogOut() {
         setLoggedIn(false);
@@ -112,43 +123,13 @@ function Account() {
                         Back to Channels
                     </Link>
                 </div>
-                <div className="accountInfo">
-                    <div className="accountInfoHeader">
-                        <div>
-                            <div className="accountImg">
-                                <img src={user.avatar} />
-                            </div>
-                            <div className="accountName">{user.name}</div>
-                        </div>
-                        <button className="accountBtn">
-                            Edit User Profile
-                        </button>
-                    </div>
-                    <div className="accountDivider"></div>
-                    <div className="accountInfoMain">
-                        <div className="accountInfoSection">
-                            <div>
-                                <p>Name</p>
-                                <div>{user.name}</div>
-                            </div>
-                            <button className="editBtn">Edit</button>
-                        </div>
-                        <div className="accountInfoSection">
-                            <div>
-                                <p>Bio</p>
-                                <div>{user.bio}</div>
-                            </div>
-                            <button className="editBtn">Edit</button>
-                        </div>
-                        <div className="accountInfoSection">
-                            <div>
-                                <p>Email</p>
-                                <div>{user.email}</div>
-                            </div>
-                            <button className="editBtn">Edit</button>
-                        </div>
-                    </div>
-                </div>
+                <AccountInfo
+                    user={user}
+                    name={name}
+                    bio={bio}
+                    email={email}
+                    avatar={avatar}
+                />
                 <div className="accountDivider"></div>
                 <div className="accountActions">
                     <h2>Log Out</h2>
