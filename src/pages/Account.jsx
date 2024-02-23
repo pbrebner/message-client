@@ -8,10 +8,10 @@ import "./styles/Account.css";
 function Account() {
     const [user, setUser] = useState("");
 
-    const [name, setName] = useState("");
-    const [bio, setBio] = useState("");
-    const [email, setEmail] = useState("");
-    const [avatar, setAvatar] = useState("");
+    //const [name, setName] = useState("");
+    //const [bio, setBio] = useState("");
+    //const [email, setEmail] = useState("");
+    //const [avatar, setAvatar] = useState("");
 
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
@@ -54,10 +54,10 @@ function Account() {
                 console.log(data);
 
                 setUser(data.user);
-                setName(data.user.name);
-                setBio(data.user.bio);
-                setEmail(data.user.email);
-                setAvatar(data.user.avatar);
+                //setName(data.user.name);
+                //setBio(data.user.bio);
+                //setEmail(data.user.email);
+                //setAvatar(data.user.avatar);
                 setError("");
             } catch (err) {
                 setError(err.message);
@@ -123,13 +123,7 @@ function Account() {
                         Back to Channels
                     </Link>
                 </div>
-                <AccountInfo
-                    user={user}
-                    name={name}
-                    bio={bio}
-                    email={email}
-                    avatar={avatar}
-                />
+                <AccountInfo user={user} setUser={setUser} />
                 <div className="accountDivider"></div>
                 <div className="accountActions">
                     <h2>Log Out</h2>
