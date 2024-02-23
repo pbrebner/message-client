@@ -5,6 +5,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 15px;
+
+    position: relative;
 }
 
 .userTabMain {
@@ -43,4 +45,85 @@
 
 .userTabAction img {
     height: 30px;
+}
+
+/* Styling for Modal */
+
+.userTabModal {
+    padding: 15px;
+    background-color: var(--background);
+    box-shadow: 2px 2px 2px 2px black;
+    min-width: 350px;
+
+    display: none;
+
+    position: absolute;
+    left: 20px;
+    bottom: 70px;
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+.userTabModal.display {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: all;
+}
+
+.userTabModalHeader {
+    padding: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.userTabModalImg {
+    height: 100px;
+    width: 100px;
+
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.userTabModalImg img {
+    width: 100%;
+}
+
+.userTabEdit {
+    align-self: flex-start;
+}
+
+.userTabEdit img {
+    height: 30px;
+}
+
+.userTabModalMain {
+    padding: 30px;
+    background-color: black;
+
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.userTabModalDivider {
+    height: 1px;
+    width: 100%;
+
+    background-color: var(--accent-grey);
+}
+
+.userTabModal p {
+    font-weight: 600;
+}
+
+.userTabModalName {
+    font-weight: 600;
+    font-size: 1.3rem;
 }
