@@ -64,6 +64,7 @@ function Channels() {
     return (
         <div className="channelsPage">
             <ChannelSidebar
+                user={user}
                 numChannels={numChannels}
                 setNumChannels={setNumChannels}
                 updateChannel={updateChannel}

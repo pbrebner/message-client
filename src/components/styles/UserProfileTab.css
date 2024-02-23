@@ -1,0 +1,46 @@
+.userProfileTab {
+    margin: 8px 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.userTabMain {
+    flex: 1;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    cursor: pointer;
+}
+
+.userTabMain:hover {
+    background-color: var(--background-alt);
+}
+
+.userTabImg {
+    height: 40px;
+    width: 40px;
+
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.userTabImg img {
+    width: 100%;
+}
+
+.userTabAction {
+    padding: 10px;
+}
+
+.userTabAction:hover {
+    background-color: var(--background-alt);
+}
+
+.userTabAction img {
+    height: 30px;
+}

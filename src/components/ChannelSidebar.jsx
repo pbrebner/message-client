@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import ChannelSearch from "./ChannelSearch";
 import DirectMessagesHeader from "./DirectMessagesHeader";
 import ChannelCard from "./ChannelCard";
+import UserProfileTab from "./UserProfileTab";
 import "./styles/ChannelSidebar.css";
 
-function ChannelSidebar({ numChannels, setNumChannels, updateChannel }) {
+function ChannelSidebar({ user, numChannels, setNumChannels, updateChannel }) {
     const [channels, setChannels] = useState("");
     // const [numChannels, setNumChannels] = useState(0);
 
@@ -59,7 +60,6 @@ function ChannelSidebar({ numChannels, setNumChannels, updateChannel }) {
         return channels;
     }
 
-    //TODO: Add scroll bar on cardContainer during overflow
     return (
         <div className="channelSidebar">
             <div className="channelSidebarHeader">
@@ -89,6 +89,8 @@ function ChannelSidebar({ numChannels, setNumChannels, updateChannel }) {
                     <div>You don't have any channels.</div>
                 )}
             </div>
+            <div className="hl"></div>
+            <UserProfileTab user={user} />
         </div>
     );
 }
