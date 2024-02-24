@@ -4,10 +4,10 @@ import Button from "../components/Button";
 import "./styles/AccountInfo.css";
 
 function AccountInfo({ user, setUser }) {
-    const [name, setName] = useState(user.name);
-    const [email, setEmail] = useState(user.email);
-    const [bio, setBio] = useState(user.bio);
-    const [avatar, setAvatar] = useState(user.avatar);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [bio, setBio] = useState("");
+    const [avatar, setAvatar] = useState("");
 
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
@@ -66,13 +66,17 @@ function AccountInfo({ user, setUser }) {
         }
     }
 
-    function cancelProfileEdit() {
-        setFormError("");
-        setEditModalOpen(false);
+    function openEditProfile() {
         setName(user.name);
         setEmail(user.email);
         setBio(user.bio);
         setAvatar(user.avatar);
+        setEditModalOpen(true);
+    }
+
+    function cancelProfileEdit() {
+        setFormError("");
+        setEditModalOpen(false);
     }
 
     return (
@@ -84,10 +88,7 @@ function AccountInfo({ user, setUser }) {
                     </div>
                     <div className="accountName">{user.name}</div>
                 </div>
-                <button
-                    className="accountBtn"
-                    onClick={() => setEditModalOpen(true)}
-                >
+                <button className="accountBtn" onClick={openEditProfile}>
                     Edit User Profile
                 </button>
             </div>
@@ -122,6 +123,7 @@ function AccountInfo({ user, setUser }) {
                             type="text"
                             name="name"
                             id="name"
+                            autoComplete="off"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
@@ -132,6 +134,7 @@ function AccountInfo({ user, setUser }) {
                             type="text"
                             name="email"
                             id="email"
+                            autoComplete="off"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -164,7 +167,11 @@ function AccountInfo({ user, setUser }) {
                 </form>
                 <div className="accountDivider"></div>
                 <div className="accountModalBtns">
-                    <button className="accountBtn" onClick={cancelProfileEdit}>
+                    <button
+                        className="accountBtn"
+                        onClick={cancelProfileEdit}
+                        disabled={showLoader}
+                    >
                         Cancel
                     </button>
                     <Button

@@ -58,3 +58,42 @@
     font-size: 1.2rem;
     font-weight: 600;
 }
+
+/* Modal Styling */
+
+.editProfileForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.editProfileFormElement {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.editProfileFormElement label {
+    padding: 3px;
+    align-self: flex-start;
+}
+
+.editProfileFormElement input,
+.editProfileFormElement textarea {
+    padding: 5px;
+    font-size: 1rem;
+
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+.editProfileErrorContainer {
+    align-self: center;
+}
+
+.editProfileErrorList {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: red;
+}
