@@ -64,11 +64,11 @@ function ChannelCard({ channel, numChannels, setNumChannels }) {
             >
                 {channel.users.length > 0 ? (
                     <div className="channelCardImg">
-                        <img src={channel.users[0].avatar} />
+                        <img src={channel.users[0].avatarURL} />
                     </div>
                 ) : (
                     <div className="channelCardImg">
-                        <img src={channel.users[0].avatar} />
+                        <img src={channel.users[0].avatarURL} />
                     </div>
                 )}
                 {channel.title ? (

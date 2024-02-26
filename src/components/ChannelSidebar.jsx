@@ -45,7 +45,6 @@ function ChannelSidebar({ user, numChannels, setNumChannels, updateChannel }) {
                 setError("");
             } catch (err) {
                 setError(err.message);
-                setUser("");
             }
         }
         getChannels();

@@ -84,7 +84,7 @@ function AccountInfo({ user, setUser }) {
             <div className="accountInfoHeader">
                 <div>
                     <div className="accountImg">
-                        <img src={user.avatar} />
+                        <img src={user.avatarURL} />
                     </div>
                     <div className="accountName">{user.name}</div>
                 </div>

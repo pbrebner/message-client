@@ -9,7 +9,7 @@ function UserSidebar({ otherUsers }) {
                     <div key={user._id} className="userCard">
                         <div className="userCardMain">
                             <div className="userCardImg">
-                                <img src={user.avatar} />
+                                <img src={user.avatarURL} />
                             </div>
                             <div className="userCardName">{user.name}</div>
                         </div>

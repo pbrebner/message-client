@@ -20,7 +20,7 @@ function UserProfileTab({ user }) {
         <div className="userProfileTab">
             <div className="userTabMain" onClick={() => setUserTabOpen(true)}>
                 <div className="userTabImg">
-                    <img src={user.avatar} />
+                    <img src={user.avatarURL} />
                 </div>
                 <div className="userTabDetails">
                     <div>{user.name}</div>
@@ -39,7 +39,7 @@ function UserProfileTab({ user }) {
             <div className={`userTabModal ${userTabOpen ? "display" : ""}`}>
                 <div className="userTabModalHeader">
                     <div className="userTabModalImg">
-                        <img src={user.avatar} />
+                        <img src={user.avatarURL} />
                     </div>
                     <Link
                         to="/message-client/account"

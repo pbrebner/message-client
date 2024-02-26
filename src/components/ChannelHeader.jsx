@@ -98,7 +98,7 @@ function ChannelHeader({ otherUsers, channel }) {
                     otherUsers.map((user) => (
                         <div key={user._id} className="channelHeaderUser">
                             <div className="channelHeaderUserImg">
-                                <img src={user.avatar} />
+                                <img src={user.avatarURL} />
                             </div>
                             <div> {user.name}</div>
                         </div>

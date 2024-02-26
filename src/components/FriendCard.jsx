@@ -145,7 +145,7 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
         <div className={`friendCard ${modalOpen ? "hover" : ""}`}>
             <div className="friendCardMain">
                 <div className="friendCardImageContainer">
-                    <img src={friend.targetUser.avatar} alt="Avatar" />
+                    <img src={friend.targetUser.avatarURL} alt="Avatar" />
                 </div>
                 <div className="friendCardInfo">
                     <div className="friendName">{friend.targetUser.name}</div>

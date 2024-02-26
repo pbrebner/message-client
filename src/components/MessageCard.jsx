@@ -105,7 +105,7 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
         >
             <div className="messageImageContainer">
                 <img
-                    src={message.user.avatar}
+                    src={message.user.avatarURL}
                     alt="User"
                     className="messageImage"
                 />
