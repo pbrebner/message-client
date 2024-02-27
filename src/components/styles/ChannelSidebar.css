@@ -2,9 +2,6 @@
     color: white;
     background-color: var(--background);
 
-    min-width: 300px;
-    max-height: 100vh;
-
     display: flex;
     flex-direction: column;
 }
@@ -22,7 +19,7 @@
 .channelSidebarMain {
     flex: 1;
     padding: 10px;
-    overflow-y: auto;
+    max-height: calc(100vh - 51px);
 
     display: flex;
     flex-direction: column;
@@ -46,6 +43,8 @@
 
 .channelCardContainer {
     flex: 1;
+
+    overflow-y: auto;
 }
 
 /* Styling for Overlay*/
