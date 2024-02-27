@@ -46,7 +46,6 @@ function Messages() {
                 setError("");
             } catch (err) {
                 setError(err.message);
-                setUser("");
             }
         }
         getMessages();
