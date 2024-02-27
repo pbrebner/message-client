@@ -72,12 +72,12 @@ function AccountInfo({ user, setUser }) {
         setName(user.name);
         setEmail(user.email);
         setBio(user.bio);
-        setAvatar("");
         setEditModalOpen(true);
     }
 
     function cancelProfileEdit() {
         setFormError("");
+        setAvatar("");
         setEditModalOpen(false);
     }
 
@@ -126,6 +126,7 @@ function AccountInfo({ user, setUser }) {
                             type="file"
                             name="avatar"
                             id="avatar"
+                            file={avatar}
                             onChange={(e) => setAvatar(e.target.files[0])}
                             accept="image/*"
                         />
