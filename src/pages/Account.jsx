@@ -66,10 +66,37 @@ function Account() {
         getUser();
     }, [user]);
 
-    function handleLogOut() {
-        setLoggedIn(false);
-        localStorage.clear();
-        navigate("/message-client/login");
+    async function handleLogOut() {
+        setShowLoader(true);
+        setError("");
+
+        try {
+            const response = await fetch(
+                "https://message-api.fly.dev/api/logout",
+                {
+                    method: "post",
+                    body: formData,
+                    headers: { "content-Type": "application/json" },
+                }
+            );
+
+            const result = await response.json();
+            console.log(result);
+
+            setShowLoader(false);
+
+            if (!response.ok) {
+                throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                );
+            } else {
+                setLoggedIn(false);
+                localStorage.clear();
+                navigate("/message-client/login");
+            }
+        } catch (err) {
+            setError(err.message);
+        }
     }
 
     async function deleteUser() {
@@ -126,12 +153,13 @@ function Account() {
                 <div className="accountDivider"></div>
                 <div className="accountActions">
                     <h2>Log Out</h2>
-                    <button
-                        className="accountBtn logOutBtn"
+                    <Button
+                        styleRef="accountBtn logOutBtn"
                         onClick={handleLogOut}
-                    >
-                        Log Out
-                    </button>
+                        text="Log Out"
+                        loading={showLoader}
+                        disabled={showLoader}
+                    />
                 </div>
                 <div className="accountDivider"></div>
                 <div className="accountActions">
