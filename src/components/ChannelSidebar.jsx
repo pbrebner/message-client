@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import ChannelSearch from "./ChannelSearch";
 import DirectMessagesHeader from "./DirectMessagesHeader";
@@ -11,9 +11,10 @@ function ChannelSidebar({ user, numChannels, setNumChannels, updateChannel }) {
     const [channels, setChannels] = useState("");
     // const [numChannels, setNumChannels] = useState(0);
 
-    const userId = localStorage.getItem("userId");
-
     const [error, setError] = useState("");
+
+    const userId = localStorage.getItem("userId");
+    const navigate = useNavigate();
 
     //Get all users channels
     useEffect(() => {
@@ -31,7 +32,10 @@ function ChannelSidebar({ user, numChannels, setNumChannels, updateChannel }) {
                     }
                 );
 
-                if (!response.ok) {
+                if (response.status == "401") {
+                    // Invalid Token
+                    navigate("/message-client/login");
+                } else if (!response.ok) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
                     );

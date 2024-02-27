@@ -37,7 +37,7 @@ function Channels() {
                     }
                 );
 
-                if (response.status == "403") {
+                if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
                 } else if (!response.ok) {

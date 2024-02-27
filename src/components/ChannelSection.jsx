@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 
 import ChannelHeader from "./ChannelHeader";
 import Messages from "./Messages";
@@ -16,6 +16,7 @@ function ChannelSection() {
     const { channelId } = useParams();
     const updateChannel = useOutletContext();
     const userId = localStorage.getItem("userId");
+    const navigate = useNavigate();
 
     //Get channel
     useEffect(() => {
@@ -33,7 +34,10 @@ function ChannelSection() {
                     }
                 );
 
-                if (!response.ok) {
+                if (response.status == "401") {
+                    // Invalid Token
+                    navigate("/message-client/login");
+                } else if (!response.ok) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
                     );

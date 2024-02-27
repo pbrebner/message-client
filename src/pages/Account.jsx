@@ -16,7 +16,15 @@ function Account() {
     const [loggedIn, setLoggedIn] = useOutletContext();
     const navigate = useNavigate();
 
-    //TODO: Check if user is logged in a redirect if neccessary
+    // Check if user is logged in a redirect if neccessary
+    /*
+    useEffect(() => {
+        if (!loggedIn) {
+            localStorage.clear();
+            navigate("/message-client/login");
+        }
+    });
+    */
 
     // Fetch the User
     useEffect(() => {
@@ -36,7 +44,7 @@ function Account() {
                     }
                 );
 
-                if (response.status == "403") {
+                if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
                 } else if (!response.ok) {

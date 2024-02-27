@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import MessageCard from "./MessageCard";
 import Button from "../components/Button";
@@ -16,6 +16,7 @@ function Messages() {
     const [error, setError] = useState("");
 
     const { channelId } = useParams();
+    const navigate = useNavigate();
 
     //Get all Channel Messages
     useEffect(() => {
@@ -33,7 +34,10 @@ function Messages() {
                     }
                 );
 
-                if (!response.ok) {
+                if (response.status == "401") {
+                    // Invalid Token
+                    navigate("/message-client/login");
+                } else if (!response.ok) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
                     );

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-// import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 import FriendsHeader from "./FriendsHeader";
 import AllFriends from "./AllFriends";
@@ -19,6 +19,8 @@ function FriendsSection() {
     const [showAdd, setShowAdd] = useState(false);
 
     const [error, setError] = useState("");
+
+    const navigate = useNavigate();
 
     //const user = useOutletContext();
 
@@ -42,7 +44,10 @@ function FriendsSection() {
                     }
                 );
 
-                if (!response.ok) {
+                if (response.status == "401") {
+                    // Invalid Token
+                    navigate("/message-client/login");
+                } else if (!response.ok) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
                     );
