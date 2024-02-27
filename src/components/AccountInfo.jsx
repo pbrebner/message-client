@@ -20,11 +20,11 @@ function AccountInfo({ user, setUser }) {
         setError("");
         setFormError("");
 
-        formData = JSON.stringify({
-            name: name,
-            email: email,
-            bio: bio,
-        });
+        let formData = new FormData();
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("bio", bio);
+        formData.append("avatar", avatar);
 
         // Make request to update User
         try {
@@ -34,7 +34,7 @@ function AccountInfo({ user, setUser }) {
                     method: "put",
                     body: formData,
                     headers: {
-                        "Content-Type": "application/json",
+                        "Content-Type": "multipart/form-data",
                         authorization: `Bearer ${localStorage.getItem(
                             "token"
                         )}`,
@@ -48,7 +48,9 @@ function AccountInfo({ user, setUser }) {
             setShowLoader(false);
             setEditModalOpen(false);
 
-            if (!response.ok) {
+            if (response.status == 400) {
+                setFormError(result.errors);
+            } else if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );
@@ -58,7 +60,7 @@ function AccountInfo({ user, setUser }) {
                     name: name,
                     email: email,
                     bio: bio,
-                    avatar: avatar,
+                    avatar: result.avatar,
                 });
             }
         } catch (err) {
@@ -70,7 +72,7 @@ function AccountInfo({ user, setUser }) {
         setName(user.name);
         setEmail(user.email);
         setBio(user.bio);
-        setAvatar(user.avatar);
+        setAvatar("");
         setEditModalOpen(true);
     }
 
@@ -115,8 +117,20 @@ function AccountInfo({ user, setUser }) {
             </div>
             <div className={`accountModal ${editModalOpen ? "display" : ""}`}>
                 <h2>Profile Information</h2>
-                <div className="accountDivider"></div>
+
                 <form className="editProfileForm">
+                    <div className="accountDivider"></div>
+                    <div className="editProfileFormElement">
+                        <label htmlFor="avatar">Avatar</label>
+                        <input
+                            type="file"
+                            name="avatar"
+                            id="avatar"
+                            onChange={(e) => setAvatar(e.target.files[0])}
+                            accept="image/*"
+                        />
+                    </div>
+                    <div className="accountDivider"></div>
                     <div className="editProfileFormElement">
                         <label htmlFor="name">Name</label>
                         <input
