@@ -10,11 +10,9 @@ function AddFriend({ numFriends, setNumFriends }) {
     const [showLoader, setShowLoader] = useState(false);
 
     const [formError, setFormError] = useState("");
-    const [error, setError] = useState("");
 
-    const user = useOutletContext();
+    const [user, setError] = useOutletContext();
 
-    // TODO: Need to have numFriends and setNumFriends as props
     async function sendFriendRequest(e) {
         e.preventDefault();
 
@@ -60,6 +58,7 @@ function AddFriend({ numFriends, setNumFriends }) {
             }
         } catch (err) {
             setError(err.message);
+            setShowLoader(false);
         }
     }
 

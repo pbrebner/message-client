@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
 import Button from "../components/Button";
 import "./styles/RegisterPages.css";
@@ -13,7 +13,7 @@ function Register() {
     const [showLoader, setShowLoader] = useState(false);
 
     const [formError, setFormError] = useState("");
-    const [error, setError] = useState("");
+    const [setError] = useOutletContext();
 
     const navigate = useNavigate();
 
@@ -41,7 +41,6 @@ function Register() {
                 }
             );
 
-            console.log(response);
             const result = await response.json();
             console.log(result.errors);
 
@@ -57,8 +56,8 @@ function Register() {
                 navigate("/message-client/login");
             }
         } catch (err) {
-            // TODO: Add general errors to page
             setError(err.message);
+            setShowLoader(false);
         }
     }
 

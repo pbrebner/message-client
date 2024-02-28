@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 
 import MessageCard from "./MessageCard";
 import Button from "../components/Button";
@@ -13,7 +13,7 @@ function Messages() {
     const [showLoader, setShowLoader] = useState(false);
 
     const [formError, setFormError] = useState("");
-    const [error, setError] = useState("");
+    const [setError] = useOutletContext();
 
     const { channelId } = useParams();
     const navigate = useNavigate();
@@ -34,6 +34,9 @@ function Messages() {
                     }
                 );
 
+                const data = await response.json();
+                console.log(data);
+
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
@@ -41,13 +44,10 @@ function Messages() {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
                     );
+                } else {
+                    setMessages(data);
+                    setError("");
                 }
-
-                const data = await response.json();
-                console.log(data);
-
-                setMessages(data);
-                setError("");
             } catch (err) {
                 setError(err.message);
             }
@@ -82,7 +82,6 @@ function Messages() {
                 }
             );
 
-            console.log(response);
             const result = await response.json();
             console.log(result);
 
@@ -102,6 +101,7 @@ function Messages() {
             }
         } catch (err) {
             setError(err.message);
+            setShowLoader(false);
         }
     }
 

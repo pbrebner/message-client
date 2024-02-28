@@ -14,9 +14,7 @@ function Account() {
     // Used just to trigger component refresh
     const [updateUser, setUpdateUser] = useState(0);
 
-    const [error, setError] = useState("");
-
-    const [loggedIn, setLoggedIn] = useOutletContext();
+    const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
 
     // Fetch the User

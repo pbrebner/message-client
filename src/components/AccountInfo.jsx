@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 import Button from "../components/Button";
 import "./styles/AccountInfo.css";
@@ -12,7 +13,7 @@ function AccountInfo({ user, updateUser, setUpdateUser }) {
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
-    const [error, setError] = useState("");
+    const [setError] = useOutletContext();
     const [formError, setFormError] = useState("");
 
     function getFormData() {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate, Outlet, useOutletContext } from "react-router-dom";
 
 import ChannelSidebar from "../components/ChannelSidebar";
 
@@ -12,7 +12,7 @@ function Channels() {
     // Used just to trigger component refresh
     const [updateChannel, setUpdateChannel] = useState(0);
 
-    const [error, setError] = useState("");
+    const [setError] = useOutletContext();
 
     const navigate = useNavigate();
 

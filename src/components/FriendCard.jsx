@@ -8,10 +8,14 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
-    const [error, setError] = useState("");
-
-    const [user, numChannels, setNumChannels, updateChannel, setUpdateChannel] =
-        useOutletContext();
+    const [
+        user,
+        numChannels,
+        setNumChannels,
+        updateChannel,
+        setUpdateChannel,
+        setError,
+    ] = useOutletContext();
     const navigate = useNavigate();
 
     let online = "";
@@ -60,6 +64,7 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
             }
         } catch (err) {
             setError(err.message);
+            setShowLoader(false);
         }
     }
 
@@ -97,6 +102,7 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
             }
         } catch (err) {
             setError(err.message);
+            setShowLoader(false);
         }
     }
 
@@ -137,6 +143,8 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
             }
         } catch (err) {
             setError(err.message);
+            setShowLoader(false);
+            setModalOpen(false);
         }
     }
 

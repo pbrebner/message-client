@@ -2,8 +2,8 @@
 
 .register,
 .login {
+    flex: 1;
     background-color: var(--background);
-    min-height: 100vh;
 
     display: flex;
     align-items: center;

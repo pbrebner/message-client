@@ -18,11 +18,8 @@ function FriendsSection() {
     const [showPending, setShowPending] = useState(false);
     const [showAdd, setShowAdd] = useState(false);
 
-    const [error, setError] = useState("");
-
     const navigate = useNavigate();
-
-    //const user = useOutletContext();
+    const [setError] = useOutletContext();
 
     // Fetch user friends
     useEffect(() => {
@@ -44,6 +41,9 @@ function FriendsSection() {
                     }
                 );
 
+                const data = await response.json();
+                console.log(data);
+
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
@@ -51,18 +51,15 @@ function FriendsSection() {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
                     );
+                } else {
+                    setFriends(data.filter((friend) => friend.status == 3));
+                    setNumFriends(data.length);
+                    setPendingFriends(
+                        data.filter(
+                            (friend) => friend.status == 1 || friend.status == 2
+                        )
+                    );
                 }
-
-                const data = await response.json();
-                console.log(data);
-
-                setFriends(data.filter((friend) => friend.status == 3));
-                setNumFriends(data.length);
-                setPendingFriends(
-                    data.filter(
-                        (friend) => friend.status == 1 || friend.status == 2
-                    )
-                );
             } catch (err) {
                 setError(err.message);
             }

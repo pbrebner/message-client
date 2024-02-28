@@ -13,10 +13,8 @@ function ChannelHeader({ otherUsers, channel }) {
 
     const [showLoader, setShowLoader] = useState(false);
 
-    const [error, setError] = useState("");
     const [formError, setFormError] = useState("");
-
-    const [updateChannel, setUpdateChannel] = useOutletContext();
+    const [updateChannel, setUpdateChannel, setError] = useOutletContext();
 
     async function handleUpdateChannel() {
         setShowLoader(true);
@@ -61,6 +59,7 @@ function ChannelHeader({ otherUsers, channel }) {
             }
         } catch (err) {
             setError(err.message);
+            setShowLoader(false);
             closeModals();
         }
     }

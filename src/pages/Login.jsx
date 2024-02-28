@@ -11,9 +11,8 @@ function Login() {
     const [showLoader, setShowLoader] = useState(false);
 
     const [formError, setFormError] = useState("");
-    const [error, setError] = useState("");
 
-    const [loggedIn, setLoggedIn] = useOutletContext();
+    const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
 
     async function handleLogin(e) {
@@ -38,7 +37,6 @@ function Login() {
                 }
             );
 
-            console.log(response);
             const result = await response.json();
             console.log(result);
 
@@ -61,8 +59,8 @@ function Login() {
                 navigate("/message-client/channels");
             }
         } catch (err) {
-            // TODO: Add general errors to page
             setError(err.message);
+            setShowLoader(false);
         }
     }
 

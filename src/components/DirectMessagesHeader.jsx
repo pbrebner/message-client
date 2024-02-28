@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import uniqid from "uniqid";
 
 import Button from "./Button";
@@ -15,8 +15,7 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
     const [showLoader, setShowLoader] = useState(false);
 
     const [formError, setFormError] = useState("");
-    const [error, setError] = useState("");
-
+    const [setError] = useOutletContext();
     const navigate = useNavigate();
 
     async function createNewChannel() {
@@ -72,6 +71,7 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
             }
         } catch (err) {
             setError(err.message);
+            setShowLoader(false);
             closeNewChannel();
         }
     }

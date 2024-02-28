@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
+import AppError from "./components/AppError";
 import "./App.css";
 
 function App() {
-    let [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [error, setError] = useState("");
 
     // Need to redirect to appropriate page depending if user is logged in
     // Initially checks if logged in when page is refreshed
@@ -14,7 +16,8 @@ function App() {
 
     return (
         <div className="app">
-            <Outlet context={[loggedIn, setLoggedIn]} />
+            {error && <AppError error={error} />}
+            <Outlet context={[loggedIn, setLoggedIn, setError]} />
         </div>
     );
 }

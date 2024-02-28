@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 import { formatDate } from "../utils/dates.js";
 import like from "../assets/icons/like.png";
@@ -11,7 +12,7 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
 
     const userId = localStorage.getItem("userId");
 
-    const [error, setError] = useState("");
+    const [setError] = useOutletContext();
 
     async function likeMessage() {
         let likes = messageLikes + 1;
@@ -85,6 +86,7 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
             }
         } catch (err) {
             setError(err.message);
+            toggleModal();
         }
     }
 

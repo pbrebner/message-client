@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useOutletContext } from "react-router-dom";
 
 import "./styles/ChannelCard.css";
 
 function ChannelCard({ channel, numChannels, setNumChannels }) {
     const [hover, setHover] = useState(false);
 
-    const [error, setError] = useState("");
+    const [setError] = useOutletContext();
 
     // This runs on every render change
     let channelUserNames = "";

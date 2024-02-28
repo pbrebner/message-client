@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
 import ChannelSearch from "./ChannelSearch";
 import DirectMessagesHeader from "./DirectMessagesHeader";
@@ -11,8 +11,7 @@ function ChannelSidebar({ user, numChannels, setNumChannels, updateChannel }) {
     const [channels, setChannels] = useState("");
     // const [numChannels, setNumChannels] = useState(0);
 
-    const [error, setError] = useState("");
-
+    const [setError] = useOutletContext();
     const userId = localStorage.getItem("userId");
     const navigate = useNavigate();
 
