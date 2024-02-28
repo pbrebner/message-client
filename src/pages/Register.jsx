@@ -13,7 +13,7 @@ function Register() {
     const [showLoader, setShowLoader] = useState(false);
 
     const [formError, setFormError] = useState("");
-    const [setError] = useOutletContext();
+    const [loggedIn, setLoggedIn, setError] = useOutletContext();
 
     const navigate = useNavigate();
 

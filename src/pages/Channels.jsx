@@ -12,7 +12,7 @@ function Channels() {
     // Used just to trigger component refresh
     const [updateChannel, setUpdateChannel] = useState(0);
 
-    const [setError] = useOutletContext();
+    const [loggedIn, setLoggedIn, setError] = useOutletContext();
 
     const navigate = useNavigate();
 
@@ -34,6 +34,9 @@ function Channels() {
                     }
                 );
 
+                const data = await response.json();
+                console.log(data);
+
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
@@ -41,14 +44,11 @@ function Channels() {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
                     );
+                } else {
+                    setUser(data.user);
+                    setNumChannels(data.user.channels.length);
+                    setError("");
                 }
-
-                const data = await response.json();
-                console.log(data);
-
-                setUser(data.user);
-                setNumChannels(data.user.channels.length);
-                setError("");
             } catch (err) {
                 setError(err.message);
                 setUser("");
@@ -73,6 +73,7 @@ function Channels() {
                     setNumChannels,
                     updateChannel,
                     setUpdateChannel,
+                    setError,
                 ]}
             />
         </div>

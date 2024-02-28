@@ -19,7 +19,14 @@ function FriendsSection() {
     const [showAdd, setShowAdd] = useState(false);
 
     const navigate = useNavigate();
-    const [setError] = useOutletContext();
+    const [
+        user,
+        numChannels,
+        setNumChannels,
+        updateChannel,
+        setUpdateChannel,
+        setError,
+    ] = useOutletContext();
 
     // Fetch user friends
     useEffect(() => {

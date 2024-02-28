@@ -6,7 +6,7 @@ import "./styles/ChannelCard.css";
 function ChannelCard({ channel, numChannels, setNumChannels }) {
     const [hover, setHover] = useState(false);
 
-    const [setError] = useOutletContext();
+    const [loggedIn, setLoggedIn, setError] = useOutletContext();
 
     // This runs on every render change
     let channelUserNames = "";

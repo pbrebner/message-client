@@ -12,7 +12,14 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
 
     const userId = localStorage.getItem("userId");
 
-    const [setError] = useOutletContext();
+    const [
+        user,
+        numChannels,
+        setNumChannels,
+        updateChannel,
+        setUpdateChannel,
+        setError,
+    ] = useOutletContext();
 
     async function likeMessage() {
         let likes = messageLikes + 1;

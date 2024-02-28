@@ -15,7 +15,7 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
     const [showLoader, setShowLoader] = useState(false);
 
     const [formError, setFormError] = useState("");
-    const [setError] = useOutletContext();
+    const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
 
     async function createNewChannel() {

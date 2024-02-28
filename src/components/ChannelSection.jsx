@@ -12,7 +12,14 @@ function ChannelSection() {
     const [otherUsers, setOtherUsers] = useState([]);
 
     const { channelId } = useParams();
-    const [updateChannel, setError] = useOutletContext();
+    const [
+        user,
+        numChannels,
+        setNumChannels,
+        updateChannel,
+        setUpdateChannel,
+        setError,
+    ] = useOutletContext();
     const userId = localStorage.getItem("userId");
     const navigate = useNavigate();
 

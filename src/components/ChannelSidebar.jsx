@@ -11,7 +11,7 @@ function ChannelSidebar({ user, numChannels, setNumChannels, updateChannel }) {
     const [channels, setChannels] = useState("");
     // const [numChannels, setNumChannels] = useState(0);
 
-    const [setError] = useOutletContext();
+    const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const userId = localStorage.getItem("userId");
     const navigate = useNavigate();
 
@@ -38,14 +38,14 @@ function ChannelSidebar({ user, numChannels, setNumChannels, updateChannel }) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
                     );
+                } else {
+                    const data = await response.json();
+                    console.log(data);
+
+                    setChannels(getFilteredChannels(data));
+                    // setNumChannels(data.length);
+                    setError("");
                 }
-
-                const data = await response.json();
-                console.log(data);
-
-                setChannels(getFilteredChannels(data));
-                // setNumChannels(data.length);
-                setError("");
             } catch (err) {
                 setError(err.message);
             }

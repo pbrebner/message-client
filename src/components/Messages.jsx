@@ -13,7 +13,14 @@ function Messages() {
     const [showLoader, setShowLoader] = useState(false);
 
     const [formError, setFormError] = useState("");
-    const [setError] = useOutletContext();
+    const [
+        user,
+        numChannels,
+        setNumChannels,
+        updateChannel,
+        setUpdateChannel,
+        setError,
+    ] = useOutletContext();
 
     const { channelId } = useParams();
     const navigate = useNavigate();

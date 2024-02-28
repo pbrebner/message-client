@@ -11,7 +11,14 @@ function AddFriend({ numFriends, setNumFriends }) {
 
     const [formError, setFormError] = useState("");
 
-    const [user, setError] = useOutletContext();
+    const [
+        user,
+        numChannels,
+        setNumChannels,
+        updateChannel,
+        setUpdateChannel,
+        setError,
+    ] = useOutletContext();
 
     async function sendFriendRequest(e) {
         e.preventDefault();

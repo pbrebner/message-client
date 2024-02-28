@@ -14,7 +14,14 @@ function ChannelHeader({ otherUsers, channel }) {
     const [showLoader, setShowLoader] = useState(false);
 
     const [formError, setFormError] = useState("");
-    const [updateChannel, setUpdateChannel, setError] = useOutletContext();
+    const [
+        user,
+        numChannels,
+        setNumChannels,
+        updateChannel,
+        setUpdateChannel,
+        setError,
+    ] = useOutletContext();
 
     async function handleUpdateChannel() {
         setShowLoader(true);

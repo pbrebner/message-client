@@ -13,7 +13,7 @@ function AccountInfo({ user, updateUser, setUpdateUser }) {
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
-    const [setError] = useOutletContext();
+    const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const [formError, setFormError] = useState("");
 
     function getFormData() {
