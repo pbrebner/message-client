@@ -7,7 +7,6 @@ import "./styles/Channels.css";
 
 function Channels() {
     const [user, setUser] = useState("");
-    //const [channels, setChannels] = useState("");
     const [numChannels, setNumChannels] = useState(0);
 
     // Used just to trigger component refresh
@@ -16,8 +15,6 @@ function Channels() {
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
-
-    //TODO: Confirm that the user is logged In, otherwise redirect to login
 
     // Fetch the User
     useEffect(() => {
@@ -50,7 +47,6 @@ function Channels() {
                 console.log(data);
 
                 setUser(data.user);
-                //setChannels(data.user.channels);
                 setNumChannels(data.user.channels.length);
                 setError("");
             } catch (err) {
