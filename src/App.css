@@ -6,6 +6,18 @@
     flex-direction: column;
 }
 
+.appError {
+    height: 50px;
+    flex-shrink: 0;
+    background-color: var(--background);
+    color: red;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
