@@ -61,6 +61,7 @@ function ChannelHeader({ otherUsers, channel }) {
             }
         } catch (err) {
             setError(err.message);
+            closeModals();
         }
     }
 

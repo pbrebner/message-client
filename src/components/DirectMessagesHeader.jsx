@@ -50,7 +50,6 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
                 }
             );
 
-            console.log(response);
             const result = await response.json();
             console.log(result);
 
@@ -73,6 +72,7 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
             }
         } catch (err) {
             setError(err.message);
+            closeNewChannel();
         }
     }
 
