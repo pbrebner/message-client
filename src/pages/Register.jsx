@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
 import Button from "../components/Button";
@@ -16,6 +16,17 @@ function Register() {
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
 
     const navigate = useNavigate();
+
+    // Checks if user is logged in
+    /*
+    useEffect(() => {
+        if (localStorage.getItem("userAuth")) {
+            navigate("./message-client/channels");
+        } else {
+            navigate("./message-client/login");
+        }
+    }, []);
+    */
 
     async function handleRegister(e) {
         e.preventDefault();
