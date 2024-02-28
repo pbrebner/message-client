@@ -10,7 +10,8 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
 
     const [error, setError] = useState("");
 
-    const [user, numChannels, setNumChannels] = useOutletContext();
+    const [user, numChannels, setNumChannels, updateChannel, setUpdateChannel] =
+        useOutletContext();
     const navigate = useNavigate();
 
     let online = "";
@@ -131,6 +132,8 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
             } else {
                 let val = numFriends - 1;
                 setNumFriends(val);
+                let val2 = updateChannel + 1;
+                setUpdateChannel(val2);
             }
         } catch (err) {
             setError(err.message);
