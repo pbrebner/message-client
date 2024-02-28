@@ -3,7 +3,7 @@ import { useState } from "react";
 import Button from "../components/Button";
 import "./styles/AccountInfo.css";
 
-function AccountInfo({ user, setUser }) {
+function AccountInfo({ user, updateUser, setUpdateUser }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [bio, setBio] = useState("");
@@ -15,16 +15,25 @@ function AccountInfo({ user, setUser }) {
     const [error, setError] = useState("");
     const [formError, setFormError] = useState("");
 
+    function getFormData() {
+        let formData = new FormData();
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("bio", bio);
+
+        if (avatar) {
+            formData.append("avatar", avatar);
+        }
+
+        return formData;
+    }
+
     async function updateUser() {
         setShowLoader(true);
         setError("");
         setFormError("");
 
-        let formData = new FormData();
-        formData.append("name", name);
-        formData.append("email", email);
-        formData.append("bio", bio);
-        formData.append("avatar", avatar);
+        const formData = getFormData();
 
         // Make request to update User
         try {
@@ -34,7 +43,6 @@ function AccountInfo({ user, setUser }) {
                     method: "put",
                     body: formData,
                     headers: {
-                        "Content-Type": "multipart/form-data",
                         authorization: `Bearer ${localStorage.getItem(
                             "token"
                         )}`,
@@ -46,7 +54,6 @@ function AccountInfo({ user, setUser }) {
             console.log(result);
 
             setShowLoader(false);
-            setEditModalOpen(false);
 
             if (response.status == 400) {
                 setFormError(result.errors);
@@ -55,16 +62,15 @@ function AccountInfo({ user, setUser }) {
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
-                setUser({
-                    ...user,
-                    name: name,
-                    email: email,
-                    bio: bio,
-                    avatar: result.avatar,
-                });
+                const val = updateUser + 1;
+                setUpdateUser(val);
+                setEditModalOpen(false);
             }
         } catch (err) {
             setError(err.message);
+
+            setShowLoader(false);
+            setEditModalOpen(false);
         }
     }
 
@@ -118,7 +124,7 @@ function AccountInfo({ user, setUser }) {
             <div className={`accountModal ${editModalOpen ? "display" : ""}`}>
                 <h2>Profile Information</h2>
 
-                <form className="editProfileForm">
+                <form className="editProfileForm" encType="multipart/form-data">
                     <div className="accountDivider"></div>
                     <div className="editProfileFormElement">
                         <label htmlFor="avatar">Avatar</label>

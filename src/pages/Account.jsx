@@ -11,20 +11,13 @@ function Account() {
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
+    // Used just to trigger component refresh
+    const [updateUser, setUpdateUser] = useState(0);
+
     const [error, setError] = useState("");
 
     const [loggedIn, setLoggedIn] = useOutletContext();
     const navigate = useNavigate();
-
-    // Check if user is logged in a redirect if neccessary
-    /*
-    useEffect(() => {
-        if (!loggedIn) {
-            localStorage.clear();
-            navigate("/message-client/login");
-        }
-    });
-    */
 
     // Fetch the User
     useEffect(() => {
@@ -64,8 +57,9 @@ function Account() {
             }
         }
         getUser();
-    }, [user]);
+    }, [updateUser]);
 
+    /*
     async function handleLogOut() {
         setShowLoader(true);
         setError("");
@@ -75,7 +69,6 @@ function Account() {
                 "https://message-api.fly.dev/api/logout",
                 {
                     method: "post",
-                    body: formData,
                     headers: { "content-Type": "application/json" },
                 }
             );
@@ -96,7 +89,16 @@ function Account() {
             }
         } catch (err) {
             setError(err.message);
+            console.log(err.message);
+            setShowLoader(false);
         }
+    }
+    */
+
+    function handleLogOut() {
+        setLoggedIn(false);
+        localStorage.clear();
+        navigate("/message-client/login");
     }
 
     async function deleteUser() {
@@ -106,7 +108,9 @@ function Account() {
         // Make request to delete User
         try {
             const response = await fetch(
-                `https://message-api.fly.dev/api/users/${user._id}`,
+                `https://message-api.fly.dev/api/users/${localStorage.getItem(
+                    "userId"
+                )}`,
                 {
                     method: "delete",
                     headers: {
@@ -133,6 +137,9 @@ function Account() {
             }
         } catch (err) {
             setError(err.message);
+
+            setShowLoader(false);
+            setDeleteModalOpen(false);
         }
     }
 
@@ -149,7 +156,11 @@ function Account() {
                         Back to Channels
                     </Link>
                 </div>
-                <AccountInfo user={user} setUser={setUser} />
+                <AccountInfo
+                    user={user}
+                    updateUser={updateUser}
+                    setUpdateUser={setUpdateUser}
+                />
                 <div className="accountDivider"></div>
                 <div className="accountActions">
                     <h2>Log Out</h2>
