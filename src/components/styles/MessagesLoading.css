@@ -1,0 +1,65 @@
+.messagesLoading {
+    overflow: hidden;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 10px;
+
+    background-color: var(--background);
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    z-index: 5;
+    pointer-events: none;
+}
+
+.messageCardLoader {
+    padding: 10px;
+
+    display: grid;
+    grid-template-columns: 60px 1fr;
+}
+
+.messageCardLoaderImage {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--accent-grey);
+    animation: skeleton-loading 1s ease-in-out infinite alternate;
+}
+
+.messageCardLoaderText {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.messageCardLoaderHeader {
+    height: 15px;
+    width: 50%;
+    border-radius: 5px;
+    background-color: var(--accent-grey);
+    animation: skeleton-loading 1s ease-in-out infinite alternate;
+}
+
+.messageCardLoaderContent {
+    height: 10px;
+    width: 95%;
+    border-radius: 5px;
+    background-color: var(--accent-grey);
+    animation: skeleton-loading 1s ease-in-out infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0.7;
+    }
+}
