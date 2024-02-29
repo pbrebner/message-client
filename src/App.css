@@ -18,6 +18,23 @@
     justify-content: center;
 }
 
+/* Styling for Overlay*/
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 5;
+
+    pointer-events: none;
+}
+
+.overlay.display {
+    pointer-events: all;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
