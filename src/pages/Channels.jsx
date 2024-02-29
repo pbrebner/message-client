@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import { useNavigate, Outlet, useOutletContext } from "react-router-dom";
 
 import ChannelSidebar from "../components/ChannelSidebar";
+import PageLoader from "../components/PageLoader";
 
 import "./styles/Channels.css";
 
 function Channels() {
     const [user, setUser] = useState("");
     const [numChannels, setNumChannels] = useState(0);
-
     // Used just to trigger component refresh
     const [updateChannel, setUpdateChannel] = useState(0);
 
-    const [loggedIn, setLoggedIn, setError] = useOutletContext();
+    const [pageLoading, setPageLoading] = useState(true);
 
+    const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
 
     // Fetch the User
@@ -37,6 +38,10 @@ function Channels() {
                 const data = await response.json();
                 console.log(data);
 
+                setTimeout(() => {
+                    setPageLoading(false);
+                }, "2000");
+
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
@@ -52,31 +57,38 @@ function Channels() {
             } catch (err) {
                 setError(err.message);
                 setUser("");
+
+                setTimeout(() => {
+                    setPageLoading(false);
+                }, "2000");
             }
         }
         getUser();
     }, []);
 
     return (
-        <div className="channelsPage">
-            <ChannelSidebar
-                user={user}
-                numChannels={numChannels}
-                setNumChannels={setNumChannels}
-                updateChannel={updateChannel}
-            />
-            <div className="vl"></div>
-            <Outlet
-                context={[
-                    user,
-                    numChannels,
-                    setNumChannels,
-                    updateChannel,
-                    setUpdateChannel,
-                    setError,
-                ]}
-            />
-        </div>
+        <>
+            {pageLoading && <PageLoader />}
+            <div className="channelsPage">
+                <ChannelSidebar
+                    user={user}
+                    numChannels={numChannels}
+                    setNumChannels={setNumChannels}
+                    updateChannel={updateChannel}
+                />
+                <div className="vl"></div>
+                <Outlet
+                    context={[
+                        user,
+                        numChannels,
+                        setNumChannels,
+                        updateChannel,
+                        setUpdateChannel,
+                        setError,
+                    ]}
+                />
+            </div>
+        </>
     );
 }
 

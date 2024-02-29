@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
 import AccountInfo from "../components/AccountInfo";
+import PageLoader from "../components/PageLoader";
 import Button from "../components/Button";
 import "./styles/Account.css";
 
@@ -10,9 +11,10 @@ function Account() {
 
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
-
     // Used just to trigger component refresh
     const [updateUser, setUpdateUser] = useState(0);
+
+    const [pageLoading, setPageLoading] = useState(true);
 
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
@@ -35,6 +37,13 @@ function Account() {
                     }
                 );
 
+                const data = await response.json();
+                console.log(data);
+
+                setTimeout(() => {
+                    setPageLoading(false);
+                }, "2000");
+
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
@@ -42,16 +51,17 @@ function Account() {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
                     );
+                } else {
+                    setUser(data.user);
+                    setError("");
                 }
-
-                const data = await response.json();
-                console.log(data);
-
-                setUser(data.user);
-                setError("");
             } catch (err) {
                 setError(err.message);
                 setUser("");
+
+                setTimeout(() => {
+                    setPageLoading(false);
+                }, "2000");
             }
         }
         getUser();
@@ -146,66 +156,79 @@ function Account() {
     }
 
     return (
-        <div className="account">
-            <div className="accountMain">
-                <div className="accountHeader">
-                    <h2>My Account</h2>
-                    <Link to="/message-client/channels" className="accountLink">
-                        Back to Channels
-                    </Link>
-                </div>
-                <AccountInfo
-                    user={user}
-                    updateUser={updateUser}
-                    setUpdateUser={setUpdateUser}
-                />
-                <div className="accountDivider"></div>
-                <div className="accountActions">
-                    <h2>Log Out</h2>
-                    <Button
-                        styleRef="accountBtn logOutBtn"
-                        onClick={handleLogOut}
-                        text="Log Out"
-                        loading={showLoader}
-                        disabled={showLoader}
+        <>
+            {pageLoading && <PageLoader />}
+            <div className="account">
+                <div className="accountMain">
+                    <div className="accountHeader">
+                        <h2>My Account</h2>
+                        <Link
+                            to="/message-client/channels"
+                            className="accountLink"
+                        >
+                            Back to Channels
+                        </Link>
+                    </div>
+                    <AccountInfo
+                        user={user}
+                        updateUser={updateUser}
+                        setUpdateUser={setUpdateUser}
                     />
+                    <div className="accountDivider"></div>
+                    <div className="accountActions">
+                        <h2>Log Out</h2>
+                        <Button
+                            styleRef="accountBtn logOutBtn"
+                            onClick={handleLogOut}
+                            text="Log Out"
+                            loading={showLoader}
+                            disabled={showLoader}
+                        />
+                    </div>
+                    <div className="accountDivider"></div>
+                    <div className="accountActions">
+                        <h2>Account Removal</h2>
+                        <p>
+                            Deleting the account is permanent and can't be
+                            undone.
+                        </p>
+                        <button
+                            className="deleteAccountBtn"
+                            onClick={() => setDeleteModalOpen(true)}
+                        >
+                            Delete Account
+                        </button>
+                    </div>
                 </div>
-                <div className="accountDivider"></div>
-                <div className="accountActions">
-                    <h2>Account Removal</h2>
+                <div
+                    className={`accountModal ${
+                        deleteModalOpen ? "display" : ""
+                    }`}
+                >
+                    <h2>Confirm Delete?</h2>
                     <p>
                         Deleting the account is permanent and can't be undone.
                     </p>
-                    <button
-                        className="deleteAccountBtn"
-                        onClick={() => setDeleteModalOpen(true)}
-                    >
-                        Delete Account
-                    </button>
+                    <div className="accountDivider"></div>
+                    <div className="accountModalBtns">
+                        <button className="accountBtn" onClick={closeModals}>
+                            Cancel
+                        </button>
+                        <Button
+                            styleRef="deleteAccountBtn"
+                            onClick={deleteUser}
+                            text="Confirm Delete"
+                            loading={showLoader}
+                            disabled={showLoader}
+                        />
+                    </div>
                 </div>
+                <div
+                    className={`overlay ${deleteModalOpen ? "display" : ""}`}
+                    onClick={closeModals}
+                ></div>
             </div>
-            <div className={`accountModal ${deleteModalOpen ? "display" : ""}`}>
-                <h2>Confirm Delete?</h2>
-                <p>Deleting the account is permanent and can't be undone.</p>
-                <div className="accountDivider"></div>
-                <div className="accountModalBtns">
-                    <button className="accountBtn" onClick={closeModals}>
-                        Cancel
-                    </button>
-                    <Button
-                        styleRef="deleteAccountBtn"
-                        onClick={deleteUser}
-                        text="Confirm Delete"
-                        loading={showLoader}
-                        disabled={showLoader}
-                    />
-                </div>
-            </div>
-            <div
-                className={`overlay ${deleteModalOpen ? "display" : ""}`}
-                onClick={closeModals}
-            ></div>
-        </div>
+        </>
     );
 }
 
