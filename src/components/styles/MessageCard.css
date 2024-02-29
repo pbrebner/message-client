@@ -1,5 +1,5 @@
 .messageCard {
-    padding: 10px;
+    padding: 10px 20px;
 
     display: grid;
     grid-template-columns: 60px 1fr;

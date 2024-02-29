@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 
 import MessageCard from "./MessageCard";
+import MessagesLoading from "./MessagesLoading";
 import Button from "../components/Button";
 import "./styles/Messages.css";
 
@@ -11,6 +12,7 @@ function Messages() {
     const [newMessage, setNewMessage] = useState("");
 
     const [showLoader, setShowLoader] = useState(false);
+    const [pageLoading, setPageLoading] = useState(true);
 
     const [formError, setFormError] = useState("");
     const [
@@ -28,6 +30,7 @@ function Messages() {
     //Get all Channel Messages
     useEffect(() => {
         async function getMessages() {
+            setPageLoading(true);
             try {
                 const response = await fetch(
                     `https://message-api.fly.dev/api/channels/${channelId}/messages`,
@@ -44,6 +47,10 @@ function Messages() {
                 const data = await response.json();
                 console.log(data);
 
+                setTimeout(() => {
+                    setPageLoading(false);
+                }, "1500");
+
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
@@ -57,6 +64,9 @@ function Messages() {
                 }
             } catch (err) {
                 setError(err.message);
+                setTimeout(() => {
+                    setPageLoading(false);
+                }, "1500");
             }
         }
         getMessages();
@@ -115,6 +125,7 @@ function Messages() {
     return (
         <div className="messagesSection">
             <div className="messagesContainer">
+                {pageLoading && <MessagesLoading />}
                 {messages.length > 0 ? (
                     messages.map((message) => (
                         <MessageCard
@@ -129,6 +140,7 @@ function Messages() {
                     <div>No messages yet</div>
                 )}
             </div>
+
             <form className="newMessageForm">
                 <input
                     type="text"
