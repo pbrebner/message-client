@@ -39,6 +39,9 @@ function ChannelSection() {
                     }
                 );
 
+                const data = await response.json();
+                console.log(data);
+
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
@@ -46,14 +49,11 @@ function ChannelSection() {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
                     );
+                } else {
+                    setChannel(data);
+                    getOtherUsers(data.users);
+                    setError("");
                 }
-
-                const data = await response.json();
-                console.log(data);
-
-                setChannel(data);
-                getOtherUsers(data.users);
-                setError("");
             } catch (err) {
                 setError(err.message);
             }
