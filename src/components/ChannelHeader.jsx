@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import Button from "./Button";
 import "./styles/ChannelHeader.css";
 
-function ChannelHeader({ otherUsers, channel }) {
+function ChannelHeader({ otherUsers, channel, pageLoading }) {
     const [addUser, setAddUser] = useState("");
     const [addUserOpen, setAddUserOpen] = useState(false);
 
@@ -101,6 +101,11 @@ function ChannelHeader({ otherUsers, channel }) {
     return (
         <div className="channelHeader">
             <div className="channelHeaderUsers">
+                {pageLoading && (
+                    <div className="channelHeaderLoader">
+                        <div className="channelHeaderLoaderCard"></div>
+                    </div>
+                )}
                 {otherUsers &&
                     otherUsers.map((user) => (
                         <div key={user._id} className="channelHeaderUser">
