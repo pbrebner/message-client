@@ -11,6 +11,8 @@ function ChannelSection() {
     const [channel, setChannel] = useState("");
     const [otherUsers, setOtherUsers] = useState([]);
 
+    const [pageLoading, setPageLoading] = useState(true);
+
     const { channelId } = useParams();
     const [
         user,
@@ -26,6 +28,7 @@ function ChannelSection() {
     //Get channel
     useEffect(() => {
         async function getChannel() {
+            setPageLoading(true);
             try {
                 const response = await fetch(
                     `https://message-api.fly.dev/api/channels/${channelId}`,
@@ -42,6 +45,10 @@ function ChannelSection() {
                 const data = await response.json();
                 console.log(data);
 
+                setTimeout(() => {
+                    setPageLoading(false);
+                }, "1500");
+
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
@@ -56,6 +63,10 @@ function ChannelSection() {
                 }
             } catch (err) {
                 setError(err.message);
+
+                setTimeout(() => {
+                    setPageLoading(false);
+                }, "1500");
             }
         }
         getChannel();
@@ -75,12 +86,19 @@ function ChannelSection() {
 
     return (
         <div className="channelSection">
-            <ChannelHeader otherUsers={otherUsers} channel={channel} />
+            <ChannelHeader
+                otherUsers={otherUsers}
+                channel={channel}
+                pageLoading={pageLoading}
+            />
             <div className="hl"></div>
             <div className="channelMain">
                 <Messages />
                 <div className="vl"></div>
-                <UserSidebar otherUsers={otherUsers} />
+                <UserSidebar
+                    otherUsers={otherUsers}
+                    pageLoading={pageLoading}
+                />
             </div>
         </div>
     );
