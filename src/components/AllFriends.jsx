@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import FriendCard from "./FriendCard";
 
-function AllFriends({ friends, numFriends, setNumFriends }) {
+function AllFriends({ friends, numFriends, setNumFriends, pageLoading }) {
     const [searchItem, setSearchItem] = useState("");
     const [filteredFriends, setFilteredFriends] = useState([]);
 
@@ -34,6 +34,16 @@ function AllFriends({ friends, numFriends, setNumFriends }) {
 
     return (
         <div className="friendsOuterContainer">
+            {pageLoading && (
+                <div className="friendLoader">
+                    <div className="friendLoaderSearch"></div>
+                    <div className="friendLoaderHeader"></div>
+                    <div className="friendsDivider"></div>
+                    <div className="friendLoaderCard"></div>
+                    <div className="friendLoaderCard"></div>
+                    <div className="friendLoaderCard"></div>
+                </div>
+            )}
             {friends && friends.length > 0 ? (
                 <div className="friendsContainer">
                     <form className="friendSearchForm">

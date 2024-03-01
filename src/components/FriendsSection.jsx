@@ -9,14 +9,16 @@ import AddFriend from "./AddFriend";
 import "./styles/FriendsSection.css";
 
 function FriendsSection() {
-    const [friends, setFriends] = useState("");
+    const [friends, setFriends] = useState([]);
     const [numFriends, setNumFriends] = useState(0);
 
-    const [pendingFriends, setPendingFriends] = useState("");
+    const [pendingFriends, setPendingFriends] = useState([]);
 
     const [showAll, setShowAll] = useState(true);
     const [showPending, setShowPending] = useState(false);
     const [showAdd, setShowAdd] = useState(false);
+
+    const [pageLoading, setPageLoading] = useState(true);
 
     const navigate = useNavigate();
     const [
@@ -31,6 +33,7 @@ function FriendsSection() {
     // Fetch user friends
     useEffect(() => {
         async function getFriends() {
+            setPageLoading(true);
             setError("");
 
             try {
@@ -51,6 +54,10 @@ function FriendsSection() {
                 const data = await response.json();
                 console.log(data);
 
+                setTimeout(() => {
+                    setPageLoading(false);
+                }, "1500");
+
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
@@ -69,6 +76,10 @@ function FriendsSection() {
                 }
             } catch (err) {
                 setError(err.message);
+
+                setTimeout(() => {
+                    setPageLoading(false);
+                }, "1500");
             }
         }
         getFriends();
@@ -97,6 +108,7 @@ function FriendsSection() {
                     friends={friends}
                     numFriends={numFriends}
                     setNumFriends={setNumFriends}
+                    pageLoading={pageLoading}
                 />
             )}
             {showPending && (
