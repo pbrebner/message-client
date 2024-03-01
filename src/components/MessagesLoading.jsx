@@ -2,7 +2,7 @@ import "./styles/MessagesLoading.css";
 
 function MessagesLoading() {
     const messageLoadingElements = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 15; i++) {
         messageLoadingElements.push(
             <div key={i} className="messageCardLoader">
                 <div className="messageCardLoaderImage"></div>
