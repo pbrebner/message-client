@@ -91,7 +91,7 @@ function AccountInfo({ user, updateUser, setUpdateUser }) {
     return (
         <div className="accountInfo">
             <div className="accountInfoHeader">
-                <div>
+                <div className="accountInfoHeaderMain">
                     <div className="accountImg">
                         <img src={user.avatarURL} />
                     </div>
@@ -199,7 +199,7 @@ function AccountInfo({ user, updateUser, setUpdateUser }) {
                     <Button
                         styleRef="accountBtn"
                         onClick={updateUser}
-                        text="Update Profile"
+                        text="Update"
                         loading={showLoader}
                         disabled={showLoader}
                     />

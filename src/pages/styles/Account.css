@@ -1,6 +1,6 @@
 .account {
     flex: 1;
-    padding: 40px;
+    padding: 20px;
 
     background-color: var(--background);
     color: var(--grey-text);
@@ -35,7 +35,7 @@
 
 .accountBtn {
     padding: 10px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     background-color: var(--accent-purple);
     color: var(--grey-text);
 
@@ -69,7 +69,7 @@
 
 .deleteAccountBtn {
     padding: 10px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     border-color: red;
     background: none;
     color: var(--grey-text);
@@ -99,10 +99,8 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 30%;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 400px;
+    top: 0;
+    bottom: 0;
 
     z-index: 10;
 
@@ -113,6 +111,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 10px;
 
     pointer-events: all;
@@ -127,4 +126,24 @@
 .accountModal button {
     align-self: center;
     min-width: 100px;
+}
+
+@media (min-width: 420px) {
+    .accountModal {
+        margin: auto;
+
+        max-width: 400px;
+        max-height: fit-content;
+    }
+}
+
+@media (min-width: 600px) {
+    .account {
+        padding: 40px;
+    }
+
+    .accountBtn,
+    .deleteAccountBtn {
+        font-size: 1rem;
+    }
 }
