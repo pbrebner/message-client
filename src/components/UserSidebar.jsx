@@ -1,9 +1,15 @@
 import { formatDate } from "../utils/dates";
 import "./styles/UserSidebar.css";
 
-function UserSidebar({ otherUsers }) {
+function UserSidebar({ otherUsers, pageLoading }) {
     return (
         <div className="userSidebar">
+            {pageLoading && (
+                <div className="userLoader">
+                    <div className="userLoaderCard"></div>
+                    <div className="userLoaderCard"></div>
+                </div>
+            )}
             {otherUsers &&
                 otherUsers.map((user) => (
                     <div key={user._id} className="userCard">

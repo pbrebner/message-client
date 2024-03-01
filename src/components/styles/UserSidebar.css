@@ -1,6 +1,5 @@
 .userSidebar {
     display: none;
-    padding: 20px;
     color: var(--grey-text);
     background-color: var(--background);
 
@@ -9,14 +8,16 @@
 
     max-height: calc(100vh - 51px);
     overflow-y: auto;
+
+    position: relative;
 }
 
 .userCard {
+    margin: 20px;
     padding: 20px;
     background-color: black;
 
     border-radius: 20px;
-    width: 100%;
 
     display: flex;
     flex-direction: column;
@@ -57,10 +58,44 @@
     gap: 10px;
 }
 
+/* Styling for Loader */
+.userLoader {
+    flex: 1;
+    background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    z-index: 3;
+    pointer-events: none;
+}
+
+.userLoaderCard {
+    margin: 20px;
+    height: 200px;
+    width: calc(100% - 40px);
+
+    border-radius: 20px;
+    background-color: var(--accent-grey);
+    animation: skeleton-loading 1s ease-in-out infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0.7;
+    }
+}
+
 @media (min-width: 1000px) {
     .userSidebar {
         display: flex;
         flex-direction: column;
-        gap: 30px;
     }
 }
