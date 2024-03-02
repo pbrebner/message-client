@@ -1,5 +1,6 @@
 .channelSearchContainer {
     position: relative;
+    width: 100%;
 
     background-color: white;
     border-radius: 5px;
@@ -7,7 +8,7 @@
 
 .channelSearch {
     padding: 5px;
-    width: 250px;
+    width: 100%;
 
     border-radius: 5px;
     border: none;
