@@ -11,12 +11,19 @@
     gap: 20px;
 }
 
+.menuSpacer {
+    flex-shrink: 0;
+    width: 50px;
+    transition: width 0.5s ease-in-out;
+}
+
 .friendsHeaderTitle {
     font-size: 1.2rem;
     font-weight: 600;
 }
 
 .friendsHeaderDivider {
+    flex-shrink: 0;
     width: 1px;
     height: 100%;
     background-color: var(--accent-grey);
@@ -25,14 +32,14 @@
 .friendsHeaderBtns {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 .friendsHeaderBtn {
-    padding: 4px 12px;
-    font-size: 1.2rem;
+    padding: 2px 8px;
+    font-size: 1rem;
     color: inherit;
-    border-radius: 10px;
+    border-radius: 5px;
     background: none;
     border: none;
 
@@ -56,4 +63,26 @@
 .addFriendBtn:hover {
     background-color: rgb(49, 172, 94);
     color: white;
+}
+
+@media (min-width: 600px) {
+    .menuSpacer {
+        width: 0px;
+    }
+
+    .menuSpacerDivider {
+        display: none;
+    }
+}
+
+@media (min-width: 850px) {
+    .friendsHeaderBtns {
+        gap: 20px;
+    }
+
+    .friendsHeaderBtn {
+        padding: 4px 12px;
+        font-size: 1.2rem;
+        border-radius: 10px;
+    }
 }

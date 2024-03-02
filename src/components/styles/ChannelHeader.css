@@ -9,16 +9,35 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 5px;
 
     position: relative;
 }
 
-.channelHeaderUsers {
+.channelHeaderInfo {
     display: flex;
-    gap: 15px;
+    align-items: center;
+    gap: 5px;
+    height: 100%;
+}
+
+.menuSpacer {
+    flex-shrink: 0;
+    width: 50px;
+    transition: width 0.5s ease-in-out;
+}
+
+.channelHeaderDivider {
+    flex-shrink: 0;
+    width: 1px;
+    height: 100%;
+    background-color: var(--accent-grey);
+}
+
+.channelHeaderUsers {
+    display: none;
 
     overflow: hidden;
-
     position: relative;
 }
 
@@ -42,8 +61,11 @@
 }
 
 .channelHeaderActions {
+    background-color: var(--background);
     display: flex;
     gap: 20px;
+
+    z-index: 2;
 }
 
 .channelHeaderBtn {
@@ -58,6 +80,21 @@
 
 .channelHeaderBtn:hover {
     color: white;
+}
+
+@media (min-width: 600px) {
+    .menuSpacer {
+        width: 0px;
+    }
+
+    .channelHeaderDivider {
+        display: none;
+    }
+
+    .channelHeaderUsers {
+        display: flex;
+        gap: 15px;
+    }
 }
 
 /* Styling for Loader */
@@ -77,7 +114,7 @@
 
 .channelHeaderLoaderCard {
     height: 30px;
-    width: 100%;
+    width: 90%;
 
     border-radius: 10px;
     background-color: var(--accent-grey);

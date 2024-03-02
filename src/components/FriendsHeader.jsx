@@ -11,6 +11,8 @@ function FriendsHeader({
 }) {
     return (
         <div className="friendsHeader">
+            <div className="menuSpacer"></div>
+            <div className="friendsHeaderDivider menuSpacerDivider"></div>
             <div className="friendsHeaderTitle">Friends</div>
             <div className="friendsHeaderDivider"></div>
             <div className="friendsHeaderBtns">

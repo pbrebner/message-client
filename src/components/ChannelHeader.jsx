@@ -100,22 +100,27 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
 
     return (
         <div className="channelHeader">
-            <div className="channelHeaderUsers">
-                {pageLoading && (
-                    <div className="channelHeaderLoader">
-                        <div className="channelHeaderLoaderCard"></div>
-                    </div>
-                )}
-                {otherUsers &&
-                    otherUsers.map((user) => (
-                        <div key={user._id} className="channelHeaderUser">
-                            <div className="channelHeaderUserImg">
-                                <img src={user.avatarURL} />
-                            </div>
-                            <div> {user.name}</div>
+            <div className="channelHeaderInfo">
+                <div className="menuSpacer"></div>
+                <div className="channelHeaderDivider"></div>
+                <div className="channelHeaderUsers">
+                    {pageLoading && (
+                        <div className="channelHeaderLoader">
+                            <div className="channelHeaderLoaderCard"></div>
                         </div>
-                    ))}
+                    )}
+                    {otherUsers &&
+                        otherUsers.map((user) => (
+                            <div key={user._id} className="channelHeaderUser">
+                                <div className="channelHeaderUserImg">
+                                    <img src={user.avatarURL} />
+                                </div>
+                                <div> {user.name}</div>
+                            </div>
+                        ))}
+                </div>
             </div>
+
             <div className="channelHeaderActions">
                 {channel.title ? (
                     <button
