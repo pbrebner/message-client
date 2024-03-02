@@ -7,7 +7,13 @@ import ChannelCard from "./ChannelCard";
 import UserProfileTab from "./UserProfileTab";
 import "./styles/ChannelSidebar.css";
 
-function ChannelSidebar({ user, numChannels, setNumChannels, updateChannel }) {
+function ChannelSidebar({
+    user,
+    numChannels,
+    setNumChannels,
+    updateChannel,
+    closeSidebar,
+}) {
     const [channels, setChannels] = useState("");
     // const [numChannels, setNumChannels] = useState(0);
 
@@ -66,15 +72,23 @@ function ChannelSidebar({ user, numChannels, setNumChannels, updateChannel }) {
         <div className="channelSidebar">
             <div className="channelSidebarHeader">
                 <ChannelSearch channels={channels} />
+                <button className="closeSidebarBtn" onClick={closeSidebar}>
+                    Close
+                </button>
             </div>
             <div className="hl"></div>
             <div className="channelSidebarMain">
-                <Link to="../channels" className="channelSidebarLink">
+                <Link
+                    to="../channels"
+                    onClick={closeSidebar}
+                    className="channelSidebarLink"
+                >
                     Friends
                 </Link>
                 <DirectMessagesHeader
                     numChannels={numChannels}
                     setNumChannels={setNumChannels}
+                    closeSidebar={closeSidebar}
                 />
                 {channels.length > 0 ? (
                     <div className="channelCardContainer">
@@ -84,6 +98,7 @@ function ChannelSidebar({ user, numChannels, setNumChannels, updateChannel }) {
                                 channel={channel}
                                 numChannels={numChannels}
                                 setNumChannels={setNumChannels}
+                                closeSidebar={closeSidebar}
                             />
                         ))}
                     </div>
@@ -92,7 +107,7 @@ function ChannelSidebar({ user, numChannels, setNumChannels, updateChannel }) {
                 )}
             </div>
             <div className="hl"></div>
-            <UserProfileTab user={user} />
+            <UserProfileTab user={user} closeSidebar={closeSidebar} />
         </div>
     );
 }

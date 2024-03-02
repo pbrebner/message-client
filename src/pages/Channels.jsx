@@ -3,6 +3,7 @@ import { useNavigate, Outlet, useOutletContext } from "react-router-dom";
 
 import ChannelSidebar from "../components/ChannelSidebar";
 import PageLoader from "../components/PageLoader";
+import MenuBtn from "../components/MenuBtn";
 
 import "./styles/Channels.css";
 
@@ -13,6 +14,7 @@ function Channels() {
     const [updateChannel, setUpdateChannel] = useState(0);
 
     const [pageLoading, setPageLoading] = useState(true);
+    const [showSidebar, setShowSidebar] = useState(false);
 
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
@@ -66,16 +68,32 @@ function Channels() {
         getUser();
     }, []);
 
+    function closeSidebar() {
+        setShowSidebar(false);
+    }
+
+    function openSidebar() {
+        setShowSidebar(true);
+    }
+
     return (
         <>
             {pageLoading && <PageLoader />}
             <div className="channelsPage">
-                <ChannelSidebar
-                    user={user}
-                    numChannels={numChannels}
-                    setNumChannels={setNumChannels}
-                    updateChannel={updateChannel}
-                />
+                <MenuBtn openSidebar={openSidebar} />
+                <div
+                    className={`channelSidebarOuterContainer ${
+                        showSidebar ? "display" : ""
+                    }`}
+                >
+                    <ChannelSidebar
+                        user={user}
+                        numChannels={numChannels}
+                        setNumChannels={setNumChannels}
+                        updateChannel={updateChannel}
+                        closeSidebar={closeSidebar}
+                    />
+                </div>
                 <div className="vl"></div>
                 <Outlet
                     context={[
@@ -87,6 +105,10 @@ function Channels() {
                         setError,
                     ]}
                 />
+                <div
+                    className={`sidebarOverlay ${showSidebar ? "display" : ""}`}
+                    onClick={closeSidebar}
+                ></div>
             </div>
         </>
     );

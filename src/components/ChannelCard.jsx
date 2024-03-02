@@ -3,7 +3,7 @@ import { Link, useOutletContext } from "react-router-dom";
 
 import "./styles/ChannelCard.css";
 
-function ChannelCard({ channel, numChannels, setNumChannels }) {
+function ChannelCard({ channel, numChannels, setNumChannels, closeSidebar }) {
     const [hover, setHover] = useState(false);
 
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
@@ -60,6 +60,7 @@ function ChannelCard({ channel, numChannels, setNumChannels }) {
         >
             <Link
                 to={`../channels/${channel._id}`}
+                onClick={closeSidebar}
                 className="channelCardInnerContainer"
             >
                 {channel.users.length > 0 ? (

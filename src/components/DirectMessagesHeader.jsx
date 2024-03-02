@@ -5,7 +5,7 @@ import uniqid from "uniqid";
 import Button from "./Button";
 import "./styles/DirectMessagesHeader.css";
 
-function DirectMessagesHeader({ numChannels, setNumChannels }) {
+function DirectMessagesHeader({ numChannels, setNumChannels, closeSidebar }) {
     const [channelTitle, setChannelTitle] = useState("");
     const [addUser, setAddUser] = useState("");
     const [userList, setUserList] = useState([]);
@@ -67,6 +67,7 @@ function DirectMessagesHeader({ numChannels, setNumChannels }) {
                     let val = numChannels + 1;
                     setNumChannels(val);
                 }
+                closeSidebar();
                 navigate(`/message-client/channels/${result.channelId}`);
             }
         } catch (err) {

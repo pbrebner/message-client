@@ -6,7 +6,7 @@ import cog from "../assets/icons/settings.png";
 import edit from "../assets/icons/edit.png";
 import "./styles/UserProfileTab.css";
 
-function UserProfileTab({ user }) {
+function UserProfileTab({ user, closeSidebar }) {
     const [userTabOpen, setUserTabOpen] = useState(false);
 
     let online = "";
@@ -30,6 +30,7 @@ function UserProfileTab({ user }) {
             <div className="userTabActions">
                 <Link
                     to="/message-client/account"
+                    onClick={closeSidebar}
                     className="userTabAction"
                     title="User Account"
                 >
@@ -43,6 +44,7 @@ function UserProfileTab({ user }) {
                     </div>
                     <Link
                         to="/message-client/account"
+                        onClick={closeSidebar}
                         className="userTabEdit"
                         title="Edit Account"
                     >
