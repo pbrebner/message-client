@@ -1,0 +1,11 @@
+.menuBtn {
+    position: fixed;
+    top: 15px;
+    left: 25px;
+}
+
+@media (min-width: 600px) {
+    .menuBtn {
+        display: none;
+    }
+}
