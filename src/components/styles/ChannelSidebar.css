@@ -1,12 +1,7 @@
 .channelSidebar {
-    color: white;
-    background-color: var(--background);
-    width: 40%;
-    min-width: 200px;
-    max-width: 350px;
-
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .channelSidebarHeader {
@@ -16,7 +11,11 @@
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 10px;
+}
+
+.closeSidebarBtn {
+    padding: 2px;
 }
 
 .channelSidebarMain {
@@ -48,4 +47,10 @@
     flex: 1;
 
     overflow-y: auto;
+}
+
+@media (min-width: 600px) {
+    .closeSidebarBtn {
+        display: none;
+    }
 }
