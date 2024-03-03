@@ -12,14 +12,14 @@
 
 .registerContainer,
 .loginContainer {
-    padding: 40px;
+    padding: 15px;
     background-color: var(--background-alt);
     border: 1px solid var(--accent-grey);
     border-radius: 20px;
 
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 
     width: 90vw;
     max-width: 400px;
@@ -27,7 +27,7 @@
 
 .registerContainer .title,
 .loginContainer .title {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     color: var(--grey-text);
 }
 
@@ -41,13 +41,13 @@
 .registerForm label,
 .loginForm label {
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .registerForm input,
 .loginForm input {
     padding: 5px;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
 }
 
 .formElement {
@@ -58,6 +58,7 @@
 
 .inputGuide {
     height: 0px;
+    font-size: 0.8rem;
     overflow: hidden;
     color: white;
     transition: height 0.2s ease-in-out;
@@ -68,9 +69,9 @@
 }
 
 .registerBtn {
-    padding: 10px 15px;
+    padding: 4px 8px;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: white;
     background-color: var(--accent-purple);
     border: none;
@@ -92,6 +93,7 @@
 
 .formAltText {
     color: white;
+    font-size: 0.9rem;
 }
 
 .registerLink {
@@ -102,4 +104,40 @@
 
 .registerLink:hover {
     text-decoration: underline;
+}
+
+@media (min-width: 400px) {
+    .registerContainer,
+    .loginContainer {
+        padding: 30px;
+        gap: 20px;
+    }
+
+    .registerContainer .title,
+    .loginContainer .title {
+        font-size: 1.8rem;
+    }
+
+    .registerForm label,
+    .loginForm label {
+        font-size: 1.2rem;
+    }
+
+    .registerForm input,
+    .loginForm input {
+        font-size: 1.1rem;
+    }
+
+    .inputGuide {
+        font-size: 1rem;
+    }
+
+    .registerBtn {
+        padding: 10px 15px;
+        font-size: 1.1rem;
+    }
+
+    .formAltText {
+        font-size: 1rem;
+    }
 }
