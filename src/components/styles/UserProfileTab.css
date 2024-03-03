@@ -50,27 +50,25 @@
 /* Styling for Modal */
 
 .userTabModal {
-    padding: 15px;
+    padding: 10px;
     background-color: var(--background);
     box-shadow: 2px 2px 2px 2px black;
-    min-width: 350px;
+    border-radius: 5px;
 
     display: none;
 
     position: absolute;
-    left: 20px;
+    left: 0px;
+    right: 0px;
     bottom: 70px;
 
     z-index: 10;
-
-    pointer-events: none;
 }
 
 .userTabModal.display {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    pointer-events: all;
 }
 
 .userTabModalHeader {
@@ -102,7 +100,7 @@
 }
 
 .userTabModalMain {
-    padding: 30px;
+    padding: 15px;
     background-color: black;
 
     border-radius: 20px;
@@ -126,4 +124,17 @@
 .userTabModalName {
     font-weight: 600;
     font-size: 1.3rem;
+}
+
+@media (min-width: 600px) {
+    .userTabModal {
+        padding: 15px;
+        min-width: 350px;
+
+        left: 20px;
+    }
+
+    .userTabModalMain {
+        padding: 30px;
+    }
 }

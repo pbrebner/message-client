@@ -22,16 +22,17 @@
 
 /* Styling for new Channel modal */
 .newChannelModal {
-    padding: 30px;
+    padding: 10px;
     background-color: var(--background);
     box-shadow: 2px 2px 2px 2px black;
-    min-width: 350px;
+    border-radius: 5px;
 
     display: none;
 
     position: absolute;
-    right: -250px;
     top: 40px;
+    left: 0px;
+    right: 0px;
 
     z-index: 10;
 
@@ -58,7 +59,7 @@
 }
 
 .newChannelForm label {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .newChannelForm input {
@@ -80,7 +81,7 @@
 }
 
 .userListEntry {
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 3px 10px;
     border: 1px solid var(--accent-purple);
     border-radius: 5px;
@@ -113,6 +114,22 @@
     border-radius: 5px;
 
     cursor: pointer;
+}
+
+@media (min-width: 600px) {
+    .newChannelModal {
+        padding: 30px;
+        min-width: 350px;
+        left: 100px;
+    }
+
+    .newChannelForm label {
+        font-size: 1.2rem;
+    }
+
+    .userListEntry {
+        font-size: 1rem;
+    }
 }
 
 /* Errors */

@@ -16,6 +16,15 @@
 
 .closeSidebarBtn {
     padding: 2px;
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+.closeSidebarBtn img {
+    height: 30px;
+    width: auto;
 }
 
 .channelSidebarMain {
