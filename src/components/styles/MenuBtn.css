@@ -1,11 +1,11 @@
 .menuBtn {
     padding: 5px;
-    width: 40px;
-    height: 30px;
+    width: 35px;
+    height: 20px;
 
     position: fixed;
-    top: 12px;
-    left: 23px;
+    top: 11px;
+    left: 8px;
 
     display: flex;
     flex-direction: column;
