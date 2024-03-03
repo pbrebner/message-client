@@ -2,9 +2,11 @@ import "./styles/MenuBtn.css";
 
 function MenuBtn({ openSidebar }) {
     return (
-        <div className="menuBtn">
-            <button onClick={openSidebar}>Open</button>
-        </div>
+        <button onClick={openSidebar} className="menuBtn">
+            <div className="menuLayer"></div>
+            <div className="menuLayer"></div>
+            <div className="menuLayer"></div>
+        </button>
     );
 }
 
