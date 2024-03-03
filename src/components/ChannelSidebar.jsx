@@ -5,6 +5,7 @@ import ChannelSearch from "./ChannelSearch";
 import DirectMessagesHeader from "./DirectMessagesHeader";
 import ChannelCard from "./ChannelCard";
 import UserProfileTab from "./UserProfileTab";
+import backArrow from "../assets/icons/back.png";
 import "./styles/ChannelSidebar.css";
 
 function ChannelSidebar({
@@ -73,7 +74,7 @@ function ChannelSidebar({
             <div className="channelSidebarHeader">
                 <ChannelSearch channels={channels} />
                 <button className="closeSidebarBtn" onClick={closeSidebar}>
-                    Close
+                    <img src={backArrow} />
                 </button>
             </div>
             <div className="hl"></div>
