@@ -166,7 +166,7 @@ function Account() {
                             to="/message-client/channels"
                             className="accountLink"
                         >
-                            Back to Channels
+                            Back <span>to Channels</span>
                         </Link>
                     </div>
                     <AccountInfo

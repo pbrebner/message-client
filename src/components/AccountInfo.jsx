@@ -98,7 +98,7 @@ function AccountInfo({ user, updateUser, setUpdateUser }) {
                     <div className="accountName">{user.name}</div>
                 </div>
                 <button className="accountBtn" onClick={openEditProfile}>
-                    Edit User Profile
+                    Edit <span>Profile</span>
                 </button>
             </div>
             <div className="accountDivider"></div>

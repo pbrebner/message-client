@@ -19,6 +19,7 @@
 }
 
 .accountHeader {
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -29,13 +30,18 @@
     color: var(--grey-text);
 }
 
+.accountLink span {
+    display: none;
+}
+
 .accountLink:hover {
     text-decoration: underline;
 }
 
 .accountBtn {
-    padding: 10px;
+    padding: 5px 10px;
     font-size: 0.8rem;
+    font-weight: 600;
     background-color: var(--accent-purple);
     color: var(--grey-text);
 
@@ -43,6 +49,10 @@
     border: none;
 
     cursor: pointer;
+}
+
+.accountBtn span {
+    display: none;
 }
 
 .accountBtn:hover {
@@ -68,7 +78,7 @@
 }
 
 .deleteAccountBtn {
-    padding: 10px;
+    padding: 5px 10px;
     font-size: 0.8rem;
     border-color: red;
     background: none;
@@ -96,7 +106,7 @@
 
     display: none;
 
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
@@ -127,6 +137,15 @@
     align-self: center;
     min-width: 100px;
 }
+@media (min-width: 320px) {
+    .accountLink span {
+        display: inline;
+    }
+
+    .accountBtn span {
+        display: inline;
+    }
+}
 
 @media (min-width: 420px) {
     .accountModal {
@@ -135,9 +154,18 @@
         max-width: 400px;
         max-height: fit-content;
     }
+
+    .accountBtn,
+    .deleteAccountBtn {
+        padding: 10px;
+    }
 }
 
 @media (min-width: 600px) {
+    .accountHeader {
+        font-size: 1rem;
+    }
+
     .account {
         padding: 40px;
     }
