@@ -1,6 +1,6 @@
 .friendsHeader {
     flex-shrink: 0;
-    padding: 7px 20px;
+    padding: 5px 8px;
     height: 50px;
 
     color: var(--grey-text);
@@ -8,25 +8,29 @@
 
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 .menuSpacer {
     flex-shrink: 0;
-    width: 50px;
+    width: 30px;
     transition: width 0.5s ease-in-out;
 }
 
 .friendsHeaderTitle {
-    font-size: 1.2rem;
-    font-weight: 600;
+    display: none;
 }
 
-.friendsHeaderDivider {
+.friendsHeaderDivider,
+.menuSpacerDivider {
     flex-shrink: 0;
     width: 1px;
     height: 100%;
     background-color: var(--accent-grey);
+}
+
+.friendsHeaderDivider {
+    display: none;
 }
 
 .friendsHeaderBtns {
@@ -37,7 +41,7 @@
 
 .friendsHeaderBtn {
     padding: 2px 8px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: inherit;
     border-radius: 5px;
     background: none;
@@ -70,12 +74,30 @@
         width: 0px;
     }
 
+    .friendsHeaderTitle {
+        display: block;
+        font-weight: 600;
+    }
+
+    .friendsHeaderDivider {
+        display: block;
+    }
+
     .menuSpacerDivider {
         display: none;
     }
 }
 
-@media (min-width: 850px) {
+@media (min-width: 750px) {
+    .friendsHeader {
+        padding: 7px 20px;
+        gap: 20px;
+    }
+
+    .friendsHeaderTitle {
+        font-size: 1.2rem;
+    }
+
     .friendsHeaderBtns {
         gap: 20px;
     }

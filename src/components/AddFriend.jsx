@@ -72,21 +72,23 @@ function AddFriend({ numFriends, setNumFriends }) {
     return (
         <div className="friendsContainer">
             <div className="friendsTitle">Add Friend</div>
-            <div>You can add friends with their name.</div>
+            <div className="addFriendDescription">
+                Send friend requests with the users name.
+            </div>
             <form className="addFriendForm">
                 <input
                     type="text"
                     name="addFriend"
                     id="addFriend"
                     className="addFriend"
-                    placeholder="You can add friends with their name."
+                    placeholder="Enter users name."
                     value={newFriend}
                     onChange={(e) => setNewFriend(e.target.value)}
                 />
                 <Button
                     styleRef="friendRequestBtn"
                     onClick={sendFriendRequest}
-                    text="Send Friend Request"
+                    text="Send Request"
                     loading={showLoader}
                     disabled={showLoader}
                 />

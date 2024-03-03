@@ -1,8 +1,9 @@
 .friendCard {
-    padding: 10px;
+    padding: 5px 0px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 5px;
 }
 
 .friendCard:hover,
@@ -13,12 +14,13 @@
 .friendCardMain {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 .friendCardImageContainer {
-    height: 45px;
-    width: 45px;
+    flex-shrink: 0;
+    height: 35px;
+    width: 35px;
 
     border-radius: 50%;
     overflow: hidden;
@@ -29,23 +31,28 @@
 }
 
 .friendName {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
+}
+
+.friendOnline {
+    font-size: 0.7rem;
 }
 
 .friendCardActions {
     display: flex;
-    gap: 20px;
+    gap: 8px;
     position: relative;
 }
 
 .friendCardBtn {
-    padding: 5px;
+    padding: 3px;
     font-weight: 600;
+    font-size: 0.7rem;
     color: var(--grey-text);
     background-color: var(--accent-purple);
 
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
 
     cursor: pointer;
 }
@@ -98,10 +105,62 @@
 }
 
 .deleteFriendBtn {
-    color: red;
-}
-
-.deleteFriendBtn:hover {
     background-color: red;
     color: white;
+}
+
+@media (min-width: 320px) {
+    .friendName {
+        font-size: 1rem;
+    }
+
+    .friendOnline {
+        font-size: 0.8rem;
+    }
+
+    .friendCardBtn {
+        font-size: 0.8rem;
+    }
+}
+
+@media (min-width: 600px) {
+    .friendCard {
+        padding: 5px;
+    }
+
+    .friendCardMain {
+        gap: 20px;
+    }
+
+    .friendCardImageContainer {
+        height: 45px;
+        width: 45px;
+    }
+
+    .friendName {
+        font-size: 1.2rem;
+    }
+
+    .friendOnline {
+        font-size: 1rem;
+    }
+
+    .friendCardActions {
+        gap: 20px;
+    }
+
+    .friendCardBtn {
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+    }
+
+    .deleteFriendBtn {
+        color: red;
+    }
+
+    .deleteFriendBtn:hover {
+        background-color: red;
+        color: white;
+    }
 }

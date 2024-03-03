@@ -160,7 +160,7 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
                 </div>
                 <div className="friendCardInfo">
                     <div className="friendName">{friend.targetUser.name}</div>
-                    <dir>{online}</dir>
+                    <div className="friendOnline">{online}</div>
                 </div>
             </div>
             {friend.status == 3 && (
