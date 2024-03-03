@@ -34,13 +34,10 @@
 
 .newMessageForm input {
     flex: 1;
-    padding: 5px;
-    font-size: 1rem;
+    padding: 3px;
+    font-size: 0.9rem;
     border: none;
     background: none;
-}
-
-.newMessageForm input:focus {
     outline: none;
 }
 
@@ -51,8 +48,8 @@
 }
 
 .newMessageForm button {
-    padding: 5px 15px;
-    font-size: 1rem;
+    padding: 3px 8px;
+    font-size: 0.9rem;
     background: none;
     border: none;
     cursor: pointer;
@@ -61,4 +58,16 @@
 .newMessageError {
     font-size: 0.9rem;
     color: rgb(231, 195, 94);
+}
+
+@media (min-width: 600px) {
+    .newMessageForm input {
+        padding: 5px;
+        font-size: 1rem;
+    }
+
+    .newMessageForm button {
+        padding: 5px 15px;
+        font-size: 1rem;
+    }
 }

@@ -102,7 +102,7 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
         <div className="channelHeader">
             <div className="channelHeaderInfo">
                 <div className="menuSpacer"></div>
-                <div className="channelHeaderDivider"></div>
+                <div className="menuSpacerDivider"></div>
                 <div className="channelHeaderUsers">
                     {pageLoading && (
                         <div className="channelHeaderLoader">
@@ -122,6 +122,7 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
             </div>
 
             <div className="channelHeaderActions">
+                <div className="channelHeaderDivider"></div>
                 {channel.title ? (
                     <button
                         className="channelHeaderBtn"

@@ -1,8 +1,8 @@
 .messageCard {
-    padding: 10px 20px;
+    padding: 8px 15px;
 
     display: grid;
-    grid-template-columns: 60px 1fr;
+    grid-template-columns: 50px 1fr;
     position: relative;
 }
 
@@ -11,8 +11,8 @@
 }
 
 .messageImageContainer {
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
 
     overflow: hidden;
     border-radius: 50%;
@@ -37,25 +37,30 @@
 }
 
 .messageUser {
+    font-size: 0.9rem;
     font-weight: 700;
 }
 
 .messageDate {
+    font-size: 0.8rem;
+}
+
+.messageContents {
     font-size: 0.9rem;
 }
 
 .messageLikes {
-    padding: 5px;
+    padding: 3px;
+    font-size: 0.9rem;
     background-color: var(--background-alt);
     border-radius: 5px;
 
     display: flex;
-    align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .messageLikes img {
-    height: 20px;
+    height: 16px;
 }
 
 /* Styling for Message Card Btns */
@@ -95,7 +100,7 @@
 }
 
 .reactBtn img {
-    height: 20px;
+    height: 16px;
 }
 
 /* Styling for message card menu */
@@ -111,7 +116,7 @@
     right: 50px;
     top: -20px;
 
-    z-index: 10;
+    z-index: 20;
 
     pointer-events: none;
 }
@@ -148,4 +153,38 @@
 .deleteMessageBtn:hover {
     background-color: red;
     color: white;
+}
+
+@media (min-width: 600px) {
+    .messageCard {
+        padding: 10px 20px;
+        grid-template-columns: 60px 1fr;
+    }
+
+    .messageImageContainer {
+        width: 45px;
+        height: 45px;
+    }
+
+    .messageUser,
+    .messageContents {
+        font-size: 1rem;
+    }
+
+    .messageDate {
+        font-size: 0.9rem;
+    }
+
+    .messageLikes {
+        padding: 5px;
+        font-size: 1rem;
+    }
+
+    .messageLikes img {
+        height: 20px;
+    }
+
+    .reactBtn img {
+        height: 20px;
+    }
 }

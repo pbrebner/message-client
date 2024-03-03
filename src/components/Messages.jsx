@@ -149,6 +149,7 @@ function Messages() {
                     placeholder="New Message"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
+                    autoComplete="off"
                 />
                 <div className="newMessageFormDivider"></div>
                 <Button

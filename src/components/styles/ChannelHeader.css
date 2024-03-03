@@ -21,21 +21,18 @@
     height: 100%;
 }
 
-.menuSpacer {
-    flex-shrink: 0;
-    width: 50px;
-    transition: width 0.5s ease-in-out;
-}
-
 .channelHeaderDivider {
     flex-shrink: 0;
     width: 1px;
     height: 100%;
     background-color: var(--accent-grey);
+
+    display: none;
 }
 
 .channelHeaderUsers {
     display: none;
+    flex-shrink: 0;
 
     overflow: hidden;
     position: relative;
@@ -63,17 +60,24 @@
 .channelHeaderActions {
     background-color: var(--background);
     display: flex;
-    gap: 20px;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
 
-    z-index: 2;
+    z-index: 3;
 }
 
 .channelHeaderBtn {
     padding: 5px;
+    font-weight: 600;
+    font-size: 0.7rem;
+
     background-color: var(--accent-purple);
     color: var(--grey-text);
     border: none;
     border-radius: 5px;
+
+    height: fit-content;
 
     cursor: pointer;
 }
@@ -82,18 +86,31 @@
     color: white;
 }
 
+@media (min-width: 420px) {
+    .channelHeaderUsers {
+        display: flex;
+        gap: 15px;
+    }
+
+    .channelHeaderDivider {
+        display: block;
+    }
+}
+
 @media (min-width: 600px) {
     .menuSpacer {
         width: 0px;
     }
 
-    .channelHeaderDivider {
-        display: none;
+    .channelHeaderActions {
+        gap: 20px;
     }
+}
 
-    .channelHeaderUsers {
-        display: flex;
-        gap: 15px;
+@media (min-width: 680px) {
+    .channelHeaderBtn {
+        padding: 5px;
+        font-size: 0.8rem;
     }
 }
 
@@ -107,7 +124,7 @@
     width: 100%;
     height: 100%;
 
-    z-index: 3;
+    z-index: 2;
     pointer-events: none;
     overflow: hidden;
 }
@@ -131,12 +148,11 @@
     }
 }
 
-/* Styling for new Channel modal */
+/* Styling for Channel Header modal */
 .channelHeaderModal {
     padding: 20px;
     background-color: var(--background);
     box-shadow: 2px 2px 2px 2px black;
-    min-width: 350px;
 
     display: none;
 
@@ -144,7 +160,7 @@
     right: 40px;
     top: 50px;
 
-    z-index: 10;
+    z-index: 20;
 
     pointer-events: none;
 }
@@ -169,12 +185,15 @@
 }
 
 .channelHeaderForm label {
-    font-size: 1.4rem;
+    font-size: 1rem;
 }
 
 .channelHeaderForm input {
     width: 100%;
     padding: 5px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
 }
 
 .channelHeaderModalDivider {
@@ -188,7 +207,7 @@
     padding: 5px;
     background-color: var(--accent-purple);
     color: var(--grey-text);
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     border: none;
     border-radius: 5px;
 
@@ -198,6 +217,32 @@
 .channelHeaderModal .addUserBtn:hover,
 .channelHeaderModal .addTitleBtn:hover {
     color: white;
+}
+
+@media (min-width: 320px) {
+    .channelHeaderForm label {
+        font-size: 1.2rem;
+    }
+
+    .channelHeaderModal .addUserBtn,
+    .channelHeaderModal .addTitleBtn {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 600px) {
+    .channelHeaderModal {
+        min-width: 350px;
+    }
+
+    .channelHeaderForm label {
+        font-size: 1.4rem;
+    }
+
+    .channelHeaderModal .addUserBtn,
+    .channelHeaderModal .addTitleBtn {
+        font-size: 1.2rem;
+    }
 }
 
 /* Errors */
