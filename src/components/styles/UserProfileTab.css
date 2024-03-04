@@ -80,8 +80,8 @@
 }
 
 .userTabModalImg {
-    height: 100px;
-    width: 100px;
+    height: 70px;
+    width: 70px;
 
     border-radius: 50%;
     overflow: hidden;
@@ -96,7 +96,7 @@
 }
 
 .userTabEdit img {
-    height: 30px;
+    height: 25px;
 }
 
 .userTabModalMain {
@@ -136,5 +136,14 @@
 
     .userTabModalMain {
         padding: 30px;
+    }
+
+    .userTabModalImg {
+        height: 100px;
+        width: 100px;
+    }
+
+    .userTabEdit img {
+        height: 30px;
     }
 }

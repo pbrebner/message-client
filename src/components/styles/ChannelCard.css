@@ -20,8 +20,8 @@
 }
 
 .channelCardImg {
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
 
     border-radius: 50%;
     overflow: hidden;
@@ -34,6 +34,7 @@
 .channelCardText {
     color: white;
     font-weight: 600;
+    font-size: 0.9rem;
 
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -44,11 +45,11 @@
 }
 
 .deleteChannelCardBtn {
-    display: none;
     color: var(--accent-grey);
     font-size: 1.2rem;
     background: none;
     border: none;
+
     cursor: pointer;
 }
 
@@ -56,6 +57,23 @@
     color: white;
 }
 
-.deleteChannelCardBtn.display {
-    display: block;
+@media (hover: hover) {
+    .deleteChannelCardBtn {
+        display: none;
+    }
+
+    .deleteChannelCardBtn.display {
+        display: block;
+    }
+}
+
+@media (min-width: 400px) {
+    .channelCardImg {
+        height: 40px;
+        width: 40px;
+    }
+
+    .channelCardText {
+        font-size: 1.1rem;
+    }
 }

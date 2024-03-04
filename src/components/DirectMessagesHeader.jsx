@@ -146,7 +146,7 @@ function DirectMessagesHeader({ numChannels, setNumChannels, closeSidebar }) {
                             name="newChannelUsers"
                             id="newChannelUsers"
                             className="newChannelUsers"
-                            placeholder="Type the name of a friend and press enter."
+                            placeholder="Type name and press enter."
                             autoComplete="off"
                             value={addUser}
                             onChange={(e) => setAddUser(e.target.value)}
