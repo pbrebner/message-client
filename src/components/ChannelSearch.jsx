@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 
 import "./styles/ChannelSearch.css";
 
-function ChannelSearch({ channels }) {
-    const [searchOpen, setSearchOpen] = useState(false);
+function ChannelSearch({ channels, setFilteredChannels }) {
     const [searchItem, setSearchItem] = useState("");
-    const [filteredResults, setFilteredResults] = useState([]);
 
     function handleSearch(e) {
-        setFilteredResults([]);
+        setFilteredChannels([]);
 
         const searchTerm = e.target.value;
         setSearchItem(searchTerm);
@@ -27,19 +25,14 @@ function ChannelSearch({ channels }) {
                     )
             );
 
-            setFilteredResults(filteredItems);
+            setFilteredChannels(filteredItems);
         }
     }
 
-    function clearSearch() {
-        setFilteredResults([]);
+    function clearSearch(e) {
+        e.preventDefault();
+        setFilteredChannels([]);
         setSearchItem("");
-        setSearchOpen(false);
-    }
-
-    function clearResults() {
-        setFilteredResults([]);
-        setSearchOpen(false);
     }
 
     return (
@@ -54,27 +47,11 @@ function ChannelSearch({ channels }) {
                     value={searchItem}
                     onChange={handleSearch}
                     autoComplete="off"
-                    onFocus={() => setSearchOpen(true)}
                 />
+                <button className="channelSearchClear" onClick={clearSearch}>
+                    &#x2715;
+                </button>
             </form>
-            {filteredResults.length > 0 && (
-                <div className="searchResults">
-                    {filteredResults.map((channel) => (
-                        <Link
-                            to={`./${channel._id}`}
-                            key={channel._id}
-                            className="searchResult"
-                            onClick={clearSearch}
-                        >
-                            {channel.title || channel.users[0].name}
-                        </Link>
-                    ))}
-                </div>
-            )}
-            <div
-                className={`overlay ${searchOpen ? "display" : ""}`}
-                onClick={clearResults}
-            ></div>
         </div>
     );
 }

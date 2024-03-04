@@ -23,13 +23,10 @@ function AllFriends({ friends, numFriends, setNumFriends, pageLoading }) {
         }
     }
 
-    function clearSearch() {
-        setFilteredFriends(friends);
+    function clearSearch(e) {
+        e.preventDefault();
+        setFilteredFriends([]);
         setSearchItem("");
-    }
-
-    function clearResults() {
-        setFilteredResults([]);
     }
 
     return (
@@ -57,6 +54,12 @@ function AllFriends({ friends, numFriends, setNumFriends, pageLoading }) {
                             onChange={handleSearch}
                             autoComplete="off"
                         />
+                        <button
+                            className="friendSearchClear"
+                            onClick={clearSearch}
+                        >
+                            &#x2715;
+                        </button>
                     </form>
                     <div className="friendsTitle">
                         All Friends - {friends.length}

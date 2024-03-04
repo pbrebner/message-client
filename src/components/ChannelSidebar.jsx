@@ -17,6 +17,7 @@ function ChannelSidebar({
 }) {
     const [channels, setChannels] = useState("");
     // const [numChannels, setNumChannels] = useState(0);
+    const [filteredChannels, setFilteredChannels] = useState([]);
 
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const userId = localStorage.getItem("userId");
@@ -49,7 +50,7 @@ function ChannelSidebar({
                     const data = await response.json();
                     console.log(data);
 
-                    setChannels(getFilteredChannels(data));
+                    setChannels(removeChannelUser(data));
                     // setNumChannels(data.length);
                     setError("");
                 }
@@ -61,7 +62,7 @@ function ChannelSidebar({
     }, [numChannels, updateChannel]);
 
     // Removes the users own value from channel
-    function getFilteredChannels(channels) {
+    function removeChannelUser(channels) {
         channels.map((channel) => {
             channel.users = channel.users.filter((user) => user._id != userId);
         });
@@ -72,7 +73,10 @@ function ChannelSidebar({
     return (
         <div className="channelSidebar">
             <div className="channelSidebarHeader">
-                <ChannelSearch channels={channels} />
+                <ChannelSearch
+                    channels={channels}
+                    setFilteredChannels={setFilteredChannels}
+                />
                 <button className="closeSidebarBtn" onClick={closeSidebar}>
                     <img src={backArrow} />
                 </button>
@@ -92,19 +96,35 @@ function ChannelSidebar({
                     closeSidebar={closeSidebar}
                 />
                 {channels.length > 0 ? (
-                    <div className="channelCardContainer">
-                        {channels.map((channel) => (
-                            <ChannelCard
-                                key={channel._id}
-                                channel={channel}
-                                numChannels={numChannels}
-                                setNumChannels={setNumChannels}
-                                closeSidebar={closeSidebar}
-                            />
-                        ))}
+                    <div className="channels">
+                        {filteredChannels.length > 0 ? (
+                            <div className="channelCardContainer">
+                                {filteredChannels.map((channel) => (
+                                    <ChannelCard
+                                        key={channel._id}
+                                        channel={channel}
+                                        numChannels={numChannels}
+                                        setNumChannels={setNumChannels}
+                                        closeSidebar={closeSidebar}
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="channelCardContainer">
+                                {channels.map((channel) => (
+                                    <ChannelCard
+                                        key={channel._id}
+                                        channel={channel}
+                                        numChannels={numChannels}
+                                        setNumChannels={setNumChannels}
+                                        closeSidebar={closeSidebar}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
                 ) : (
-                    <div>You don't have any channels.</div>
+                    <div className="channels">You don't have any channels.</div>
                 )}
             </div>
             <div className="hl"></div>

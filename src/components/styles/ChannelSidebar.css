@@ -52,6 +52,10 @@
     background-color: var(--background-alt);
 }
 
+.channels {
+    padding: 5px;
+}
+
 .channelCardContainer {
     flex: 1;
 

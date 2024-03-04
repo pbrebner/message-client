@@ -156,6 +156,7 @@
     }
 
     .deleteFriendBtn {
+        background-color: inherit;
         color: red;
     }
 

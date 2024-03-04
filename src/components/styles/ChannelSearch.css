@@ -1,44 +1,41 @@
 .channelSearchContainer {
-    position: relative;
-    width: 100%;
-
-    background-color: white;
-    border-radius: 5px;
-}
-
-.channelSearch {
-    padding: 5px;
     width: 100%;
 
     border-radius: 5px;
-    border: none;
 
-    z-index: 10;
+    display: flex;
+    flex-direction: column;
 }
 
 .channelSearchForm {
     width: 100%;
-    z-index: 10;
-}
-
-.searchResults {
-    width: 100%;
-    background-color: inherit;
-
-    position: absolute;
-    z-index: 10;
+    padding: 2px;
+    background-color: white;
+    border-radius: 5px;
 
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    gap: 3px;
 }
 
-.searchResult {
-    padding: 5px;
-    text-decoration: none;
-    color: black;
+.channelSearch {
+    flex: 1;
+    padding: 3px;
+    width: 100%;
+
+    border-radius: 5px;
+    border: none;
+    outline: none;
+
+    position: relative;
+    z-index: 20;
 }
 
-.searchResult:hover {
-    background-color: rgb(189, 189, 189);
+.channelSearchClear {
+    padding: 1px 4px;
+    font-size: 1rem;
+    color: grey;
+
+    background: none;
+    border: none;
+    cursor: pointer;
 }
