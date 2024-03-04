@@ -92,6 +92,7 @@
     padding: 5px;
     font-weight: 600;
     color: var(--grey-text);
+    background-color: var(--accent-purple);
     min-width: 100px;
 
     border-radius: 5px;
@@ -99,14 +100,30 @@
     cursor: pointer;
 }
 
-.friendCardModalBtn:hover {
-    background-color: var(--accent-purple);
-    color: white;
-}
-
 .deleteFriendBtn {
     background-color: red;
     color: white;
+}
+
+@media (hover: hover) {
+    .friendCardModalBtn {
+        background-color: inherit;
+    }
+
+    .friendCardModalBtn:hover {
+        background-color: var(--accent-purple);
+        color: white;
+    }
+
+    .deleteFriendBtn {
+        background-color: inherit;
+        color: red;
+    }
+
+    .deleteFriendBtn:hover {
+        background-color: red;
+        color: white;
+    }
 }
 
 @media (min-width: 320px) {
@@ -153,15 +170,5 @@
         padding: 5px;
         border-radius: 5px;
         font-size: 0.9rem;
-    }
-
-    .deleteFriendBtn {
-        background-color: inherit;
-        color: red;
-    }
-
-    .deleteFriendBtn:hover {
-        background-color: red;
-        color: white;
     }
 }

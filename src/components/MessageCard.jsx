@@ -111,6 +111,7 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
             className={`messageCard ${hover || modalOpen ? "hover" : ""}`}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
+            onClick={() => setHover(true)}
         >
             <div className="messageImageContainer">
                 <img

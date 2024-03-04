@@ -134,6 +134,7 @@
     padding: 5px;
     font-weight: 600;
     color: var(--grey-text);
+    background-color: var(--accent-purple);
     min-width: 100px;
 
     border-radius: 5px;
@@ -141,18 +142,30 @@
     cursor: pointer;
 }
 
-.messageCardModalBtn:hover {
-    background-color: var(--accent-purple);
-    color: white;
-}
-
 .deleteMessageBtn {
-    color: red;
+    color: white;
+    background-color: red;
 }
 
-.deleteMessageBtn:hover {
-    background-color: red;
-    color: white;
+@media (hover: hover) {
+    .messageCardModalBtn {
+        background-color: inherit;
+    }
+
+    .messageCardModalBtn:hover {
+        background-color: var(--accent-purple);
+        color: white;
+    }
+
+    .deleteMessageBtn {
+        background-color: inherit;
+        color: red;
+    }
+
+    .deleteMessageBtn:hover {
+        background-color: red;
+        color: white;
+    }
 }
 
 @media (min-width: 600px) {
