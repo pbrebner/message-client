@@ -4,6 +4,7 @@ import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 import MessageCard from "./MessageCard";
 import MessagesLoading from "./MessagesLoading";
 import Button from "../components/Button";
+import { formatDateLong } from "../utils/dates.js";
 import "./styles/Messages.css";
 
 function Messages() {
@@ -13,6 +14,7 @@ function Messages() {
 
     const [showLoader, setShowLoader] = useState(false);
     const [pageLoading, setPageLoading] = useState(true);
+    const [channelCheckId, setChannelCheckId] = useState("");
 
     const [formError, setFormError] = useState("");
     const [
@@ -30,7 +32,12 @@ function Messages() {
     //Get all Channel Messages
     useEffect(() => {
         async function getMessages() {
-            setPageLoading(true);
+            // Trigger pageloading only when channel changes
+            if (channelCheckId != channelId) {
+                setPageLoading(true);
+                setChannelCheckId(channelId);
+            }
+
             try {
                 const response = await fetch(
                     `https://message-api.fly.dev/api/channels/${channelId}/messages`,
@@ -59,7 +66,7 @@ function Messages() {
                         `This is an HTTP error: The status is ${response.status}`
                     );
                 } else {
-                    setMessages(data);
+                    setMessages(prepareMessages(data));
                     setError("");
                 }
             } catch (err) {
@@ -71,6 +78,41 @@ function Messages() {
         }
         getMessages();
     }, [numMessages, channelId]);
+
+    function prepareMessages(messages) {
+        let messageList = [];
+        let messageDate = "";
+
+        messages.forEach((message, index) => {
+            if (
+                !messageDate ||
+                formatDateLong(message.timeStamp) > formatDateLong(messageDate)
+            ) {
+                messageList.push(
+                    <div key={index} className="messagesDivider">
+                        <div className="messagesDividerLine"></div>
+                        <div className="messagesDividerDate">
+                            {formatDateLong(message.timeStamp)}
+                        </div>
+                        <div className="messagesDividerLine"></div>
+                    </div>
+                );
+                messageDate = message.timeStamp;
+            }
+
+            messageList.push(
+                <MessageCard
+                    key={message._id}
+                    channelId={channelId}
+                    message={message}
+                    numMessages={numMessages}
+                    setNumMessages={setNumMessages}
+                />
+            );
+        });
+
+        return messageList;
+    }
 
     async function createNewMessage(e) {
         e.preventDefault();
@@ -126,21 +168,8 @@ function Messages() {
         <div className="messagesSection">
             <div className="messagesContainer">
                 {pageLoading && <MessagesLoading />}
-                {messages.length > 0 ? (
-                    messages.map((message) => (
-                        <MessageCard
-                            key={message._id}
-                            channelId={channelId}
-                            message={message}
-                            numMessages={numMessages}
-                            setNumMessages={setNumMessages}
-                        />
-                    ))
-                ) : (
-                    <div>No messages yet</div>
-                )}
+                {messages.length > 0 ? messages : <div>No messages yet</div>}
             </div>
-
             <form className="newMessageForm">
                 <input
                     type="text"

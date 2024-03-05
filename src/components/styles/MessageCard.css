@@ -37,11 +37,12 @@
 }
 
 .messageUser {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 700;
 }
 
 .messageDate {
+    color: var(--grey-text);
     font-size: 0.8rem;
 }
 
@@ -181,7 +182,7 @@
 
     .messageUser,
     .messageContents {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 
     .messageDate {

@@ -60,6 +60,27 @@
     color: rgb(231, 195, 94);
 }
 
+/* Messages Divider */
+.messagesDivider {
+    padding: 0px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.messagesDividerLine {
+    flex: 1;
+    height: 1px;
+    width: 100%;
+    background-color: var(--accent-grey);
+}
+
+.messagesDividerDate {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--grey-text);
+}
+
 @media (min-width: 600px) {
     .newMessageForm input {
         padding: 5px;
@@ -69,5 +90,9 @@
     .newMessageForm button {
         padding: 5px 15px;
         font-size: 1rem;
+    }
+
+    .messagesDividerDate {
+        font-size: 0.8rem;
     }
 }

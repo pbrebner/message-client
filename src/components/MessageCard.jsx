@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
-import { formatDate } from "../utils/dates.js";
+import { formatDateTime } from "../utils/dates.js";
 import like from "../assets/icons/like.png";
 import "./styles/MessageCard.css";
 
@@ -124,7 +124,7 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
                 <div className="messageHeader">
                     <div className="messageUser">{message.user.name}</div>
                     <div className="messageDate">
-                        {formatDate(message.timeStamp)}
+                        {formatDateTime(message.timeStamp)}
                     </div>
                 </div>
                 <p className="messageContents">{message.content}</p>
