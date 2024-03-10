@@ -22,10 +22,35 @@
     position: relative;
 }
 
-.newMessageForm {
+.newMessageContainer {
     margin: 10px;
     padding: 3px;
     background-color: white;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.newMessageInput {
+    display: flex;
+    gap: 5px;
+
+    position: relative;
+}
+
+.uploadFileBtn {
+    padding: 1px 3px;
+    font-size: 1.4rem;
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+.newMessageForm {
+    flex: 1;
     border-radius: 5px;
 
     display: flex;
@@ -34,7 +59,6 @@
 
 .newMessageForm input {
     flex: 1;
-    padding: 3px;
     font-size: 0.9rem;
     border: none;
     background: none;
@@ -42,8 +66,9 @@
 }
 
 .newMessageFormDivider {
+    flex-shrink: 0;
     width: 1px;
-    height: 100%;
+    height: 95%;
     background-color: var(--accent-grey);
 }
 
@@ -55,7 +80,41 @@
     cursor: pointer;
 }
 
+.uploadFileModal {
+    padding: 5px;
+    background-color: black;
+    border-radius: 5px;
+
+    position: absolute;
+    top: -60px;
+    z-index: 20;
+
+    display: none;
+}
+
+.uploadFileModal.display {
+    display: block;
+}
+
+.uploadFileModalBtn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: var(--grey-text);
+
+    background: none;
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.uploadFileModalBtn:hover {
+    background-color: var(--accent-purple);
+    color: white;
+}
+
 .newMessageError {
+    padding: 10px;
     font-size: 0.9rem;
     color: rgb(231, 195, 94);
 }

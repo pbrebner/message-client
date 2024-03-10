@@ -11,6 +11,7 @@ function Messages() {
     const [messages, setMessages] = useState("");
     const [numMessages, setNumMessages] = useState(0);
     const [newMessage, setNewMessage] = useState("");
+    const [uploadFileOpen, setUploadFileOpen] = useState(false);
 
     const [showLoader, setShowLoader] = useState(false);
     const [pageLoading, setPageLoading] = useState(true);
@@ -164,37 +165,65 @@ function Messages() {
         }
     }
 
+    function toggleUploadFileModal() {
+        uploadFileOpen ? setUploadFileOpen(false) : setUploadFileOpen(true);
+    }
+
     return (
         <div className="messagesSection">
             <div className="messagesContainer">
                 {pageLoading && <MessagesLoading />}
                 {messages.length > 0 ? messages : <div>No messages yet</div>}
             </div>
-            <form className="newMessageForm">
-                <input
-                    type="text"
-                    name="newMessage"
-                    id="newMessage"
-                    placeholder="New Message"
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    autoComplete="off"
-                />
-                <div className="newMessageFormDivider"></div>
-                <Button
-                    onClick={createNewMessage}
-                    text="Send"
-                    loading={showLoader}
-                    disabled={showLoader}
-                />
-            </form>
-            {formError && (
-                <div className="newMessageError">
-                    {formError.map((error) => (
-                        <div>{error.msg}</div>
-                    ))}
+            <div className="newMessageContainer">
+                <div className="newMessageDisplay"></div>
+                <div className="newMessageInput">
+                    <button
+                        className="uploadFileBtn"
+                        onClick={toggleUploadFileModal}
+                    >
+                        +
+                    </button>
+                    <form className="newMessageForm">
+                        <input
+                            type="text"
+                            name="newMessage"
+                            id="newMessage"
+                            placeholder="New Message"
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            autoComplete="off"
+                        />
+                        <div className="newMessageFormDivider"></div>
+                        <Button
+                            onClick={createNewMessage}
+                            text="Send"
+                            loading={showLoader}
+                            disabled={showLoader}
+                        />
+                    </form>
+                    <div
+                        className={`uploadFileModal ${
+                            uploadFileOpen ? "display" : ""
+                        }`}
+                    >
+                        <button className="uploadFileModalBtn">
+                            Upload a File
+                        </button>
+                    </div>
                 </div>
-            )}
+                {formError && (
+                    <div className="newMessageError">
+                        {formError.map((error) => (
+                            <div>{error.msg}</div>
+                        ))}
+                    </div>
+                )}
+            </div>
+            <div
+                className={`overlay ${uploadFileOpen ? "display" : ""}`}
+                onClick={toggleUploadFileModal}
+            ></div>
         </div>
     );
 }
