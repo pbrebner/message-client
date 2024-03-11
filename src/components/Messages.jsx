@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams, useOutletContext } from "react-router-dom";
+import TextareaAutosize from "react-textarea-autosize";
 
 import MessageCard from "./MessageCard";
 import MessagesLoading from "./MessagesLoading";
@@ -185,14 +186,15 @@ function Messages() {
                         +
                     </button>
                     <form className="newMessageForm">
-                        <input
-                            type="text"
+                        <TextareaAutosize
                             name="newMessage"
                             id="newMessage"
+                            className="newMessage"
                             placeholder="New Message"
+                            minRows={1}
+                            maxRows={15}
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
-                            autoComplete="off"
                         />
                         <div className="newMessageFormDivider"></div>
                         <Button
