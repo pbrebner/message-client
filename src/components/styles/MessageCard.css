@@ -10,6 +10,34 @@
     background-color: var(--background-alt);
 }
 
+.reply {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reply img {
+    height: 26px;
+    width: 26px;
+
+    transform: rotate(-90deg);
+    opacity: 0.2;
+}
+
+.inResponseTo {
+    font-size: 0.8rem;
+    color: var(--grey-text);
+
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.inResponseToContent {
+    overflow: hidden;
+}
+
 .messageImageContainer {
     width: 35px;
     height: 35px;
@@ -48,6 +76,13 @@
 
 .messageContents {
     font-size: 0.9rem;
+}
+
+.messageImage {
+    max-height: 300px;
+    max-width: 500px;
+
+    border-radius: 5px;
 }
 
 .messageLikes {

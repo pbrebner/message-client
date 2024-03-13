@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 
 import { formatDateTime } from "../utils/dates.js";
 import like from "../assets/icons/like.png";
+import reply from "../assets/icons/reply2.png";
 import "./styles/MessageCard.css";
 
 function MessageCard({ channelId, message, numMessages, setNumMessages }) {
@@ -113,6 +114,22 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
             onMouseLeave={() => setHover(false)}
             onClick={() => setHover(true)}
         >
+            {message.inResponseTo && (
+                <>
+                    <div className="reply">
+                        <img src={reply} />
+                    </div>
+                    <div className="inResponseTo">
+                        <div className="inResponseToName">
+                            {message.inResponseTo.user.name}
+                        </div>
+                        <div className="inResponseToContent">
+                            {message.inResponseTo.content}
+                        </div>
+                    </div>
+                </>
+            )}
+
             <div className="messageImageContainer">
                 <img
                     src={message.user.avatarURL}
@@ -127,7 +144,16 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
                         {formatDateTime(message.timeStamp)}
                     </div>
                 </div>
-                <p className="messageContents">{message.content}</p>
+                {message.content && (
+                    <p className="messageContents">{message.content}</p>
+                )}
+                {message.image && (
+                    <img
+                        src={message.imageURL}
+                        alt="Message Image"
+                        className="messageImage"
+                    />
+                )}
                 {messageLikes > 0 && (
                     <div className="messageLikes">
                         <img src={like} />
@@ -135,6 +161,7 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
                     </div>
                 )}
             </div>
+
             <div
                 className={`messageCardBtns ${
                     hover || modalOpen ? "display" : ""
