@@ -109,6 +109,7 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
 
     return (
         <div
+            id={message._id}
             className={`messageCard ${hover || modalOpen ? "hover" : ""}`}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -123,9 +124,12 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
                         <div className="inResponseToName">
                             {message.inResponseTo.user.name}
                         </div>
-                        <div className="inResponseToContent">
+                        <a
+                            href={`#${message.inResponseTo._id}`}
+                            className="inResponseToContent"
+                        >
                             {message.inResponseTo.content}
-                        </div>
+                        </a>
                     </div>
                 </>
             )}

@@ -35,7 +35,15 @@
 }
 
 .inResponseToContent {
+    text-decoration: none;
+    color: inherit;
     overflow: hidden;
+
+    cursor: pointer;
+}
+
+.inResponseToContent:hover {
+    color: white;
 }
 
 .messageImageContainer {

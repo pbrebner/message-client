@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     --background: rgb(28, 27, 34);
     --background-alt: rgb(24, 24, 28);
