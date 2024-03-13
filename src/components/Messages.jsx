@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
 
@@ -11,7 +11,11 @@ import "./styles/Messages.css";
 function Messages() {
     const [messages, setMessages] = useState("");
     const [numMessages, setNumMessages] = useState(0);
+
     const [newMessage, setNewMessage] = useState("");
+    const [inResponseTo, setInResponseTo] = useState(null);
+    const inputRef = useRef(null);
+
     const [uploadFileOpen, setUploadFileOpen] = useState(false);
 
     const [showLoader, setShowLoader] = useState(false);
@@ -109,11 +113,25 @@ function Messages() {
                     message={message}
                     numMessages={numMessages}
                     setNumMessages={setNumMessages}
+                    replyToMessage={replyToMessage}
                 />
             );
         });
 
         return messageList;
+    }
+
+    function getFormData() {
+        if (inResponseTo) {
+            return JSON.stringify({
+                content: newMessage,
+                inResponseTo: inResponseTo.replyId,
+            });
+        } else {
+            return JSON.stringify({
+                content: newMessage,
+            });
+        }
     }
 
     async function createNewMessage(e) {
@@ -123,9 +141,7 @@ function Messages() {
         setFormError("");
         setError("");
 
-        const formData = JSON.stringify({
-            content: newMessage,
-        });
+        const formData = getFormData();
 
         // Make request to create new Message
         try {
@@ -156,6 +172,8 @@ function Messages() {
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
+                clearReply();
+
                 setNewMessage("");
                 let val = numMessages + 1;
                 setNumMessages(val);
@@ -164,6 +182,19 @@ function Messages() {
             setError(err.message);
             setShowLoader(false);
         }
+    }
+
+    function replyToMessage(responseObject) {
+        // clear newMessage and focus
+        setNewMessage("");
+        inputRef.current.focus();
+
+        // Set inResponseTo
+        setInResponseTo(responseObject);
+    }
+
+    function clearReply() {
+        setInResponseTo(null);
     }
 
     function toggleUploadFileModal() {
@@ -177,7 +208,17 @@ function Messages() {
                 {messages.length > 0 ? messages : <div>No messages yet</div>}
             </div>
             <div className="newMessageContainer">
-                <div className="newMessageDisplay"></div>
+                <div className="newMessageDisplay">
+                    {inResponseTo && (
+                        <div className="inResponseContainer">
+                            <div>
+                                Replying to{" "}
+                                <span>{inResponseTo.replyName}</span>
+                            </div>
+                            <button onClick={clearReply}>&#x2715;</button>
+                        </div>
+                    )}
+                </div>
                 <div className="newMessageInput">
                     <button
                         className="uploadFileBtn"
@@ -195,6 +236,7 @@ function Messages() {
                             maxRows={15}
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
+                            ref={inputRef}
                         />
                         <div className="newMessageFormDivider"></div>
                         <Button

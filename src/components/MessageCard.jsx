@@ -6,7 +6,13 @@ import like from "../assets/icons/like.png";
 import reply from "../assets/icons/reply2.png";
 import "./styles/MessageCard.css";
 
-function MessageCard({ channelId, message, numMessages, setNumMessages }) {
+function MessageCard({
+    channelId,
+    message,
+    numMessages,
+    setNumMessages,
+    replyToMessage,
+}) {
     const [hover, setHover] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [messageLikes, setMessageLikes] = useState(message.likes);
@@ -98,9 +104,9 @@ function MessageCard({ channelId, message, numMessages, setNumMessages }) {
         }
     }
 
-    // Currently not possible with API
-    async function replyMessage() {
-        console.log("Replying to message");
+    function replyMessage() {
+        toggleModal();
+        replyToMessage({ replyId: message._id, replyName: message.user.name });
     }
 
     function toggleModal() {

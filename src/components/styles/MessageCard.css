@@ -34,6 +34,10 @@
     flex-wrap: nowrap;
 }
 
+.inResponseToName {
+    font-weight: 600;
+}
+
 .inResponseToContent {
     text-decoration: none;
     color: inherit;
