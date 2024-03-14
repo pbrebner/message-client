@@ -82,14 +82,25 @@ function MessageCard({
     }
 
     function handleEditCommand(e) {
-        console.log(e.key);
         if (e.key == "Enter") {
             e.preventDefault();
-            updateMessage();
+            runEdit();
         } else if (e.key == "Escape") {
+            cancelEdit();
+        }
+    }
+
+    function cancelEdit() {
+        setEditMessage(false);
+        setEditContent(message.content);
+        setFormError("");
+    }
+
+    function runEdit() {
+        if (editContent != message.content) {
+            updateMessage();
+        } else {
             setEditMessage(false);
-            setEditContent(message.content);
-            setFormError("");
         }
     }
 
@@ -246,7 +257,26 @@ function MessageCard({
                                     />
                                 </div>
                                 <div className="editContentInfo">
-                                    escape to cancel, enter to save
+                                    escape to{" "}
+                                    <button
+                                        className="editContentBtn"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            cancelEdit();
+                                        }}
+                                    >
+                                        cancel
+                                    </button>
+                                    , enter to{" "}
+                                    <button
+                                        className="editContentBtn"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            runEdit();
+                                        }}
+                                    >
+                                        save
+                                    </button>
                                 </div>
                                 {formError && (
                                     <div className="newMessageError">

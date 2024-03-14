@@ -121,6 +121,19 @@
     font-size: 0.8rem;
 }
 
+.editContentBtn {
+    background: none;
+    border: none;
+    color: var(--accent-purple);
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.editContentBtn:hover {
+    text-decoration: underline;
+}
+
 .messageImage {
     max-height: 300px;
     max-width: 500px;
