@@ -9,8 +9,8 @@ import { formatDateLong } from "../utils/dates.js";
 import "./styles/Messages.css";
 
 function Messages() {
-    const [messages, setMessages] = useState("");
-    const [numMessages, setNumMessages] = useState(0);
+    const [messages, setMessages] = useState([]);
+    const [numMessageUpdates, setNumMessageUpdates] = useState(0);
 
     const [newMessage, setNewMessage] = useState("");
     const [inResponseTo, setInResponseTo] = useState(null);
@@ -83,7 +83,7 @@ function Messages() {
             }
         }
         getMessages();
-    }, [numMessages, channelId]);
+    }, [numMessageUpdates, channelId]);
 
     function prepareMessages(messages) {
         let messageList = [];
@@ -111,8 +111,8 @@ function Messages() {
                     key={message._id}
                     channelId={channelId}
                     message={message}
-                    numMessages={numMessages}
-                    setNumMessages={setNumMessages}
+                    numMessageUpdates={numMessageUpdates}
+                    setNumMessageUpdates={setNumMessageUpdates}
                     replyToMessage={replyToMessage}
                 />
             );
@@ -175,8 +175,7 @@ function Messages() {
                 clearReply();
 
                 setNewMessage("");
-                let val = numMessages + 1;
-                setNumMessages(val);
+                setNumMessageUpdates(numMessageUpdates + 1);
             }
         } catch (err) {
             setError(err.message);
