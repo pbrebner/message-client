@@ -29,8 +29,8 @@ function App() {
 
     return (
         <div className="app">
-            {error && <AppError error={error} />}
             <Outlet context={[loggedIn, setLoggedIn, setError]} />
+            {error && <AppError error={error} />}
         </div>
     );
 }
