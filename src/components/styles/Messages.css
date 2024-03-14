@@ -37,8 +37,8 @@
 }
 
 .inResponseContainer {
-    padding: 5px 10px;
-    font-size: 0.9rem;
+    padding: 3px 8px;
+    font-size: 0.8rem;
     background-color: var(--accent-grey);
     color: var(--grey-text);
     border-top-left-radius: 4px;
@@ -54,7 +54,7 @@
 }
 
 .inResponseContainer button {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--grey-text);
     background: none;
     border: none;
@@ -95,7 +95,7 @@
 
 .newMessage {
     flex: 1;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     border: none;
     background: none;
     outline: none;
@@ -112,7 +112,7 @@
 .newMessageForm button {
     align-self: flex-start;
     padding: 3px 8px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     background: none;
     border: none;
     cursor: pointer;
@@ -124,7 +124,7 @@
     border-radius: 5px;
 
     position: absolute;
-    top: -60px;
+    top: -55px;
     z-index: 20;
 
     display: none;
@@ -137,18 +137,14 @@
 .uploadFileModalBtn {
     padding: 10px 20px;
     font-size: 1rem;
-    color: var(--grey-text);
+    font-weight: 600;
+    color: white;
+    background-color: var(--accent-purple);
 
-    background: none;
     border: none;
     border-radius: 5px;
 
     cursor: pointer;
-}
-
-.uploadFileModalBtn:hover {
-    background-color: var(--accent-purple);
-    color: white;
 }
 
 .newMessageError {
@@ -178,9 +174,29 @@
     color: var(--grey-text);
 }
 
+@media (hover: hover) {
+    .uploadFileModalBtn {
+        color: var(--grey-text);
+        background-color: inherit;
+    }
+
+    .uploadFileModalBtn:hover {
+        background-color: var(--accent-purple);
+        color: white;
+    }
+}
+
 @media (min-width: 600px) {
-    .newMessageForm input {
-        padding: 5px;
+    .inResponseContainer {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+
+    .inResponseContainer button {
+        font-size: 1.2rem;
+    }
+
+    .newMessage {
         font-size: 1rem;
     }
 

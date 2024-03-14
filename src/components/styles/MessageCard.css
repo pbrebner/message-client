@@ -17,30 +17,32 @@
 }
 
 .reply img {
-    height: 26px;
-    width: 26px;
+    height: 20px;
+    width: 20px;
 
     transform: rotate(-90deg);
     opacity: 0.2;
 }
 
 .inResponseTo {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: var(--grey-text);
 
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    flex-wrap: nowrap;
 }
 
 .inResponseToName {
+    flex-shrink: 0;
     font-weight: 600;
 }
 
 .inResponseToContent {
     text-decoration: none;
     color: inherit;
+
+    white-space: nowrap;
     overflow: hidden;
 
     cursor: pointer;
@@ -77,13 +79,17 @@
 }
 
 .messageUser {
-    font-size: 1rem;
+    flex-shrink: 0;
+    font-size: 0.9rem;
     font-weight: 700;
 }
 
 .messageDate {
     color: var(--grey-text);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .messageContents {
@@ -220,6 +226,15 @@
     .messageCard {
         padding: 10px 20px;
         grid-template-columns: 60px 1fr;
+    }
+
+    .reply img {
+        height: 26px;
+        width: 26px;
+    }
+
+    .inResponseTo {
+        font-size: 0.8rem;
     }
 
     .messageImageContainer {
