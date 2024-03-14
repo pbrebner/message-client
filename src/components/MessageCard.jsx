@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useOutletContext } from "react-router-dom";
+import TextareaAutosize from "react-textarea-autosize";
 
 import { formatDateTime } from "../utils/dates.js";
 import like from "../assets/icons/like.png";
@@ -9,13 +10,18 @@ import "./styles/MessageCard.css";
 function MessageCard({
     channelId,
     message,
-    numMessages,
-    setNumMessages,
+    numMessageUpdates,
+    setNumMessageUpdates,
     replyToMessage,
 }) {
     const [hover, setHover] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [messageLikes, setMessageLikes] = useState(message.likes);
+
+    const [editMessage, setEditMessage] = useState(false);
+    const [editContent, setEditContent] = useState(message.content);
+    const inputRef = useRef(null);
+    const [formError, setFormError] = useState("");
 
     const userId = localStorage.getItem("userId");
 
@@ -61,9 +67,75 @@ function MessageCard({
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );
+            } else {
+                setNumMessageUpdates(numMessageUpdates + 1);
             }
         } catch (err) {
             setError(err.message);
+        }
+    }
+
+    function prepareEditMessage() {
+        toggleModal();
+        setEditMessage(true);
+        //inputRef.current.focus();
+    }
+
+    function handleEditCommand(e) {
+        console.log(e.key);
+        if (e.key == "Enter") {
+            e.preventDefault();
+            updateMessage();
+        } else if (e.key == "Escape") {
+            setEditMessage(false);
+            setEditContent(message.content);
+            setFormError("");
+        }
+    }
+
+    async function updateMessage() {
+        setError("");
+        setFormError("");
+
+        const bodyData = JSON.stringify({
+            content: editContent,
+        });
+
+        // Make request to update message content
+        try {
+            const response = await fetch(
+                `https://message-api.fly.dev/api/channels/${channelId}/messages/${message._id}`,
+                {
+                    method: "put",
+                    body: bodyData,
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                }
+            );
+
+            const result = await response.json();
+            console.log(result);
+
+            // Handle any errors
+            if (response.status == 400) {
+                setFormError(result.errors);
+            } else if (!response.ok) {
+                throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                );
+            } else {
+                setEditMessage(false);
+                setNumMessageUpdates(numMessageUpdates + 1);
+            }
+        } catch (err) {
+            setError(err.message);
+
+            setEditMessage(false);
+            setEditContent(message.content);
         }
     }
 
@@ -95,8 +167,7 @@ function MessageCard({
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
-                let val = numMessages - 1;
-                setNumMessages(val);
+                setNumMessageUpdates(numMessageUpdates + 1);
             }
         } catch (err) {
             setError(err.message);
@@ -155,7 +226,40 @@ function MessageCard({
                     </div>
                 </div>
                 {message.content && (
-                    <p className="messageContents">{message.content}</p>
+                    <div className="messageContents">
+                        {editMessage ? (
+                            <form className="editContentForm">
+                                <div className="editContentContainer">
+                                    <TextareaAutosize
+                                        name="editContent"
+                                        id="editContent"
+                                        className="editContent"
+                                        placeholder="Edit Message"
+                                        minRows={1}
+                                        maxRows={15}
+                                        value={editContent}
+                                        onChange={(e) =>
+                                            setEditContent(e.target.value)
+                                        }
+                                        onKeyDown={handleEditCommand}
+                                        ref={inputRef}
+                                    />
+                                </div>
+                                <div className="editContentInfo">
+                                    escape to cancel, enter to save
+                                </div>
+                                {formError && (
+                                    <div className="newMessageError">
+                                        {formError.map((error) => (
+                                            <div>{error.msg}</div>
+                                        ))}
+                                    </div>
+                                )}
+                            </form>
+                        ) : (
+                            <p>{message.content}</p>
+                        )}
+                    </div>
                 )}
                 {message.image && (
                     <img
@@ -189,12 +293,20 @@ function MessageCard({
                     Reply
                 </button>
                 {message.user._id == userId && (
-                    <button
-                        className="messageCardModalBtn deleteMessageBtn"
-                        onClick={deleteMessage}
-                    >
-                        Delete Message
-                    </button>
+                    <>
+                        <button
+                            className="messageCardModalBtn"
+                            onClick={prepareEditMessage}
+                        >
+                            Edit
+                        </button>
+                        <button
+                            className="messageCardModalBtn deleteMessageBtn"
+                            onClick={deleteMessage}
+                        >
+                            Delete
+                        </button>
+                    </>
                 )}
             </div>
             <div

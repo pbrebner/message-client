@@ -94,6 +94,31 @@
 
 .messageContents {
     font-size: 0.9rem;
+    width: 100%;
+}
+
+.editContentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.editContentContainer {
+    padding: 2px 3px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.editContent {
+    font-size: 0.8rem;
+    width: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+}
+
+.editContentInfo {
+    font-size: 0.8rem;
 }
 
 .messageImage {
