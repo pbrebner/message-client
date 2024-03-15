@@ -1,0 +1,67 @@
+.messageContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.messageTextContainer {
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.editTextForm {
+    height: 0;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.editTextForm.display {
+    height: auto;
+}
+
+.editTextContainer {
+    padding: 2px 3px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.editText {
+    font-size: 0.8rem;
+    width: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+}
+
+.editTextInfo {
+    font-size: 0.7rem;
+}
+
+.editTextBtn {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    color: var(--accent-purple);
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.messageText {
+    display: none;
+}
+
+.messageText.display {
+    display: block;
+}
+
+.messageImage {
+    max-height: 300px;
+    max-width: 500px;
+
+    border-radius: 5px;
+}
