@@ -112,7 +112,7 @@ function Messages() {
                     message={message}
                     numMessageUpdates={numMessageUpdates}
                     setNumMessageUpdates={setNumMessageUpdates}
-                    replyToMessage={replyToMessage}
+                    prepareReply={prepareReply}
                 />
             );
         });
@@ -182,7 +182,7 @@ function Messages() {
         }
     }
 
-    function replyToMessage(responseObject) {
+    function prepareReply(responseObject) {
         // clear newMessage and focus
         setNewMessage("");
         inputRef.current.focus();

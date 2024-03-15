@@ -11,7 +11,7 @@ function MessageCard({
     message,
     numMessageUpdates,
     setNumMessageUpdates,
-    replyToMessage,
+    prepareReply,
 }) {
     const [hover, setHover] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -115,9 +115,9 @@ function MessageCard({
         }
     }
 
-    function replyMessage() {
+    function replyToMessage() {
         toggleModal();
-        replyToMessage({ replyId: message._id, replyName: message.user.name });
+        prepareReply({ replyId: message._id, replyName: message.user.name });
     }
 
     function toggleModal() {
@@ -192,7 +192,10 @@ function MessageCard({
                 </button>
             </div>
             <div className={`messageCardModal ${modalOpen ? "display" : ""}`}>
-                <button className="messageCardModalBtn" onClick={replyMessage}>
+                <button
+                    className="messageCardModalBtn"
+                    onClick={replyToMessage}
+                >
                     Reply
                 </button>
                 {message.user._id == userId && (
