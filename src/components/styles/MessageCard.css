@@ -52,7 +52,7 @@
     color: white;
 }
 
-.messageImageContainer {
+.messageUserImageContainer {
     width: 35px;
     height: 35px;
 
@@ -61,7 +61,7 @@
     border: 1px solid var(--accent-grey);
 }
 
-.messageImage {
+.messageUserImage {
     width: 100%;
 }
 
@@ -90,67 +90,6 @@
 
     white-space: nowrap;
     overflow: hidden;
-}
-
-.messageContents {
-    font-size: 0.9rem;
-    width: 100%;
-}
-
-.editContentForm {
-    height: 0;
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.editContentForm.display {
-    height: auto;
-}
-
-.editContentContainer {
-    padding: 2px 3px;
-    background-color: white;
-    border-radius: 5px;
-}
-
-.editContent {
-    font-size: 0.8rem;
-    width: 100%;
-    resize: none;
-    border: none;
-    outline: none;
-}
-
-.editContentInfo {
-    font-size: 0.7rem;
-}
-
-.editContentBtn {
-    background: none;
-    border: none;
-    text-decoration: underline;
-    color: var(--accent-purple);
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-.messageContent {
-    display: none;
-}
-
-.messageContent.display {
-    display: block;
-}
-
-.messageImage {
-    max-height: 300px;
-    max-width: 500px;
-
-    border-radius: 5px;
 }
 
 .messageLikes {

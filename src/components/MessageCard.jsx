@@ -1,14 +1,13 @@
 import { useState, useRef } from "react";
-import { useOutletContext } from "react-router-dom";
-import TextareaAutosize from "react-textarea-autosize";
+import { useOutletContext, useParams } from "react-router-dom";
 
+import MessageCardContent from "./MessageCardContent.jsx";
 import { formatDateTime } from "../utils/dates.js";
 import like from "../assets/icons/like.png";
 import reply from "../assets/icons/reply2.png";
 import "./styles/MessageCard.css";
 
 function MessageCard({
-    channelId,
     message,
     numMessageUpdates,
     setNumMessageUpdates,
@@ -19,10 +18,9 @@ function MessageCard({
     const [messageLikes, setMessageLikes] = useState(message.likes);
 
     const [editMessage, setEditMessage] = useState(false);
-    const [editContent, setEditContent] = useState(message.content);
     const inputRef = useRef(null);
-    const [formError, setFormError] = useState("");
 
+    const { channelId } = useParams();
     const userId = localStorage.getItem("userId");
 
     const [
@@ -79,75 +77,6 @@ function MessageCard({
         toggleModal();
         setEditMessage(true);
         inputRef.current.focus();
-    }
-
-    function handleEditCommand(e) {
-        if (e.key == "Enter") {
-            e.preventDefault();
-            runEdit();
-        } else if (e.key == "Escape") {
-            cancelEdit();
-        }
-    }
-
-    function cancelEdit() {
-        setEditMessage(false);
-        setEditContent(message.content);
-        setFormError("");
-    }
-
-    function runEdit() {
-        if (editContent != message.content) {
-            updateMessage();
-        } else {
-            setEditMessage(false);
-        }
-    }
-
-    async function updateMessage() {
-        setError("");
-        setFormError("");
-
-        const bodyData = JSON.stringify({
-            content: editContent,
-        });
-
-        // Make request to update message content
-        try {
-            const response = await fetch(
-                `https://message-api.fly.dev/api/channels/${channelId}/messages/${message._id}`,
-                {
-                    method: "put",
-                    body: bodyData,
-                    headers: {
-                        "Content-Type": "application/json",
-                        authorization: `Bearer ${localStorage.getItem(
-                            "token"
-                        )}`,
-                    },
-                }
-            );
-
-            const result = await response.json();
-            console.log(result);
-
-            // Handle any errors
-            if (response.status == 400) {
-                setFormError(result.errors);
-            } else if (!response.ok) {
-                throw new Error(
-                    `This is an HTTP error: The status is ${response.status}`
-                );
-            } else {
-                setEditMessage(false);
-                setNumMessageUpdates(numMessageUpdates + 1);
-            }
-        } catch (err) {
-            setError(err.message);
-
-            setEditMessage(false);
-            setEditContent(message.content);
-        }
     }
 
     async function deleteMessage() {
@@ -221,12 +150,11 @@ function MessageCard({
                     </div>
                 </>
             )}
-
-            <div className="messageImageContainer">
+            <div className="messageUserImageContainer">
                 <img
                     src={message.user.avatarURL}
                     alt="User"
-                    className="messageImage"
+                    className="messageUserImage"
                 />
             </div>
             <div className="message">
@@ -236,75 +164,14 @@ function MessageCard({
                         {formatDateTime(message.timeStamp)}
                     </div>
                 </div>
-                {message.content && (
-                    <div className="messageContents">
-                        <form
-                            className={`editContentForm ${
-                                editMessage ? "display" : ""
-                            }`}
-                        >
-                            <div className="editContentContainer">
-                                <TextareaAutosize
-                                    name="editContent"
-                                    id="editContent"
-                                    className="editContent"
-                                    placeholder="Edit Message"
-                                    minRows={1}
-                                    maxRows={15}
-                                    value={editContent}
-                                    onChange={(e) =>
-                                        setEditContent(e.target.value)
-                                    }
-                                    onKeyDown={handleEditCommand}
-                                    ref={inputRef}
-                                />
-                            </div>
-                            <div className="editContentInfo">
-                                escape to{" "}
-                                <button
-                                    className="editContentBtn"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        cancelEdit();
-                                    }}
-                                >
-                                    cancel
-                                </button>
-                                , enter to{" "}
-                                <button
-                                    className="editContentBtn"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        runEdit();
-                                    }}
-                                >
-                                    save
-                                </button>
-                            </div>
-                            {formError && (
-                                <div className="newMessageError">
-                                    {formError.map((error) => (
-                                        <div>{error.msg}</div>
-                                    ))}
-                                </div>
-                            )}
-                        </form>
-                        <p
-                            className={`messageContent ${
-                                editMessage ? "" : "display"
-                            }`}
-                        >
-                            {message.content}
-                        </p>
-                    </div>
-                )}
-                {message.image && (
-                    <img
-                        src={message.imageURL}
-                        alt="Message Image"
-                        className="messageImage"
-                    />
-                )}
+                <MessageCardContent
+                    message={message}
+                    editMessage={editMessage}
+                    setEditMessage={setEditMessage}
+                    numMessageUpdates={numMessageUpdates}
+                    setNumMessageUpdates={setNumMessageUpdates}
+                    inputRef={inputRef}
+                />
                 {messageLikes > 0 && (
                     <div className="messageLikes">
                         <img src={like} />
@@ -312,7 +179,6 @@ function MessageCard({
                     </div>
                 )}
             </div>
-
             <div
                 className={`messageCardBtns ${
                     hover || modalOpen ? "display" : ""
