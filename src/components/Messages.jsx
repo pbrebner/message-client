@@ -109,7 +109,6 @@ function Messages() {
             messageList.push(
                 <MessageCard
                     key={message._id}
-                    channelId={channelId}
                     message={message}
                     numMessageUpdates={numMessageUpdates}
                     setNumMessageUpdates={setNumMessageUpdates}
