@@ -209,14 +209,6 @@
         background-color: red;
         color: white;
     }
-
-    .editContentBtn {
-        text-decoration: none;
-    }
-
-    .editContentBtn:hover {
-        text-decoration: underline;
-    }
 }
 
 @media (min-width: 600px) {
@@ -234,13 +226,9 @@
         font-size: 0.8rem;
     }
 
-    .messageImageContainer {
+    .messageUserImageContainer {
         width: 45px;
         height: 45px;
-    }
-
-    .editContentInfo {
-        font-size: 0.8rem;
     }
 
     .messageUser,
