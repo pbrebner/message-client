@@ -125,7 +125,7 @@
 }
 
 .editContentInfo {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 .editContentBtn {
@@ -298,6 +298,10 @@
     .messageImageContainer {
         width: 45px;
         height: 45px;
+    }
+
+    .editContentInfo {
+        font-size: 0.8rem;
     }
 
     .messageUser,
