@@ -98,9 +98,16 @@
 }
 
 .editContentForm {
+    height: 0;
+    overflow: hidden;
+
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+.editContentForm.display {
+    height: auto;
 }
 
 .editContentContainer {
@@ -124,14 +131,19 @@
 .editContentBtn {
     background: none;
     border: none;
+    text-decoration: underline;
     color: var(--accent-purple);
     font-weight: 600;
 
     cursor: pointer;
 }
 
-.editContentBtn:hover {
-    text-decoration: underline;
+.messageContent {
+    display: none;
+}
+
+.messageContent.display {
+    display: block;
 }
 
 .messageImage {
@@ -257,6 +269,14 @@
     .deleteMessageBtn:hover {
         background-color: red;
         color: white;
+    }
+
+    .editContentBtn {
+        text-decoration: none;
+    }
+
+    .editContentBtn:hover {
+        text-decoration: underline;
     }
 }
 

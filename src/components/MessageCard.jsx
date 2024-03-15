@@ -78,7 +78,7 @@ function MessageCard({
     function prepareEditMessage() {
         toggleModal();
         setEditMessage(true);
-        //inputRef.current.focus();
+        inputRef.current.focus();
     }
 
     function handleEditCommand(e) {
@@ -238,57 +238,64 @@ function MessageCard({
                 </div>
                 {message.content && (
                     <div className="messageContents">
-                        {editMessage ? (
-                            <form className="editContentForm">
-                                <div className="editContentContainer">
-                                    <TextareaAutosize
-                                        name="editContent"
-                                        id="editContent"
-                                        className="editContent"
-                                        placeholder="Edit Message"
-                                        minRows={1}
-                                        maxRows={15}
-                                        value={editContent}
-                                        onChange={(e) =>
-                                            setEditContent(e.target.value)
-                                        }
-                                        onKeyDown={handleEditCommand}
-                                        ref={inputRef}
-                                    />
+                        <form
+                            className={`editContentForm ${
+                                editMessage ? "display" : ""
+                            }`}
+                        >
+                            <div className="editContentContainer">
+                                <TextareaAutosize
+                                    name="editContent"
+                                    id="editContent"
+                                    className="editContent"
+                                    placeholder="Edit Message"
+                                    minRows={1}
+                                    maxRows={15}
+                                    value={editContent}
+                                    onChange={(e) =>
+                                        setEditContent(e.target.value)
+                                    }
+                                    onKeyDown={handleEditCommand}
+                                    ref={inputRef}
+                                />
+                            </div>
+                            <div className="editContentInfo">
+                                escape to{" "}
+                                <button
+                                    className="editContentBtn"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        cancelEdit();
+                                    }}
+                                >
+                                    cancel
+                                </button>
+                                , enter to{" "}
+                                <button
+                                    className="editContentBtn"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        runEdit();
+                                    }}
+                                >
+                                    save
+                                </button>
+                            </div>
+                            {formError && (
+                                <div className="newMessageError">
+                                    {formError.map((error) => (
+                                        <div>{error.msg}</div>
+                                    ))}
                                 </div>
-                                <div className="editContentInfo">
-                                    escape to{" "}
-                                    <button
-                                        className="editContentBtn"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            cancelEdit();
-                                        }}
-                                    >
-                                        cancel
-                                    </button>
-                                    , enter to{" "}
-                                    <button
-                                        className="editContentBtn"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            runEdit();
-                                        }}
-                                    >
-                                        save
-                                    </button>
-                                </div>
-                                {formError && (
-                                    <div className="newMessageError">
-                                        {formError.map((error) => (
-                                            <div>{error.msg}</div>
-                                        ))}
-                                    </div>
-                                )}
-                            </form>
-                        ) : (
-                            <p>{message.content}</p>
-                        )}
+                            )}
+                        </form>
+                        <p
+                            className={`messageContent ${
+                                editMessage ? "" : "display"
+                            }`}
+                        >
+                            {message.content}
+                        </p>
                     </div>
                 )}
                 {message.image && (
