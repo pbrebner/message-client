@@ -186,7 +186,6 @@ function Messages() {
                     method: "post",
                     body: formData,
                     headers: {
-                        "Content-Type": "application/json",
                         authorization: `Bearer ${localStorage.getItem(
                             "token"
                         )}`,
@@ -226,7 +225,6 @@ function Messages() {
                     method: "put",
                     body: formData,
                     headers: {
-                        "Content-Type": "application/json",
                         authorization: `Bearer ${localStorage.getItem(
                             "token"
                         )}`,
@@ -266,7 +264,6 @@ function Messages() {
                 {
                     method: "delete",
                     headers: {
-                        "Content-Type": "application/json",
                         authorization: `Bearer ${localStorage.getItem(
                             "token"
                         )}`,
