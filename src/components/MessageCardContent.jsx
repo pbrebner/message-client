@@ -142,8 +142,8 @@ function MessageCardContent({
                         </div>
                         {formError && (
                             <div className="newMessageError">
-                                {formError.map((error) => (
-                                    <div>{error.msg}</div>
+                                {formError.map((error, index) => (
+                                    <div key={index}>{error.msg}</div>
                                 ))}
                             </div>
                         )}
