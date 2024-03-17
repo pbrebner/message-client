@@ -85,6 +85,7 @@ function Messages() {
             }
         }
         getMessages();
+        return () => cleanUpMessage();
     }, [numMessageUpdates, channelId]);
 
     function prepareMessages(messages) {
@@ -123,13 +124,29 @@ function Messages() {
     }
 
     async function handleFileUpload(e) {
-        // Probably something I need to do to stop regular file upload behavior
+        if (newMessageInfo) {
+            await deleteMessage();
+        }
+
+        // Bug when trying to send same image twice (no onChange?)
+        setNewMessageImage(e.target.files[0]);
+        toggleUploadFileModal();
 
         setShowLoader(true);
         setFormError("");
         setError("");
 
-        await createNewMessage();
+        let formData = new FormData();
+        formData.append("image", e.target.files[0]);
+
+        const result = await createNewMessage(formData);
+
+        if (result) {
+            setnewMessageInfo({
+                messageId: result.messageId,
+                imageURL: result.messageImageURL,
+            });
+        }
     }
 
     async function handleMessageSend(e) {
@@ -138,46 +155,43 @@ function Messages() {
         setFormError("");
         setError("");
 
+        let formData = new FormData();
+        if (newMessage) {
+            formData.append("content", newMessage);
+        }
+
+        if (inResponseTo) {
+            formData.append("inResponseTo", inResponseTo.replyId);
+        }
+
         if (newMessageInfo) {
             // Update the message
-            await updateMessage();
+            const result = await updateMessage(formData);
+            if (result) {
+                clearReply();
+                setNewMessage("");
+                setNumMessageUpdates(numMessageUpdates + 1);
+
+                setnewMessageInfo(null);
+            }
         } else {
             // Create new message
-            await createNewMessage();
-        }
-    }
-
-    function getFormData() {
-        let formData = new FormData();
-
-        // Set formData
-        if (newMessageImage) {
-            formData.append("image", newMessageImage);
-        } else {
-            formData.append("content", newMessage);
-
-            if (inResponseTo) {
-                formData.append("inResponseTo", inResponseTo.replyId);
+            const result = await createNewMessage(formData);
+            if (result) {
+                clearReply();
+                setNewMessage("");
+                setNumMessageUpdates(numMessageUpdates + 1);
             }
         }
-
-        return formData;
     }
 
-    function cleanUpMessage(result) {
-        if (newMessageImage) {
-            setnewMessageInfo({ messageId: result.messageId, imageURL: "" });
-            setNewMessageImage("");
-        } else {
-            clearReply();
-            setNewMessage("");
-            setNumMessageUpdates(numMessageUpdates + 1);
+    async function cleanUpMessage() {
+        if (newMessageInfo) {
+            await deleteMessage();
         }
     }
 
-    async function createNewMessage() {
-        const formData = getFormData();
-
+    async function createNewMessage(formData) {
         // Make request to create new Message
         try {
             const response = await fetch(
@@ -206,7 +220,7 @@ function Messages() {
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
-                cleanUpMessage(result);
+                return result;
             }
         } catch (err) {
             setError(err.message);
@@ -214,9 +228,7 @@ function Messages() {
         }
     }
 
-    async function updateMessage() {
-        const formData = getFormData();
-
+    async function updateMessage(formData) {
         // Make request to update message content
         try {
             const response = await fetch(
@@ -245,8 +257,7 @@ function Messages() {
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
-                cleanUpMessage();
-                setnewMessageInfo(null);
+                return result;
             }
         } catch (err) {
             setShowLoader(false);
@@ -320,6 +331,18 @@ function Messages() {
                             <button onClick={clearReply}>&#x2715;</button>
                         </div>
                     )}
+                    {newMessageInfo && (
+                        <div className="newMessageImageContainer">
+                            <img
+                                src={newMessageInfo.imageURL}
+                                alt="New Message Image"
+                                className="newMessageImage"
+                            />
+                            <div className="newMessageImageBtns">
+                                <button onClick={deleteMessage}>X</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <div className="newMessageInput">
                     <button
@@ -337,7 +360,10 @@ function Messages() {
                             minRows={1}
                             maxRows={15}
                             value={newMessage}
-                            onChange={(e) => setNewMessage(e.target.value)}
+                            onChange={(e) => {
+                                setFormError("");
+                                setNewMessage(e.target.value);
+                            }}
                             ref={inputRef}
                         />
                         <div className="newMessageFormDivider"></div>
@@ -353,19 +379,32 @@ function Messages() {
                             uploadFileOpen ? "display" : ""
                         }`}
                     >
-                        <button className="uploadFileModalBtn">
+                        <label
+                            htmlFor="fileUpload"
+                            className="uploadFileModalBtn"
+                        >
                             Upload a File
-                        </button>
+                        </label>
+                        <input
+                            type="file"
+                            name="fileUpload"
+                            id="fileUpload"
+                            className="fileUpload"
+                            file={newMessageImage}
+                            onChange={handleFileUpload}
+                            accept="image/*"
+                        />
                     </div>
                 </div>
                 {formError && (
                     <div className="newMessageError">
-                        {formError.map((error) => (
-                            <div>{error.msg}</div>
+                        {formError.map((error, index) => (
+                            <div key={index}>{error.msg}</div>
                         ))}
                     </div>
                 )}
             </div>
+
             <div
                 className={`overlay ${uploadFileOpen ? "display" : ""}`}
                 onClick={toggleUploadFileModal}

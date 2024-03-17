@@ -66,6 +66,37 @@
     color: white;
 }
 
+.newMessageImageContainer {
+    align-self: flex-start;
+    padding: 10px;
+
+    position: relative;
+}
+
+.newMessageImage {
+    height: 200px;
+    width: 200px;
+    border-radius: 10px;
+}
+
+.newMessageImageBtns {
+    padding: 3px 7px;
+    background-color: var(--accent-grey);
+    border-radius: 3px;
+
+    position: absolute;
+    top: 3px;
+    right: 3px;
+}
+
+.newMessageImageBtns button {
+    color: red;
+    border: none;
+    background: none;
+
+    cursor: pointer;
+}
+
 .newMessageInput {
     display: flex;
     gap: 5px;
@@ -119,12 +150,12 @@
 }
 
 .uploadFileModal {
-    padding: 5px;
+    padding: 10px 5px;
     background-color: black;
     border-radius: 5px;
 
     position: absolute;
-    top: -55px;
+    top: -40px;
     z-index: 20;
 
     display: none;
@@ -135,7 +166,7 @@
 }
 
 .uploadFileModalBtn {
-    padding: 10px 20px;
+    padding: 5px 15px;
     font-size: 1rem;
     font-weight: 600;
     color: white;
@@ -147,10 +178,19 @@
     cursor: pointer;
 }
 
+.fileUpload {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
 .newMessageError {
     padding: 10px;
     font-size: 0.9rem;
-    color: rgb(231, 195, 94);
+    color: rgb(228, 38, 38);
 }
 
 /* Messages Divider */
