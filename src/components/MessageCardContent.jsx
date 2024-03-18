@@ -97,7 +97,7 @@ function MessageCardContent({
 
     return (
         <div className="messageContent">
-            {message.content && (
+            {(message.content || message.image) && (
                 <div className="messageTextContainer">
                     <form
                         className={`editTextForm ${
