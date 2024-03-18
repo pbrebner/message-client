@@ -18,7 +18,7 @@ function Messages() {
 
     const [uploadFileOpen, setUploadFileOpen] = useState(false);
     const [newMessageImage, setNewMessageImage] = useState("");
-    const [newMessageInfo, setnewMessageInfo] = useState(null);
+    const [newMessageInfo, setNewMessageInfo] = useState(null);
 
     const [showLoader, setShowLoader] = useState(false);
     const [pageLoading, setPageLoading] = useState(true);
@@ -84,6 +84,7 @@ function Messages() {
                 }, "1500");
             }
         }
+        cleanUpMessage();
         getMessages();
         return () => cleanUpMessage();
     }, [numMessageUpdates, channelId]);
@@ -128,7 +129,6 @@ function Messages() {
             await deleteMessage();
         }
 
-        // Bug when trying to send same image twice (no onChange?)
         setNewMessageImage(e.target.files[0]);
         toggleUploadFileModal();
 
@@ -139,12 +139,28 @@ function Messages() {
         let formData = new FormData();
         formData.append("image", e.target.files[0]);
 
+        // Reset value
+        e.target.value = "";
+
         const result = await createNewMessage(formData);
 
         if (result) {
-            setnewMessageInfo({
+            setNewMessageInfo({
                 messageId: result.messageId,
                 imageURL: result.messageImageURL,
+            });
+        }
+    }
+
+    function getSendData() {
+        if (inResponseTo) {
+            return JSON.stringify({
+                content: newMessage,
+                inResponseTo: inResponseTo.replyId,
+            });
+        } else {
+            return JSON.stringify({
+                content: newMessage,
             });
         }
     }
@@ -155,27 +171,26 @@ function Messages() {
         setFormError("");
         setError("");
 
-        let formData = new FormData();
-        if (newMessage) {
-            formData.append("content", newMessage);
-        }
-
-        if (inResponseTo) {
-            formData.append("inResponseTo", inResponseTo.replyId);
-        }
-
         if (newMessageInfo) {
             // Update the message
+            const formData = getSendData();
             const result = await updateMessage(formData);
             if (result) {
                 clearReply();
                 setNewMessage("");
                 setNumMessageUpdates(numMessageUpdates + 1);
 
-                setnewMessageInfo(null);
+                setNewMessageInfo(null);
             }
         } else {
             // Create new message
+            let formData = new FormData();
+            formData.append("content", newMessage);
+
+            if (inResponseTo) {
+                formData.append("inResponseTo", inResponseTo.replyId);
+            }
+
             const result = await createNewMessage(formData);
             if (result) {
                 clearReply();
@@ -237,6 +252,7 @@ function Messages() {
                     method: "put",
                     body: formData,
                     headers: {
+                        "Content-Type": "application/json",
                         authorization: `Bearer ${localStorage.getItem(
                             "token"
                         )}`,
@@ -290,7 +306,7 @@ function Messages() {
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
-                setnewMessageInfo(null);
+                setNewMessageInfo(null);
             }
         } catch (err) {
             setError(err.message);
