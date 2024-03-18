@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import Button from "../components/Button";
 import "./styles/AccountInfo.css";
 
-function AccountInfo({ user, updateUser, setUpdateUser }) {
+function AccountInfo({ user, numUserUpdates, setNumUserUpdates }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [bio, setBio] = useState("");
@@ -52,7 +52,7 @@ function AccountInfo({ user, updateUser, setUpdateUser }) {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             setShowLoader(false);
 
@@ -63,8 +63,8 @@ function AccountInfo({ user, updateUser, setUpdateUser }) {
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
-                const val = updateUser + 1;
-                setUpdateUser(val);
+                const val = numUserUpdates + 1;
+                setNumUserUpdates(val);
                 setEditModalOpen(false);
             }
         } catch (err) {

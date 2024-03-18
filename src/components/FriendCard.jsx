@@ -12,8 +12,8 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
         user,
         numChannels,
         setNumChannels,
-        updateChannel,
-        setUpdateChannel,
+        numChannelUpdates,
+        setNumChannelUpdates,
         setError,
     ] = useOutletContext();
     const navigate = useNavigate();
@@ -46,7 +46,7 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             setShowLoader(false);
 
@@ -88,7 +88,7 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             setShowLoader(false);
 
@@ -126,7 +126,7 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             setShowLoader(false);
             setModalOpen(false);
@@ -138,8 +138,8 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
             } else {
                 let val = numFriends - 1;
                 setNumFriends(val);
-                let val2 = updateChannel + 1;
-                setUpdateChannel(val2);
+                let val2 = numChannelUpdates + 1;
+                setNumChannelUpdates(val2);
             }
         } catch (err) {
             setError(err.message);

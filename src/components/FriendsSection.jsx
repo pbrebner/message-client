@@ -25,8 +25,8 @@ function FriendsSection() {
         user,
         numChannels,
         setNumChannels,
-        updateChannel,
-        setUpdateChannel,
+        numChannelUpdates,
+        setNumChannelUpdates,
         setError,
     ] = useOutletContext();
 
@@ -51,8 +51,8 @@ function FriendsSection() {
                     }
                 );
 
-                const data = await response.json();
-                console.log(data);
+                const result = await response.json();
+                //console.log(result);
 
                 setTimeout(() => {
                     setPageLoading(false);
@@ -66,10 +66,10 @@ function FriendsSection() {
                         `This is an HTTP error: The status is ${response.status}`
                     );
                 } else {
-                    setFriends(data.filter((friend) => friend.status == 3));
-                    setNumFriends(data.length);
+                    setFriends(result.filter((friend) => friend.status == 3));
+                    setNumFriends(result.length);
                     setPendingFriends(
-                        data.filter(
+                        result.filter(
                             (friend) => friend.status == 1 || friend.status == 2
                         )
                     );

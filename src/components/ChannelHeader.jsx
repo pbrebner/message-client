@@ -18,8 +18,8 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
         user,
         numChannels,
         setNumChannels,
-        updateChannel,
-        setUpdateChannel,
+        numChannelUpdates,
+        setNumChannelUpdates,
         setError,
     ] = useOutletContext();
 
@@ -47,7 +47,7 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             setShowLoader(false);
 
@@ -61,8 +61,8 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
             } else {
                 closeModals();
 
-                const val = updateChannel + 1;
-                setUpdateChannel(val);
+                const val = numChannelUpdates + 1;
+                setNumChannelUpdates(val);
             }
         } catch (err) {
             setError(err.message);

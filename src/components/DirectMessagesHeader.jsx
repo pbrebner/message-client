@@ -50,7 +50,7 @@ function DirectMessagesHeader({ numChannels, setNumChannels, closeSidebar }) {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             setShowLoader(false);
 

@@ -10,8 +10,7 @@ import "./styles/Channels.css";
 function Channels() {
     const [user, setUser] = useState("");
     const [numChannels, setNumChannels] = useState(0);
-    // Used just to trigger component refresh
-    const [updateChannel, setUpdateChannel] = useState(0);
+    const [numChannelUpdates, setNumChannelUpdates] = useState(0);
 
     const [pageLoading, setPageLoading] = useState(true);
     const [showSidebar, setShowSidebar] = useState(false);
@@ -38,7 +37,7 @@ function Channels() {
                 );
 
                 const data = await response.json();
-                console.log(data);
+                //console.log(data);
 
                 setTimeout(() => {
                     setPageLoading(false);
@@ -90,7 +89,7 @@ function Channels() {
                         user={user}
                         numChannels={numChannels}
                         setNumChannels={setNumChannels}
-                        updateChannel={updateChannel}
+                        numChannelUpdates={numChannelUpdates}
                         closeSidebar={closeSidebar}
                     />
                 </div>
@@ -100,8 +99,8 @@ function Channels() {
                         user,
                         numChannels,
                         setNumChannels,
-                        updateChannel,
-                        setUpdateChannel,
+                        numChannelUpdates,
+                        setNumChannelUpdates,
                         setError,
                     ]}
                 />

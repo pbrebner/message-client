@@ -12,11 +12,10 @@ function ChannelSidebar({
     user,
     numChannels,
     setNumChannels,
-    updateChannel,
+    numChannelUpdates,
     closeSidebar,
 }) {
     const [channels, setChannels] = useState("");
-    // const [numChannels, setNumChannels] = useState(0);
     const [filteredChannels, setFilteredChannels] = useState([]);
 
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
@@ -39,6 +38,9 @@ function ChannelSidebar({
                     }
                 );
 
+                const result = await response.json();
+                //console.log(result);
+
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
@@ -47,11 +49,7 @@ function ChannelSidebar({
                         `This is an HTTP error: The status is ${response.status}`
                     );
                 } else {
-                    const data = await response.json();
-                    console.log(data);
-
-                    setChannels(removeChannelUser(data));
-                    // setNumChannels(data.length);
+                    setChannels(removeChannelUser(result));
                     setError("");
                 }
             } catch (err) {
@@ -59,7 +57,7 @@ function ChannelSidebar({
             }
         }
         getChannels();
-    }, [numChannels, updateChannel]);
+    }, [numChannels, numChannelUpdates]);
 
     // Removes the users own value from channel
     function removeChannelUser(channels) {

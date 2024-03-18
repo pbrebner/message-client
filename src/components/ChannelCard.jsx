@@ -37,7 +37,7 @@ function ChannelCard({ channel, numChannels, setNumChannels, closeSidebar }) {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             if (!response.ok) {
                 throw new Error(

@@ -11,8 +11,7 @@ function Account() {
 
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
-    // Used just to trigger component refresh
-    const [updateUser, setUpdateUser] = useState(0);
+    const [numUserUpdates, setNumUserUpdates] = useState(0);
 
     const [pageLoading, setPageLoading] = useState(true);
 
@@ -38,7 +37,7 @@ function Account() {
                 );
 
                 const data = await response.json();
-                console.log(data);
+                //console.log(data);
 
                 setTimeout(() => {
                     setPageLoading(false);
@@ -65,7 +64,7 @@ function Account() {
             }
         }
         getUser();
-    }, [updateUser]);
+    }, [numUserUpdates]);
 
     /*
     async function handleLogOut() {
@@ -131,7 +130,7 @@ function Account() {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             setShowLoader(false);
             setDeleteModalOpen(false);
@@ -171,8 +170,8 @@ function Account() {
                     </div>
                     <AccountInfo
                         user={user}
-                        updateUser={updateUser}
-                        setUpdateUser={setUpdateUser}
+                        numUserUpdates={numUserUpdates}
+                        setNumUserUpdates={setNumUserUpdates}
                     />
                     <div className="accountDivider"></div>
                     <div className="accountActions">

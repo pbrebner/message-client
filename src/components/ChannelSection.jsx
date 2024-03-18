@@ -18,8 +18,8 @@ function ChannelSection() {
         user,
         numChannels,
         setNumChannels,
-        updateChannel,
-        setUpdateChannel,
+        numChannelUpdates,
+        setNumChannelUpdates,
         setError,
     ] = useOutletContext();
     const userId = localStorage.getItem("userId");
@@ -43,7 +43,7 @@ function ChannelSection() {
                 );
 
                 const data = await response.json();
-                console.log(data);
+                //console.log(data);
 
                 setTimeout(() => {
                     setPageLoading(false);
@@ -70,7 +70,7 @@ function ChannelSection() {
             }
         }
         getChannel();
-    }, [channelId, updateChannel]);
+    }, [channelId, numChannelUpdates]);
 
     // Gets all other channel users
     function getOtherUsers(users) {

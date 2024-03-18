@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
 import Button from "../components/Button";
@@ -9,22 +9,10 @@ function Login() {
     const [password, setPassword] = useState("");
 
     const [showLoader, setShowLoader] = useState(false);
-
     const [formError, setFormError] = useState("");
 
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
-
-    // Checks if user is logged in
-    /*
-    useEffect(() => {
-        if (localStorage.getItem("userAuth")) {
-            navigate("./message-client/channels");
-        } else {
-            navigate("./message-client/login");
-        }
-    }, []);
-    */
 
     async function handleLogin(e) {
         e.preventDefault();
@@ -49,7 +37,7 @@ function Login() {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             setShowLoader(false);
 

@@ -8,15 +8,14 @@ function AddFriend({ numFriends, setNumFriends }) {
     const [newFriend, setNewFriend] = useState("");
 
     const [showLoader, setShowLoader] = useState(false);
-
     const [formError, setFormError] = useState("");
 
     const [
         user,
         numChannels,
         setNumChannels,
-        updateChannel,
-        setUpdateChannel,
+        numChannelUpdates,
+        setNumChannelUpdates,
         setError,
     ] = useOutletContext();
 
@@ -48,7 +47,7 @@ function AddFriend({ numFriends, setNumFriends }) {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             setShowLoader(false);
 

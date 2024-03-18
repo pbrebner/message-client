@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
 import Button from "../components/Button";
@@ -11,22 +11,10 @@ function Register() {
     const [passwordConfirm, setPasswordConfirm] = useState("");
 
     const [showLoader, setShowLoader] = useState(false);
-
     const [formError, setFormError] = useState("");
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
 
     const navigate = useNavigate();
-
-    // Checks if user is logged in
-    /*
-    useEffect(() => {
-        if (localStorage.getItem("userAuth")) {
-            navigate("./message-client/channels");
-        } else {
-            navigate("./message-client/login");
-        }
-    }, []);
-    */
 
     async function handleRegister(e) {
         e.preventDefault();
@@ -53,7 +41,7 @@ function Register() {
             );
 
             const result = await response.json();
-            console.log(result.errors);
+            //console.log(result);
 
             setShowLoader(false);
 
@@ -72,7 +60,6 @@ function Register() {
         }
     }
 
-    // TODO: Check if this is the proper react way to do things
     function handleFocus(e) {
         e.target.nextElementSibling.classList.add("display");
     }
