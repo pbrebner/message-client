@@ -74,7 +74,7 @@ function MessageCardContent({
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             // Handle any errors
             if (response.status == 400) {

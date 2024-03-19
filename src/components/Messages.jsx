@@ -60,7 +60,7 @@ function Messages() {
                 );
 
                 const data = await response.json();
-                console.log(data);
+                //console.log(data);
 
                 setTimeout(() => {
                     setPageLoading(false);
@@ -201,6 +201,9 @@ function Messages() {
     }
 
     async function cleanUpMessage() {
+        setNewMessage("");
+        setInResponseTo(null);
+
         if (newMessageInfo) {
             await deleteMessage();
         }
@@ -223,7 +226,7 @@ function Messages() {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             setShowLoader(false);
 
@@ -261,7 +264,7 @@ function Messages() {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             setShowLoader(false);
 
@@ -299,7 +302,7 @@ function Messages() {
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             if (!response.ok) {
                 throw new Error(

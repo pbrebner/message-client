@@ -59,7 +59,7 @@ function MessageCard({
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             if (!response.ok) {
                 throw new Error(
@@ -98,7 +98,7 @@ function MessageCard({
             );
 
             const result = await response.json();
-            console.log(result);
+            //console.log(result);
 
             toggleModal();
 
