@@ -115,7 +115,7 @@
     right: 10px;
     top: -20px;
 
-    background-color: var(--background);
+    background-color: var(--background-modal);
     border-radius: 3px;
     box-shadow: 1px 1px 1px 1px black;
 }
@@ -133,6 +133,7 @@
     font-size: 1rem;
     background: none;
     border: none;
+    border-radius: 3px;
 
     cursor: pointer;
 }
