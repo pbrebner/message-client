@@ -151,8 +151,9 @@
 /* Styling for Channel Header modal */
 .channelHeaderModal {
     padding: 20px;
-    background-color: var(--background);
+    background-color: var(--background-modal);
     box-shadow: 2px 2px 2px 2px black;
+    border-radius: 5px;
 
     display: none;
 
