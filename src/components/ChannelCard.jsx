@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useOutletContext, useNavigate } from "react-router-dom";
 
 import "./styles/ChannelCard.css";
 
@@ -7,6 +7,7 @@ function ChannelCard({ channel, numChannels, setNumChannels, closeSidebar }) {
     const [hover, setHover] = useState(false);
 
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
+    const navigate = useNavigate();
 
     // This runs on every render change
     let channelUserNames = "";
@@ -46,6 +47,7 @@ function ChannelCard({ channel, numChannels, setNumChannels, closeSidebar }) {
             } else {
                 let val = numChannels - 1;
                 setNumChannels(val);
+                navigate(`/message-client/channels`);
             }
         } catch (err) {
             setError(err.message);
