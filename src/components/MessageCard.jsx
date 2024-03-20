@@ -34,7 +34,7 @@ function MessageCard({
 
     async function likeMessage() {
         let likes = messageLikes + 1;
-        setMessageLikes(likes);
+        setMessageLikes((l) => l + 1);
 
         setError("");
 
@@ -59,7 +59,7 @@ function MessageCard({
             );
 
             const result = await response.json();
-            //console.log(result);
+            console.log(result);
 
             if (!response.ok) {
                 throw new Error(
@@ -70,6 +70,7 @@ function MessageCard({
             }
         } catch (err) {
             setError(err.message);
+            setMessageLikes((l) => l - 1);
         }
     }
 
