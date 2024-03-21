@@ -61,6 +61,7 @@ function AddFriend({ numFriends, setNumFriends }) {
             } else {
                 let val = numFriends + 1;
                 setNumFriends(val);
+                setNewFriend("");
             }
         } catch (err) {
             setError(err.message);
@@ -81,6 +82,7 @@ function AddFriend({ numFriends, setNumFriends }) {
                     id="addFriend"
                     className="addFriend"
                     placeholder="Enter users name."
+                    autoComplete="off"
                     value={newFriend}
                     onChange={(e) => setNewFriend(e.target.value)}
                 />
@@ -91,18 +93,18 @@ function AddFriend({ numFriends, setNumFriends }) {
                     loading={showLoader}
                     disabled={showLoader}
                 />
-                {formError && (
-                    <div className="friendRequestErrorContainer">
-                        <ul className="friendRequestErrorList">
-                            {formError.map((error, index) => (
-                                <li key={index} className="friendRequestError">
-                                    {error.msg}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
             </form>
+            {formError && (
+                <div className="friendRequestErrorContainer">
+                    <ul className="friendRequestErrorList">
+                        {formError.map((error, index) => (
+                            <li key={index} className="friendRequestError">
+                                {error.msg}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
             <div className="friendsDivider"></div>
         </div>
     );
