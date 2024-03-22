@@ -91,7 +91,7 @@ function DirectMessagesHeader({
             // Can only add unique names
             if (userDisplayList.find((user) => user.name == e.target.value)) {
                 setAddUser("");
-            } else if (!friend) {
+            } else if (!friend || friend.status != 3) {
                 setFormError([
                     { msg: "Can only send direct messages to friends" },
                 ]);
