@@ -86,7 +86,10 @@ function AddFriend() {
                     placeholder="Enter users name."
                     autoComplete="off"
                     value={newFriend}
-                    onChange={(e) => setNewFriend(e.target.value)}
+                    onChange={(e) => {
+                        setFormError("");
+                        setNewFriend(e.target.value);
+                    }}
                 />
                 <Button
                     styleRef="friendRequestBtn"
