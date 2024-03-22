@@ -4,7 +4,7 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import "./styles/FriendCard.css";
 
-function FriendCard({ friend, numFriends, setNumFriends }) {
+function FriendCard({ friend }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
 
@@ -14,6 +14,8 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
         setNumChannels,
         numChannelUpdates,
         setNumChannelUpdates,
+        numFriends,
+        setNumFriends,
         setError,
     ] = useOutletContext();
     const navigate = useNavigate();
@@ -26,7 +28,7 @@ function FriendCard({ friend, numFriends, setNumFriends }) {
         setError("");
 
         const formData = JSON.stringify({
-            users: [friend.targetUser.name],
+            users: [friend.targetUser._id],
         });
 
         // Make request to create new Channel
