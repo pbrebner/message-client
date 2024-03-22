@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import uniqid from "uniqid";
 
 import Button from "./Button";
 import "./styles/DirectMessagesHeader.css";
 
-function DirectMessagesHeader({ numChannels, setNumChannels, closeSidebar }) {
+function DirectMessagesHeader({
+    numChannels,
+    setNumChannels,
+    friends,
+    closeSidebar,
+}) {
     const [channelTitle, setChannelTitle] = useState("");
     const [addUser, setAddUser] = useState("");
-    const [userList, setUserList] = useState([]);
+    const [userDisplayList, setUserDisplayList] = useState([]);
 
     const [newChannelOpen, setNewChannelOpen] = useState(false);
 
@@ -24,8 +28,8 @@ function DirectMessagesHeader({ numChannels, setNumChannels, closeSidebar }) {
         setError("");
 
         let apiUsers = [];
-        userList.forEach((user) => {
-            apiUsers.push(user.name);
+        userDisplayList.forEach((user) => {
+            apiUsers.push(user.id);
         });
 
         const formData = JSON.stringify({
@@ -80,13 +84,21 @@ function DirectMessagesHeader({ numChannels, setNumChannels, closeSidebar }) {
     // Adds users on enter key
     function handleUserAdd(e) {
         if (e.key == "Enter") {
+            let friend = friends.find(
+                (friend) => friend.targetUser.name == e.target.value
+            );
+
             // Can only add unique names
-            if (userList.find((user) => user.name == e.target.value)) {
+            if (userDisplayList.find((user) => user.name == e.target.value)) {
                 setAddUser("");
+            } else if (!friend) {
+                setFormError([
+                    { msg: "Can only send direct messages to friends" },
+                ]);
             } else {
-                setUserList([
-                    ...userList,
-                    { id: uniqid(), name: e.target.value },
+                setUserDisplayList([
+                    ...userDisplayList,
+                    { id: friend.targetUser._id, name: e.target.value },
                 ]);
                 setAddUser("");
             }
@@ -95,8 +107,8 @@ function DirectMessagesHeader({ numChannels, setNumChannels, closeSidebar }) {
 
     // Deletes the specified user from the list
     function deleteListUser(id) {
-        const tempUserList = userList.filter((user) => user.id != id);
-        setUserList(tempUserList);
+        const tempUserList = userDisplayList.filter((user) => user.id != id);
+        setUserDisplayList(tempUserList);
     }
 
     function openNewChannel() {
@@ -104,7 +116,8 @@ function DirectMessagesHeader({ numChannels, setNumChannels, closeSidebar }) {
     }
 
     function closeNewChannel() {
-        setUserList([]);
+        setUserDisplayList([]);
+        setFormError("");
         setNewChannelOpen(false);
     }
 
@@ -133,25 +146,32 @@ function DirectMessagesHeader({ numChannels, setNumChannels, closeSidebar }) {
                             placeholder="Direct Message Title (Optional)."
                             autoComplete="off"
                             value={channelTitle}
-                            onChange={(e) => setChannelTitle(e.target.value)}
+                            onChange={(e) => {
+                                setFormError("");
+                                setChannelTitle(e.target.value);
+                            }}
                         />
                     </div>
                     <div className="newChannelFormElement">
                         <label htmlFor="newChannelUsers">Select Friends</label>
                         <div className="userListInfo">
-                            You can add {5 - userList.length} more friends.
+                            You can add {5 - userDisplayList.length} more
+                            friends.
                         </div>
                         <input
                             type="text"
                             name="newChannelUsers"
                             id="newChannelUsers"
                             className="newChannelUsers"
-                            placeholder="Type name and press enter."
+                            placeholder="Type user name and press enter."
                             autoComplete="off"
                             value={addUser}
-                            onChange={(e) => setAddUser(e.target.value)}
+                            onChange={(e) => {
+                                setFormError("");
+                                setAddUser(e.target.value);
+                            }}
                             onKeyDown={handleUserAdd}
-                            disabled={userList.length >= 5}
+                            disabled={userDisplayList.length >= 5}
                         />
                     </div>
                     {formError && (
@@ -166,9 +186,9 @@ function DirectMessagesHeader({ numChannels, setNumChannels, closeSidebar }) {
                         </div>
                     )}
                 </form>
-                {userList.length > 0 && (
+                {userDisplayList.length > 0 && (
                     <div className="userList">
-                        {userList.map((user) => (
+                        {userDisplayList.map((user) => (
                             <div key={user.id} className="userListEntry">
                                 <div>{user.name}</div>
                                 <button onClick={() => deleteListUser(user.id)}>
