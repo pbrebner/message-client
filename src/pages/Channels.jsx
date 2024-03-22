@@ -11,6 +11,7 @@ function Channels() {
     const [user, setUser] = useState("");
     const [numChannels, setNumChannels] = useState(0);
     const [numChannelUpdates, setNumChannelUpdates] = useState(0);
+    const [numFriends, setNumFriends] = useState(0);
 
     const [pageLoading, setPageLoading] = useState(true);
     const [showSidebar, setShowSidebar] = useState(false);
@@ -53,6 +54,7 @@ function Channels() {
                 } else {
                     setUser(data.user);
                     setNumChannels(data.user.channels.length);
+                    setNumFriends(data.user.friends.length);
                     setError("");
                 }
             } catch (err) {
@@ -90,6 +92,7 @@ function Channels() {
                         numChannels={numChannels}
                         setNumChannels={setNumChannels}
                         numChannelUpdates={numChannelUpdates}
+                        numFriends={numFriends}
                         closeSidebar={closeSidebar}
                     />
                 </div>
@@ -101,6 +104,8 @@ function Channels() {
                         setNumChannels,
                         numChannelUpdates,
                         setNumChannelUpdates,
+                        numFriends,
+                        setNumFriends,
                         setError,
                     ]}
                 />

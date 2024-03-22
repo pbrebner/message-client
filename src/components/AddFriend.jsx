@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import Button from "./Button";
 import "./styles/AddFriend.css";
 
-function AddFriend({ numFriends, setNumFriends }) {
+function AddFriend() {
     const [newFriend, setNewFriend] = useState("");
 
     const [showLoader, setShowLoader] = useState(false);
@@ -16,6 +16,8 @@ function AddFriend({ numFriends, setNumFriends }) {
         setNumChannels,
         numChannelUpdates,
         setNumChannelUpdates,
+        numFriends,
+        setNumFriends,
         setError,
     ] = useOutletContext();
 

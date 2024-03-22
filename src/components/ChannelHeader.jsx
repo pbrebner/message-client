@@ -20,6 +20,8 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
         setNumChannels,
         numChannelUpdates,
         setNumChannelUpdates,
+        numFriends,
+        setNumFriends,
         setError,
     ] = useOutletContext();
 

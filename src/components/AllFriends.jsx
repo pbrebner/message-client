@@ -68,23 +68,13 @@ function AllFriends({ friends, numFriends, setNumFriends, pageLoading }) {
                     {filteredFriends.length > 0 ? (
                         <div className="friendCardContainer">
                             {filteredFriends.map((friend) => (
-                                <FriendCard
-                                    key={friend._id}
-                                    friend={friend}
-                                    numFriends={numFriends}
-                                    setNumFriends={setNumFriends}
-                                />
+                                <FriendCard key={friend._id} friend={friend} />
                             ))}
                         </div>
                     ) : (
                         <div className="friendCardContainer">
                             {friends.map((friend) => (
-                                <FriendCard
-                                    key={friend._id}
-                                    friend={friend}
-                                    numFriends={numFriends}
-                                    setNumFriends={setNumFriends}
-                                />
+                                <FriendCard key={friend._id} friend={friend} />
                             ))}
                         </div>
                     )}

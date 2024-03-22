@@ -10,8 +10,6 @@ import "./styles/FriendsSection.css";
 
 function FriendsSection() {
     const [friends, setFriends] = useState([]);
-    const [numFriends, setNumFriends] = useState(0);
-
     const [pendingFriends, setPendingFriends] = useState([]);
 
     const [showAll, setShowAll] = useState(true);
@@ -27,6 +25,8 @@ function FriendsSection() {
         setNumChannels,
         numChannelUpdates,
         setNumChannelUpdates,
+        numFriends,
+        setNumFriends,
         setError,
     ] = useOutletContext();
 
@@ -67,7 +67,6 @@ function FriendsSection() {
                     );
                 } else {
                     setFriends(result.filter((friend) => friend.status == 3));
-                    setNumFriends(result.length);
                     setPendingFriends(
                         result.filter(
                             (friend) => friend.status == 1 || friend.status == 2
@@ -127,10 +126,6 @@ function FriendsSection() {
                                                 <FriendCard
                                                     key={friend._id}
                                                     friend={friend}
-                                                    numFriends={numFriends}
-                                                    setNumFriends={
-                                                        setNumFriends
-                                                    }
                                                 />
                                             );
                                         }
@@ -149,10 +144,6 @@ function FriendsSection() {
                                                 <FriendCard
                                                     key={friend._id}
                                                     friend={friend}
-                                                    numFriends={numFriends}
-                                                    setNumFriends={
-                                                        setNumFriends
-                                                    }
                                                 />
                                             );
                                         }
@@ -167,12 +158,7 @@ function FriendsSection() {
                     )}
                 </div>
             )}
-            {showAdd && (
-                <AddFriend
-                    numFriends={numFriends}
-                    setNumFriends={setNumFriends}
-                />
-            )}
+            {showAdd && <AddFriend />}
         </div>
     );
 }

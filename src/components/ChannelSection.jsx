@@ -20,6 +20,8 @@ function ChannelSection() {
         setNumChannels,
         numChannelUpdates,
         setNumChannelUpdates,
+        numFriends,
+        setNumFriends,
         setError,
     ] = useOutletContext();
     const userId = localStorage.getItem("userId");

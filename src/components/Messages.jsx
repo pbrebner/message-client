@@ -31,6 +31,8 @@ function Messages() {
         setNumChannels,
         updateChannel,
         setUpdateChannel,
+        numFriends,
+        setNumFriends,
         setError,
     ] = useOutletContext();
 

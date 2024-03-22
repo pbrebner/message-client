@@ -29,6 +29,8 @@ function MessageCard({
         setNumChannels,
         updateChannel,
         setUpdateChannel,
+        numFriends,
+        setNumFriends,
         setError,
     ] = useOutletContext();
 
