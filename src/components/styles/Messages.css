@@ -74,14 +74,14 @@
 }
 
 .newMessageImage {
-    height: 200px;
-    width: 200px;
+    max-height: 300px;
+    max-width: 200px;
     border-radius: 10px;
 }
 
 .newMessageImageBtns {
     padding: 3px 7px;
-    background-color: var(--accent-grey);
+    background-color: black;
     border-radius: 3px;
 
     position: absolute;
