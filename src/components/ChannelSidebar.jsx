@@ -13,10 +13,13 @@ function ChannelSidebar({
     numChannels,
     setNumChannels,
     numChannelUpdates,
+    numFriends,
     closeSidebar,
 }) {
     const [channels, setChannels] = useState("");
     const [filteredChannels, setFilteredChannels] = useState([]);
+
+    const [friends, setFriends] = useState("");
 
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const userId = localStorage.getItem("userId");
@@ -68,6 +71,46 @@ function ChannelSidebar({
         return channels;
     }
 
+    // Fetch user friends
+    useEffect(() => {
+        async function getFriends() {
+            setError("");
+
+            try {
+                const response = await fetch(
+                    `https://message-api.fly.dev/api/users/${localStorage.getItem(
+                        "userId"
+                    )}/friends`,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            authorization: `Bearer ${localStorage.getItem(
+                                "token"
+                            )}`,
+                        },
+                    }
+                );
+
+                const result = await response.json();
+                //console.log(result);
+
+                if (response.status == "401") {
+                    // Invalid Token
+                    navigate("/message-client/login");
+                } else if (!response.ok) {
+                    throw new Error(
+                        `This is an HTTP error: The status is ${response.status}`
+                    );
+                } else {
+                    setFriends(result);
+                }
+            } catch (err) {
+                setError(err.message);
+            }
+        }
+        getFriends();
+    }, [numFriends]);
+
     return (
         <div className="channelSidebar">
             <div className="channelSidebarHeader">
@@ -91,6 +134,7 @@ function ChannelSidebar({
                 <DirectMessagesHeader
                     numChannels={numChannels}
                     setNumChannels={setNumChannels}
+                    friends={friends}
                     closeSidebar={closeSidebar}
                 />
                 {channels.length > 0 ? (
