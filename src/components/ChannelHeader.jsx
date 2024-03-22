@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import Button from "./Button";
 import "./styles/ChannelHeader.css";
 
-function ChannelHeader({ otherUsers, channel, pageLoading }) {
+function ChannelHeader({ otherUsers, channel, friends, pageLoading }) {
     const [addUser, setAddUser] = useState("");
     const [addUserOpen, setAddUserOpen] = useState(false);
 
@@ -25,12 +25,28 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
         setError,
     ] = useOutletContext();
 
-    async function handleUpdateChannel() {
+    function handleUsersUpdate() {
+        let friend = friends.find(
+            (friend) => friend.targetUser.name == addUser
+        );
+
+        if (!friend || friend.status != 3) {
+            setFormError([{ msg: "Can only send direct messages to friends" }]);
+        } else {
+            let formData = JSON.stringify({ users: [friend.targetUser._id] });
+            updateChannel(formData);
+        }
+    }
+
+    function handleTitleUpdate() {
+        let formData = JSON.stringify({ title: addTitle });
+        updateChannel(formData);
+    }
+
+    async function updateChannel(formData) {
         setShowLoader(true);
         setFormError("");
         setError("");
-
-        const formData = getFormData();
 
         // Make request to update Channel
         try {
@@ -73,18 +89,6 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
         }
     }
 
-    function getFormData() {
-        if (addTitle) {
-            return JSON.stringify({
-                title: addTitle,
-            });
-        } else {
-            return JSON.stringify({
-                users: [addUser],
-            });
-        }
-    }
-
     function toggleAddTitleOpen() {
         addTitleOpen === true ? setAddTitleOpen(false) : setAddTitleOpen(true);
     }
@@ -98,6 +102,7 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
         setAddUser("");
         setAddTitleOpen(false);
         setAddUserOpen(false);
+        setFormError("");
     }
 
     return (
@@ -163,7 +168,10 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
                             placeholder="Enter a channel title."
                             autoComplete="off"
                             value={addTitle}
-                            onChange={(e) => setAddTitle(e.target.value)}
+                            onChange={(e) => {
+                                setFormError("");
+                                setAddTitle(e.target.value);
+                            }}
                         />
                     </div>
                     {formError && (
@@ -184,7 +192,7 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
                 <div className="channelHeaderModalDivider"></div>
                 <Button
                     styleRef="addTitleBtn"
-                    onClick={handleUpdateChannel}
+                    onClick={handleTitleUpdate}
                     text="Update Title"
                     loading={showLoader}
                     disabled={showLoader}
@@ -204,7 +212,10 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
                             placeholder="Add a user with their name."
                             autoComplete="off"
                             value={addUser}
-                            onChange={(e) => setAddUser(e.target.value)}
+                            onChange={(e) => {
+                                setFormError("");
+                                setAddUser(e.target.value);
+                            }}
                         />
                     </div>
                     {formError && (
@@ -225,7 +236,7 @@ function ChannelHeader({ otherUsers, channel, pageLoading }) {
                 <div className="channelHeaderModalDivider"></div>
                 <Button
                     styleRef="addUserBtn"
-                    onClick={handleUpdateChannel}
+                    onClick={handleUsersUpdate}
                     text="Add User to DM"
                     loading={showLoader}
                     disabled={showLoader}

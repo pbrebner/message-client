@@ -11,8 +11,9 @@ function ChannelSection() {
     const [channel, setChannel] = useState("");
     const [otherUsers, setOtherUsers] = useState([]);
 
-    const [pageLoading, setPageLoading] = useState(true);
+    const [friends, setFriends] = useState("");
 
+    const [pageLoading, setPageLoading] = useState(true);
     const { channelId } = useParams();
     const [
         user,
@@ -74,6 +75,46 @@ function ChannelSection() {
         getChannel();
     }, [channelId, numChannelUpdates]);
 
+    // Fetch user friends
+    useEffect(() => {
+        async function getFriends() {
+            setError("");
+
+            try {
+                const response = await fetch(
+                    `https://message-api.fly.dev/api/users/${localStorage.getItem(
+                        "userId"
+                    )}/friends`,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            authorization: `Bearer ${localStorage.getItem(
+                                "token"
+                            )}`,
+                        },
+                    }
+                );
+
+                const result = await response.json();
+                //console.log(result);
+
+                if (response.status == "401") {
+                    // Invalid Token
+                    navigate("/message-client/login");
+                } else if (!response.ok) {
+                    throw new Error(
+                        `This is an HTTP error: The status is ${response.status}`
+                    );
+                } else {
+                    setFriends(result);
+                }
+            } catch (err) {
+                setError(err.message);
+            }
+        }
+        getFriends();
+    }, [numFriends]);
+
     // Gets all other channel users
     function getOtherUsers(users) {
         let channelUsersTemp = [];
@@ -91,6 +132,7 @@ function ChannelSection() {
             <ChannelHeader
                 otherUsers={otherUsers}
                 channel={channel}
+                friends={friends}
                 pageLoading={pageLoading}
             />
             <div className="hl"></div>
