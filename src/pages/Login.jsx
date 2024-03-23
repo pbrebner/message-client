@@ -14,17 +14,29 @@ function Login() {
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
 
-    async function handleLogin(e) {
+    function handleLogin(e) {
         e.preventDefault();
-        setShowLoader(true);
-
-        setFormError("");
-        setError("");
-
         const formData = JSON.stringify({
             email: email,
             password: password,
         });
+        login(formData);
+    }
+
+    function handleGuestLogin(e) {
+        e.preventDefault();
+        const formData = JSON.stringify({
+            email: "sarawilson@example.com",
+            password: "userPassword",
+        });
+        login(formData);
+    }
+
+    async function login(formData) {
+        setShowLoader(true);
+
+        setFormError("");
+        setError("");
 
         try {
             const response = await fetch(
@@ -96,6 +108,15 @@ function Login() {
                             styleRef={"registerBtn"}
                             text="Continue"
                             onClick={handleLogin}
+                            loading={showLoader}
+                            disabled={showLoader}
+                        />
+                    </div>
+                    <div className="formElement">
+                        <Button
+                            styleRef={"registerBtn"}
+                            text="Guest Login"
+                            onClick={handleGuestLogin}
                             loading={showLoader}
                             disabled={showLoader}
                         />
