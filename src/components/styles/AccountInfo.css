@@ -93,6 +93,10 @@
     resize: none;
 }
 
+.editProfileFormElement input:disabled {
+    cursor: not-allowed;
+}
+
 .editProfileErrorContainer {
     align-self: center;
 }

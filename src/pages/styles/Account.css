@@ -95,6 +95,12 @@
     color: white;
 }
 
+.guestUserStatement {
+    align-self: center;
+    color: red;
+    font-size: 0.9rem;
+}
+
 /* Modals */
 
 .accountModal {

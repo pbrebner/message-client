@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import Button from "../components/Button";
 import "./styles/AccountInfo.css";
 
-function AccountInfo({ user, numUserUpdates, setNumUserUpdates }) {
+function AccountInfo({ user, numUserUpdates, setNumUserUpdates, guestUser }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [bio, setBio] = useState("");
@@ -159,6 +159,7 @@ function AccountInfo({ user, numUserUpdates, setNumUserUpdates }) {
                             autoComplete="off"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            disabled={guestUser}
                         />
                     </div>
                     <div className="editProfileFormElement">

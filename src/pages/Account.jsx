@@ -8,6 +8,7 @@ import "./styles/Account.css";
 
 function Account() {
     const [user, setUser] = useState("");
+    const [guestUser, setGuestUser] = useState(false);
 
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [showLoader, setShowLoader] = useState(false);
@@ -52,6 +53,7 @@ function Account() {
                     );
                 } else {
                     setUser(data.user);
+                    setGuestUser(data.guestProfile);
                     setError("");
                 }
             } catch (err) {
@@ -168,10 +170,16 @@ function Account() {
                             Back <span>to Channels</span>
                         </Link>
                     </div>
+                    {guestUser && (
+                        <div className="guestUserStatement">
+                            Certain features are disabled on guest accounts.
+                        </div>
+                    )}
                     <AccountInfo
                         user={user}
                         numUserUpdates={numUserUpdates}
                         setNumUserUpdates={setNumUserUpdates}
+                        guestUser={guestUser}
                     />
                     <div className="accountDivider"></div>
                     <div className="accountActions">
@@ -218,7 +226,7 @@ function Account() {
                             onClick={deleteUser}
                             text="Confirm Delete"
                             loading={showLoader}
-                            disabled={showLoader}
+                            disabled={showLoader || guestUser}
                         />
                     </div>
                 </div>
