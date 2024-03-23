@@ -11,6 +11,14 @@
 
 .submitBtn:disabled {
     background: #e7e8e9;
+    border: none;
+    color: #9fa3a9;
+    cursor: not-allowed;
+}
+
+.submitBtn:disabled:hover {
+    background: #e7e8e9;
+    border: none;
     color: #9fa3a9;
     cursor: not-allowed;
 }
