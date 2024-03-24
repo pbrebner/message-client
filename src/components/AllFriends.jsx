@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import FriendCard from "./FriendCard";
+import noContent from "../assets/icons/no-content.png";
 
 function AllFriends({ friends, numFriends, setNumFriends, pageLoading }) {
     const [searchItem, setSearchItem] = useState("");
@@ -80,8 +81,9 @@ function AllFriends({ friends, numFriends, setNumFriends, pageLoading }) {
                     )}
                 </div>
             ) : (
-                <div className="friendsContainer">
-                    You don't have any friends yet.
+                <div className="friendsContainer empty">
+                    <img src={noContent} alt="No Content" />
+                    <div>You don't have any friends yet.</div>
                 </div>
             )}
         </div>

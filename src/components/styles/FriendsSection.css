@@ -18,10 +18,21 @@
 }
 
 .friendsContainer {
+    height: 100%;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.friendsContainer.empty {
+    align-items: center;
+    justify-content: center;
+}
+
+.friendsContainer.empty img {
+    opacity: 0.3;
+    height: 80px;
 }
 
 .friendsInnerContainer {

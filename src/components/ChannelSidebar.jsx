@@ -166,7 +166,7 @@ function ChannelSidebar({
                         )}
                     </div>
                 ) : (
-                    <div className="channels">You don't have any channels.</div>
+                    <div className="channels"></div>
                 )}
             </div>
             <div className="hl"></div>

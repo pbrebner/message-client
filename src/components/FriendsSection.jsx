@@ -5,6 +5,7 @@ import FriendsHeader from "./FriendsHeader";
 import AllFriends from "./AllFriends";
 import FriendCard from "./FriendCard";
 import AddFriend from "./AddFriend";
+import noContent from "../assets/icons/no-content.png";
 
 import "./styles/FriendsSection.css";
 
@@ -152,8 +153,9 @@ function FriendsSection() {
                             </div>
                         </div>
                     ) : (
-                        <div className="friendsContainer">
-                            You don't have any pending friends.
+                        <div className="friendsContainer empty">
+                            <img src={noContent} alt="No Content" />
+                            <div>You don't have any pending friends.</div>
                         </div>
                     )}
                 </div>
