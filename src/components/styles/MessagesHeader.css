@@ -1,0 +1,29 @@
+.messagesHeader {
+    padding: 20px;
+    color: var(--grey-text);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.messagesHeaderImage {
+    flex-shrink: 0;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.messagesHeaderImage img {
+    width: 100%;
+}
+
+.messagesHeaderName,
+.messagesHeaderTitle {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.messagesHeaderStatement {
+    font-size: 0.9rem;
+}
