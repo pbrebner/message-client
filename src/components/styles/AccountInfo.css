@@ -22,6 +22,7 @@
 }
 
 .accountImg {
+    flex-shrink: 0;
     height: 100px;
     width: 100px;
 
@@ -118,6 +119,11 @@
     }
 
     .accountName {
-        display: block;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+
+        overflow: hidden;
+        word-wrap: break-word;
     }
 }

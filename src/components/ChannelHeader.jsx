@@ -107,25 +107,39 @@ function ChannelHeader({ otherUsers, channel, friends, pageLoading }) {
 
     return (
         <div className="channelHeader">
-            <div className="channelHeaderInfo">
+            <div className="channelHeaderInfoContainer">
                 <div className="menuSpacer"></div>
                 <div className="menuSpacerDivider"></div>
-                <div className="channelHeaderUsers">
-                    {pageLoading && (
-                        <div className="channelHeaderLoader">
-                            <div className="channelHeaderLoaderCard"></div>
+
+                {pageLoading && (
+                    <div className="channelHeaderLoader">
+                        <div className="channelHeaderLoaderCard"></div>
+                    </div>
+                )}
+                {channel.title ? (
+                    <div className="channelHeaderInfo">
+                        <div className="channelHeaderTitle">
+                            {channel.title}
                         </div>
-                    )}
-                    {otherUsers &&
-                        otherUsers.map((user) => (
-                            <div key={user._id} className="channelHeaderUser">
-                                <div className="channelHeaderUserImg">
-                                    <img src={user.avatarURL} />
+                    </div>
+                ) : (
+                    <div className="channelHeaderInfo">
+                        {otherUsers.length == 1 &&
+                            otherUsers.map((user) => (
+                                <div
+                                    key={user._id}
+                                    className="channelHeaderUser"
+                                >
+                                    <div className="channelHeaderUserImg">
+                                        <img src={user.avatarURL} />
+                                    </div>
+                                    <div className="channelHeaderUserName">
+                                        {user.name}
+                                    </div>
                                 </div>
-                                <div> {user.name}</div>
-                            </div>
-                        ))}
-                </div>
+                            ))}
+                    </div>
+                )}
             </div>
 
             <div className="channelHeaderActions">
