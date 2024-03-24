@@ -2,13 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
 
+import MessagesHeader from "./MessagesHeader.jsx";
 import MessageCard from "./MessageCard";
 import MessagesLoading from "./MessagesLoading";
 import Button from "../components/Button";
 import { formatDateLong } from "../utils/dates.js";
 import "./styles/Messages.css";
 
-function Messages() {
+function Messages({ otherUsers, channel }) {
     const [messages, setMessages] = useState([]);
     const [numMessageUpdates, setNumMessageUpdates] = useState(0);
 
@@ -91,6 +92,7 @@ function Messages() {
         return () => cleanUpMessage();
     }, [numMessageUpdates, channelId]);
 
+    // Prepares messageCards for display (Adds date lines if required)
     function prepareMessages(messages) {
         let messageList = [];
         let messageDate = "";
@@ -154,19 +156,6 @@ function Messages() {
         }
     }
 
-    function getSendData() {
-        if (inResponseTo) {
-            return JSON.stringify({
-                content: newMessage,
-                inResponseTo: inResponseTo.replyId,
-            });
-        } else {
-            return JSON.stringify({
-                content: newMessage,
-            });
-        }
-    }
-
     async function handleMessageSend(e) {
         e.preventDefault();
         setShowLoader(true);
@@ -199,6 +188,19 @@ function Messages() {
                 setNewMessage("");
                 setNumMessageUpdates(numMessageUpdates + 1);
             }
+        }
+    }
+
+    function getSendData() {
+        if (inResponseTo) {
+            return JSON.stringify({
+                content: newMessage,
+                inResponseTo: inResponseTo.replyId,
+            });
+        } else {
+            return JSON.stringify({
+                content: newMessage,
+            });
         }
     }
 
@@ -339,7 +341,8 @@ function Messages() {
         <div className="messagesSection">
             <div className="messagesContainer">
                 {pageLoading && <MessagesLoading />}
-                {messages.length > 0 ? messages : <div>No messages yet</div>}
+                <MessagesHeader otherUsers={otherUsers} channel={channel} />
+                {messages.length > 0 ? messages : <div></div>}
             </div>
             <div className="newMessageContainer">
                 <div className="newMessageDisplay">

@@ -75,6 +75,15 @@ function ChannelSection() {
         getChannel();
     }, [channelId, numChannelUpdates]);
 
+    // Gets all other channel users
+    function getOtherUsers(users) {
+        const channelUsersTemp = users.filter(
+            (channelUser) => channelUser._id != userId
+        );
+
+        setOtherUsers(channelUsersTemp);
+    }
+
     // Fetch user friends
     useEffect(() => {
         async function getFriends() {
@@ -115,18 +124,6 @@ function ChannelSection() {
         getFriends();
     }, [numFriends]);
 
-    // Gets all other channel users
-    function getOtherUsers(users) {
-        let channelUsersTemp = [];
-        users.forEach((channelUser) => {
-            if (userId != channelUser._id) {
-                channelUsersTemp.push(channelUser);
-            }
-        });
-
-        setOtherUsers(channelUsersTemp);
-    }
-
     return (
         <div className="channelSection">
             <ChannelHeader
@@ -137,7 +134,7 @@ function ChannelSection() {
             />
             <div className="hl"></div>
             <div className="channelMain">
-                <Messages />
+                <Messages otherUsers={otherUsers} channel={channel} />
                 <div className="vl"></div>
                 <UserSidebar
                     otherUsers={otherUsers}
