@@ -6,9 +6,9 @@ function Redirect() {
 
     useEffect(() => {
         if (localStorage.getItem("userAuth")) {
-            navigate("./message-client/channels");
+            navigate("/message-client/channels");
         } else {
-            navigate("./message-client/login");
+            navigate("/message-client/login");
         }
     }, []);
 
