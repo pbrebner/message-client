@@ -1,4 +1,4 @@
-# Message Client [In Developement]
+# Message Client
 
 ![Image](public/UI/UI1.png)
 
