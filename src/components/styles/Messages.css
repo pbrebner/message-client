@@ -141,7 +141,6 @@
 }
 
 .newMessageForm button {
-    align-self: flex-start;
     padding: 3px 8px;
     font-size: 0.8rem;
     background: none;
