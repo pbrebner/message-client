@@ -47,7 +47,9 @@ function Account() {
                 // Handle fetch response
                 if (response.status == "401") {
                     // Invalid Token
-                    navigate("/message-client/login");
+                    navigate("/message-client/login", {
+                        state: { message: "Your Session Timed Out." },
+                    });
                 } else if (!response.ok) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
@@ -142,7 +144,9 @@ function Account() {
             // Handle response
             if (response.status == "401") {
                 // Invalid Token
-                navigate("/message-client/login");
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
             } else if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`

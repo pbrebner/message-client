@@ -25,6 +25,11 @@
     max-width: 400px;
 }
 
+.locationMessage {
+    align-self: center;
+    color: var(--grey-text);
+}
+
 .registerContainer .title,
 .loginContainer .title {
     font-size: 1.4rem;

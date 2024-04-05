@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import {
+    Link,
+    useNavigate,
+    useOutletContext,
+    useLocation,
+} from "react-router-dom";
 
 import Button from "../components/Button";
 import "./styles/RegisterPages.css";
@@ -13,6 +18,7 @@ function Login() {
 
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
+    let location = useLocation();
 
     // Logs in user with the provided credentials
     function handleLogin(e) {
@@ -81,6 +87,11 @@ function Login() {
     return (
         <div className="login">
             <div className="loginContainer">
+                {location.state && (
+                    <div className="locationMessage">
+                        {location.state.message}
+                    </div>
+                )}
                 <h2 className="title">Login</h2>
                 <form className="loginForm">
                     <div className="formElement">
