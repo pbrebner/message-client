@@ -21,6 +21,7 @@ function AddFriend() {
         setError,
     ] = useOutletContext();
 
+    // Sends request to create friend request
     async function sendFriendRequest(e) {
         e.preventDefault();
 
@@ -53,8 +54,13 @@ function AddFriend() {
 
             setShowLoader(false);
 
-            // Handle any errors
-            if (response.status == 400) {
+            // handle response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (response.status == 400) {
                 setFormError(result.errors);
             } else if (!response.ok) {
                 throw new Error(

@@ -23,6 +23,7 @@ function FriendCard({ friend }) {
     let online = "";
     friend.online ? (online = "online") : (online = "offline");
 
+    // Sends request to create new channel
     async function createNewChannel() {
         setShowLoader(true);
         setError("");
@@ -52,8 +53,13 @@ function FriendCard({ friend }) {
 
             setShowLoader(false);
 
-            // Handle any errors
-            if (!response.ok) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );
@@ -70,6 +76,7 @@ function FriendCard({ friend }) {
         }
     }
 
+    // Sends request to update friend status
     async function acceptFriendRequest() {
         setShowLoader(true);
         setError("");
@@ -94,7 +101,13 @@ function FriendCard({ friend }) {
 
             setShowLoader(false);
 
-            if (!response.ok) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );
@@ -108,6 +121,7 @@ function FriendCard({ friend }) {
         }
     }
 
+    // Sends request to delete friend
     async function deleteFriend() {
         setShowLoader(true);
         setError("");
@@ -133,7 +147,13 @@ function FriendCard({ friend }) {
             setShowLoader(false);
             setModalOpen(false);
 
-            if (!response.ok) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );

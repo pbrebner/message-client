@@ -12,7 +12,6 @@ function ChannelHeader({ otherUsers, channel, friends, pageLoading }) {
     const [addTitleOpen, setAddTitleOpen] = useState(false);
 
     const [showLoader, setShowLoader] = useState(false);
-
     const [formError, setFormError] = useState("");
     const [
         user,
@@ -25,6 +24,7 @@ function ChannelHeader({ otherUsers, channel, friends, pageLoading }) {
         setError,
     ] = useOutletContext();
 
+    // Checks friend list and if in friend list, sends request to add friend to channel
     function handleUsersUpdate() {
         let friend = friends.find(
             (friend) => friend.targetUser.name == addUser
@@ -43,12 +43,12 @@ function ChannelHeader({ otherUsers, channel, friends, pageLoading }) {
         updateChannel(formData);
     }
 
+    // Sends request to update channel
     async function updateChannel(formData) {
         setShowLoader(true);
         setFormError("");
         setError("");
 
-        // Make request to update Channel
         try {
             const response = await fetch(
                 `https://message-api.fly.dev/api/channels/${channel._id}`,
@@ -69,8 +69,13 @@ function ChannelHeader({ otherUsers, channel, friends, pageLoading }) {
 
             setShowLoader(false);
 
-            // Handle any errors
-            if (response.status == 400) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (response.status == 400) {
                 setFormError(result.errors);
             } else if (!response.ok) {
                 throw new Error(

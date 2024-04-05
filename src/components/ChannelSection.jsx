@@ -28,7 +28,7 @@ function ChannelSection() {
     const userId = localStorage.getItem("userId");
     const navigate = useNavigate();
 
-    //Get channel
+    //Get channel Info
     useEffect(() => {
         async function getChannel() {
             setPageLoading(true);
@@ -54,7 +54,9 @@ function ChannelSection() {
 
                 if (response.status == "401") {
                     // Invalid Token
-                    navigate("/message-client/login");
+                    navigate("/message-client/login", {
+                        state: { message: "Your Session Timed Out." },
+                    });
                 } else if (!response.ok) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
@@ -75,7 +77,7 @@ function ChannelSection() {
         getChannel();
     }, [channelId, numChannelUpdates]);
 
-    // Gets all other channel users
+    // Filters channel users to remove current user
     function getOtherUsers(users) {
         const channelUsersTemp = users.filter(
             (channelUser) => channelUser._id != userId
@@ -109,7 +111,9 @@ function ChannelSection() {
 
                 if (response.status == "401") {
                     // Invalid Token
-                    navigate("/message-client/login");
+                    navigate("/message-client/login", {
+                        state: { message: "Your Session Timed Out." },
+                    });
                 } else if (!response.ok) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`

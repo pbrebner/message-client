@@ -71,7 +71,9 @@ function Messages({ otherUsers, channel }) {
 
                 if (response.status == "401") {
                     // Invalid Token
-                    navigate("/message-client/login");
+                    navigate("/message-client/login", {
+                        state: { message: "Your Session Timed Out." },
+                    });
                 } else if (!response.ok) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
@@ -128,6 +130,7 @@ function Messages({ otherUsers, channel }) {
         return messageList;
     }
 
+    // Prepares file for upload and creates new message
     async function handleFileUpload(e) {
         if (newMessageInfo) {
             await deleteMessage();
@@ -156,6 +159,7 @@ function Messages({ otherUsers, channel }) {
         }
     }
 
+    // Handles logic to either update or create new messages on send
     async function handleMessageSend(e) {
         e.preventDefault();
         setShowLoader(true);
@@ -204,6 +208,7 @@ function Messages({ otherUsers, channel }) {
         }
     }
 
+    // Cleans up by deleting message if not sent
     async function cleanUpMessage() {
         setNewMessage("");
         setInResponseTo(null);
@@ -234,8 +239,13 @@ function Messages({ otherUsers, channel }) {
 
             setShowLoader(false);
 
-            // Handle any errors
-            if (response.status == 400) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (response.status == 400) {
                 setFormError(result.errors);
             } else if (!response.ok) {
                 throw new Error(
@@ -272,8 +282,13 @@ function Messages({ otherUsers, channel }) {
 
             setShowLoader(false);
 
-            // Handle any errors
-            if (response.status == 400) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (response.status == 400) {
                 setFormError(result.errors);
             } else if (!response.ok) {
                 throw new Error(
@@ -308,7 +323,13 @@ function Messages({ otherUsers, channel }) {
             const result = await response.json();
             //console.log(result);
 
-            if (!response.ok) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );

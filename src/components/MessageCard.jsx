@@ -34,6 +34,7 @@ function MessageCard({
         setError,
     ] = useOutletContext();
 
+    // Sends request to like (update) a message
     async function likeMessage() {
         let likes = messageLikes + 1;
         setMessageLikes((l) => l + 1);
@@ -63,7 +64,13 @@ function MessageCard({
             const result = await response.json();
             console.log(result);
 
-            if (!response.ok) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );
@@ -76,12 +83,14 @@ function MessageCard({
         }
     }
 
+    // Prepares the messages for edit and focuses on content
     function prepareEditMessage() {
         toggleModal();
         setEditMessage(true);
         inputRef.current.focus();
     }
 
+    // Sends request to delete message
     async function deleteMessage() {
         setError("");
 
@@ -105,7 +114,13 @@ function MessageCard({
 
             toggleModal();
 
-            if (!response.ok) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );
@@ -118,6 +133,7 @@ function MessageCard({
         }
     }
 
+    // Handles replying to message
     function replyToMessage() {
         toggleModal();
         prepareReply({ replyId: message._id, replyName: message.user.name });

@@ -22,11 +22,13 @@ function DirectMessagesHeader({
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
 
+    // Sends request to create new channel
     async function createNewChannel() {
         setShowLoader(true);
         setFormError("");
         setError("");
 
+        // Get ids from userDisplayList for request
         let apiUsers = [];
         userDisplayList.forEach((user) => {
             apiUsers.push(user.id);
@@ -58,8 +60,13 @@ function DirectMessagesHeader({
 
             setShowLoader(false);
 
-            // Handle any errors
-            if (response.status == 400) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (response.status == 400) {
                 setFormError(result.errors);
             } else if (!response.ok) {
                 throw new Error(

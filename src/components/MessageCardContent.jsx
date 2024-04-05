@@ -28,6 +28,7 @@ function MessageCardContent({
         setError,
     ] = useOutletContext();
 
+    // Based on key input, runs edit or cancels edit
     function handleEditCommand(e) {
         if (e.key == "Enter") {
             e.preventDefault();
@@ -51,6 +52,7 @@ function MessageCardContent({
         }
     }
 
+    // Sends request to update message
     async function updateMessage() {
         setError("");
         setFormError("");
@@ -78,8 +80,13 @@ function MessageCardContent({
             const result = await response.json();
             //console.log(result);
 
-            // Handle any errors
-            if (response.status == 400) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (response.status == 400) {
                 setFormError(result.errors);
             } else if (!response.ok) {
                 throw new Error(

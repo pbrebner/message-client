@@ -1,6 +1,7 @@
 import loadingBtn from "../assets/icons/loadingBtn.svg";
 import "./styles/Button.css";
 
+// Custom button with loading animation
 const Button = ({ styleRef, onClick, text, loading, disabled }) => {
     return (
         <button

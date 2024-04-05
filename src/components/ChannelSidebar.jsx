@@ -46,7 +46,9 @@ function ChannelSidebar({
 
                 if (response.status == "401") {
                     // Invalid Token
-                    navigate("/message-client/login");
+                    navigate("/message-client/login", {
+                        state: { message: "Your Session Timed Out." },
+                    });
                 } else if (!response.ok) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
@@ -62,7 +64,7 @@ function ChannelSidebar({
         getChannels();
     }, [numChannels, numChannelUpdates]);
 
-    // Removes the users own value from channel
+    // Filters the channel to remove the current user
     function removeChannelUser(channels) {
         channels.map((channel) => {
             channel.users = channel.users.filter((user) => user._id != userId);
@@ -96,7 +98,9 @@ function ChannelSidebar({
 
                 if (response.status == "401") {
                     // Invalid Token
-                    navigate("/message-client/login");
+                    navigate("/message-client/login", {
+                        state: { message: "Your Session Timed Out." },
+                    });
                 } else if (!response.ok) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`

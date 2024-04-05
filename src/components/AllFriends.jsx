@@ -3,10 +3,11 @@ import { useState } from "react";
 import FriendCard from "./FriendCard";
 import noContent from "../assets/icons/no-content.png";
 
-function AllFriends({ friends, numFriends, setNumFriends, pageLoading }) {
+function AllFriends({ friends, pageLoading }) {
     const [searchItem, setSearchItem] = useState("");
     const [filteredFriends, setFilteredFriends] = useState([]);
 
+    // Searches through friends by finding match (case-insensitive) and populates filtered friends
     function handleSearch(e) {
         const searchTerm = e.target.value;
         setSearchItem(searchTerm);

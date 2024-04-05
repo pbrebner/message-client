@@ -16,6 +16,7 @@ function AccountInfo({ user, numUserUpdates, setNumUserUpdates, guestUser }) {
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const [formError, setFormError] = useState("");
 
+    // Gets the form data
     function getFormData() {
         let formData = new FormData();
         formData.append("name", name);
@@ -29,6 +30,7 @@ function AccountInfo({ user, numUserUpdates, setNumUserUpdates, guestUser }) {
         return formData;
     }
 
+    // Sends request to update user
     async function updateUser() {
         setShowLoader(true);
         setError("");
@@ -56,7 +58,13 @@ function AccountInfo({ user, numUserUpdates, setNumUserUpdates, guestUser }) {
 
             setShowLoader(false);
 
-            if (response.status == 400) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (response.status == 400) {
                 setFormError(result.errors);
             } else if (!response.ok) {
                 throw new Error(
@@ -75,6 +83,7 @@ function AccountInfo({ user, numUserUpdates, setNumUserUpdates, guestUser }) {
         }
     }
 
+    // Functions handle opening and closeing the edit profile modal
     function openEditProfile() {
         setName(user.name);
         setEmail(user.email);

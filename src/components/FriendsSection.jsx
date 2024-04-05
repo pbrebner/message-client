@@ -59,14 +59,18 @@ function FriendsSection() {
                     setPageLoading(false);
                 }, "1500");
 
+                // Handle response
                 if (response.status == "401") {
                     // Invalid Token
-                    navigate("/message-client/login");
+                    navigate("/message-client/login", {
+                        state: { message: "Your Session Timed Out." },
+                    });
                 } else if (!response.ok) {
                     throw new Error(
                         `This is an HTTP error: The status is ${response.status}`
                     );
                 } else {
+                    // Filter the results into friends and pendingfriends based on friend status
                     setFriends(result.filter((friend) => friend.status == 3));
                     setPendingFriends(
                         result.filter(
@@ -85,6 +89,7 @@ function FriendsSection() {
         getFriends();
     }, [numFriends]);
 
+    // Helper function to clear state
     function showNone() {
         setShowAll(false);
         setShowPending(false);
@@ -104,12 +109,7 @@ function FriendsSection() {
             />
             <div className="hl"></div>
             {showAll && (
-                <AllFriends
-                    friends={friends}
-                    numFriends={numFriends}
-                    setNumFriends={setNumFriends}
-                    pageLoading={pageLoading}
-                />
+                <AllFriends friends={friends} pageLoading={pageLoading} />
             )}
             {showPending && (
                 <div className="friendsOuterContainer">

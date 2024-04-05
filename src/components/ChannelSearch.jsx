@@ -5,6 +5,7 @@ import "./styles/ChannelSearch.css";
 function ChannelSearch({ channels, setFilteredChannels }) {
     const [searchItem, setSearchItem] = useState("");
 
+    // Searches through channels to find match with names or title
     function handleSearch(e) {
         setFilteredChannels([]);
 

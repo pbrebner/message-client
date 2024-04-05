@@ -9,7 +9,7 @@ function ChannelCard({ channel, numChannels, setNumChannels, closeSidebar }) {
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
 
-    // This runs on every render change
+    // This runs on every render change*
     let channelUserNames = "";
     channel.users.forEach((user, index) => {
         if (index != 0) {
@@ -19,10 +19,10 @@ function ChannelCard({ channel, numChannels, setNumChannels, closeSidebar }) {
         }
     });
 
+    // Deletes the channel
     async function deleteChannel() {
         setError("");
 
-        // Make request to delete channel
         try {
             const response = await fetch(
                 `https://message-api.fly.dev/api/channels/${channel._id}`,
@@ -40,7 +40,13 @@ function ChannelCard({ channel, numChannels, setNumChannels, closeSidebar }) {
             const result = await response.json();
             //console.log(result);
 
-            if (!response.ok) {
+            // handle fetch response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );
