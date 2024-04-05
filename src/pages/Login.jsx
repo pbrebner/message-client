@@ -14,6 +14,7 @@ function Login() {
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
 
+    // Logs in user with the provided credentials
     function handleLogin(e) {
         e.preventDefault();
         const formData = JSON.stringify({
@@ -23,6 +24,7 @@ function Login() {
         login(formData);
     }
 
+    // Logs in user with the pre-set credentials
     function handleGuestLogin(e) {
         e.preventDefault();
         const formData = JSON.stringify({
@@ -53,6 +55,7 @@ function Login() {
 
             setShowLoader(false);
 
+            // Handle result
             if (response.status == 400) {
                 setFormError(result.errors);
             } else if (!response.ok) {

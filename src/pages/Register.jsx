@@ -16,6 +16,7 @@ function Register() {
 
     const navigate = useNavigate();
 
+    // Handles registering the user with provided credentials
     async function handleRegister(e) {
         e.preventDefault();
         setShowLoader(true);
@@ -45,6 +46,7 @@ function Register() {
 
             setShowLoader(false);
 
+            // Handle Result
             if (response.status == 400) {
                 setFormError(result.errors);
             } else if (!response.ok) {
@@ -60,10 +62,12 @@ function Register() {
         }
     }
 
+    // Displays text on focus
     function handleFocus(e) {
         e.target.nextElementSibling.classList.add("display");
     }
 
+    // Hides text on blur (un-focus)
     function handleBlur(e) {
         e.target.nextElementSibling.classList.remove("display");
     }

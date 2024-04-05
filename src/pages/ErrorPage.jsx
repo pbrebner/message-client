@@ -1,7 +1,7 @@
 import { useRouteError } from "react-router-dom";
-
 import "./styles/ErrorPage.css";
 
+// Error page if there is an error with browser router
 function ErrorPage() {
     const error = useRouteError();
 

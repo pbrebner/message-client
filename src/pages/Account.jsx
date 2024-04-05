@@ -19,7 +19,7 @@ function Account() {
     const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
 
-    // Fetch the User
+    // Fetch the User. Runs on user updates
     useEffect(() => {
         async function getUser() {
             try {
@@ -44,6 +44,7 @@ function Account() {
                     setPageLoading(false);
                 }, "2000");
 
+                // Handle fetch response
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
@@ -110,6 +111,7 @@ function Account() {
         navigate("/message-client/login");
     }
 
+    // Sends request to delete user
     async function deleteUser() {
         setShowLoader(true);
         setError("");
@@ -137,7 +139,11 @@ function Account() {
             setShowLoader(false);
             setDeleteModalOpen(false);
 
-            if (!response.ok) {
+            // Handle response
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login");
+            } else if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );

@@ -44,6 +44,7 @@ function Channels() {
                     setPageLoading(false);
                 }, "2000");
 
+                // handle fetch response
                 if (response.status == "401") {
                     // Invalid Token
                     navigate("/message-client/login");
