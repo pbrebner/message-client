@@ -16,7 +16,7 @@ function Account() {
 
     const [pageLoading, setPageLoading] = useState(true);
 
-    const [loggedIn, setLoggedIn, setError] = useOutletContext();
+    const [loggedIn, setLoggedIn, setError, socket] = useOutletContext();
     const navigate = useNavigate();
 
     // Fetch the User. Runs on user updates
@@ -107,10 +107,14 @@ function Account() {
     }
     */
 
+    // Handle logging out
     function handleLogOut() {
         setLoggedIn(false);
         localStorage.clear();
         navigate("/message-client/login");
+
+        // Emits offline and triggers online status change on backend
+        socket.emit("offline", { userId: user._id });
     }
 
     // Sends request to delete user

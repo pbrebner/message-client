@@ -35,71 +35,79 @@ function Messages({ otherUsers, channel }) {
         numFriends,
         setNumFriends,
         setError,
+        socket,
     ] = useOutletContext();
 
     const { channelId } = useParams();
     const navigate = useNavigate();
 
-    //Get all Channel Messages
+    // Run on message updates or channel change
     useEffect(() => {
-        async function getMessages() {
-            // Trigger pageloading only when channel changes
-            if (channelCheckId != channelId) {
-                setPageLoading(true);
-                setChannelCheckId(channelId);
-            }
-
-            try {
-                const response = await fetch(
-                    `https://message-api.fly.dev/api/channels/${channelId}/messages`,
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                            authorization: `Bearer ${localStorage.getItem(
-                                "token"
-                            )}`,
-                        },
-                    }
-                );
-
-                const data = await response.json();
-                //console.log(data);
-
-                setTimeout(() => {
-                    setPageLoading(false);
-                }, "1500");
-
-                if (response.status == "401") {
-                    // Invalid Token
-                    navigate("/message-client/login", {
-                        state: { message: "Your Session Timed Out." },
-                    });
-                } else if (!response.ok) {
-                    throw new Error(
-                        `This is an HTTP error: The status is ${response.status}`
-                    );
-                } else {
-                    setMessages(prepareMessages(data));
-                    setError("");
-                }
-            } catch (err) {
-                setError(err.message);
-                setTimeout(() => {
-                    setPageLoading(false);
-                }, "1500");
-            }
+        // Trigger pageloading only when channel changes
+        if (channelCheckId != channelId) {
+            setPageLoading(true);
+            setChannelCheckId(channelId);
         }
+
         cleanUpMessage();
         getMessages();
+
+        setTimeout(() => {
+            setPageLoading(false);
+        }, "1500");
+
         return () => cleanUpMessage();
     }, [numMessageUpdates, channelId]);
+
+    // Handle socket receive message
+    socket.on("receiveMessage", () => {
+        getMessages();
+    });
+
+    // Function to get messages
+    async function getMessages() {
+        try {
+            const response = await fetch(
+                `https://message-api.fly.dev/api/channels/${channelId}/messages`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                }
+            );
+
+            const data = await response.json();
+            //console.log(data);
+
+            if (response.status == "401") {
+                // Invalid Token
+                navigate("/message-client/login", {
+                    state: { message: "Your Session Timed Out." },
+                });
+            } else if (!response.ok) {
+                throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                );
+            } else {
+                setMessages(prepareMessages(data));
+                setError("");
+            }
+        } catch (err) {
+            setError(err.message);
+        }
+    }
 
     // Prepares messageCards for display (Adds date lines if required)
     function prepareMessages(messages) {
         let messageList = [];
         let messageDate = "";
 
+        // Go through all messages
         messages.forEach((message, index) => {
+            // If next message date is greater than previous create date line
             if (
                 !messageDate ||
                 formatDateLong(message.timeStamp) > formatDateLong(messageDate)
@@ -191,6 +199,9 @@ function Messages({ otherUsers, channel }) {
                 clearReply();
                 setNewMessage("");
                 setNumMessageUpdates(numMessageUpdates + 1);
+
+                // Emit sendMessage to socket
+                socket.emit("sendMessage", { room: channelId });
             }
         }
     }
@@ -208,7 +219,7 @@ function Messages({ otherUsers, channel }) {
         }
     }
 
-    // Cleans up by deleting message if not sent
+    // Cleans up messages on dismount by clearing inputs and deleting unsent message-image if exists
     async function cleanUpMessage() {
         setNewMessage("");
         setInResponseTo(null);

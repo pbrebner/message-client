@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import io from "socket.io-client";
 
 import AppError from "./components/AppError";
 import "./App.css";
+
+const socket = io.connect("http://localhost:3000");
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -16,7 +19,7 @@ function App() {
 
     return (
         <div className="app">
-            <Outlet context={[loggedIn, setLoggedIn, setError]} />
+            <Outlet context={[loggedIn, setLoggedIn, setError, socket]} />
             {error && <AppError error={error} />}
         </div>
     );

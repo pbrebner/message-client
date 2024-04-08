@@ -24,6 +24,7 @@ function ChannelSection() {
         numFriends,
         setNumFriends,
         setError,
+        socket,
     ] = useOutletContext();
     const userId = localStorage.getItem("userId");
     const navigate = useNavigate();
@@ -46,7 +47,7 @@ function ChannelSection() {
                 );
 
                 const data = await response.json();
-                //console.log(data);
+                console.log(data);
 
                 setTimeout(() => {
                     setPageLoading(false);
@@ -65,6 +66,9 @@ function ChannelSection() {
                     setChannel(data);
                     getOtherUsers(data.users);
                     setError("");
+
+                    // Join the socket room to receive real time message updates
+                    socket.emit("joinChannel", { room: data._id });
                 }
             } catch (err) {
                 setError(err.message);
@@ -75,7 +79,14 @@ function ChannelSection() {
             }
         }
         getChannel();
+
+        return () => removeSocketChannel();
     }, [channelId, numChannelUpdates]);
+
+    // Remove user from socket room (channel)
+    function removeSocketChannel() {
+        socket.emit("leaveChannel", { room: channel._id });
+    }
 
     // Filters channel users to remove current user
     function getOtherUsers(users) {
