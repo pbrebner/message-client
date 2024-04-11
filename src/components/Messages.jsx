@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams, useOutletContext } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
+import { socket } from "../utils/socket";
 
 import MessagesHeader from "./MessagesHeader.jsx";
 import MessageCard from "./MessageCard";
@@ -35,7 +36,6 @@ function Messages({ otherUsers, channel }) {
         numFriends,
         setNumFriends,
         setError,
-        socket,
     ] = useOutletContext();
 
     const { channelId } = useParams();
@@ -49,56 +49,57 @@ function Messages({ otherUsers, channel }) {
             setChannelCheckId(channelId);
         }
 
+        // Function to get messages
+        async function getMessages() {
+            try {
+                const response = await fetch(
+                    `https://message-api.fly.dev/api/channels/${channelId}/messages`,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            authorization: `Bearer ${localStorage.getItem(
+                                "token"
+                            )}`,
+                        },
+                    }
+                );
+
+                const data = await response.json();
+                //console.log(data);
+
+                if (response.status == "401") {
+                    // Invalid Token
+                    navigate("/message-client/login", {
+                        state: { message: "Your Session Timed Out." },
+                    });
+                } else if (!response.ok) {
+                    throw new Error(
+                        `This is an HTTP error: The status is ${response.status}`
+                    );
+                } else {
+                    setMessages(prepareMessages(data));
+                    setError("");
+                }
+            } catch (err) {
+                setError(err.message);
+            }
+        }
+
         cleanUpMessage();
         getMessages();
+
+        // Handle socket update message
+        socket.on("receiveMessageUpdate", getMessages);
 
         setTimeout(() => {
             setPageLoading(false);
         }, "1500");
 
-        return () => cleanUpMessage();
+        return () => {
+            cleanUpMessage();
+            socket.off("receiveMessageUpdate", getMessages);
+        };
     }, [numMessageUpdates, channelId]);
-
-    // Handle socket receive message
-    socket.on("receiveMessage", () => {
-        getMessages();
-    });
-
-    // Function to get messages
-    async function getMessages() {
-        try {
-            const response = await fetch(
-                `https://message-api.fly.dev/api/channels/${channelId}/messages`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        authorization: `Bearer ${localStorage.getItem(
-                            "token"
-                        )}`,
-                    },
-                }
-            );
-
-            const data = await response.json();
-            //console.log(data);
-
-            if (response.status == "401") {
-                // Invalid Token
-                navigate("/message-client/login", {
-                    state: { message: "Your Session Timed Out." },
-                });
-            } else if (!response.ok) {
-                throw new Error(
-                    `This is an HTTP error: The status is ${response.status}`
-                );
-            } else {
-                setMessages(prepareMessages(data));
-                setError("");
-            }
-        } catch (err) {
-            setError(err.message);
-        }
-    }
 
     // Prepares messageCards for display (Adds date lines if required)
     function prepareMessages(messages) {
@@ -184,6 +185,9 @@ function Messages({ otherUsers, channel }) {
                 setNumMessageUpdates(numMessageUpdates + 1);
 
                 setNewMessageInfo(null);
+
+                // Emit updateMessage to socket, triggers message fetch for all current users in channel
+                socket.emit("updateMessage", { room: channelId });
             }
         } else {
             // Create new message
@@ -200,8 +204,8 @@ function Messages({ otherUsers, channel }) {
                 setNewMessage("");
                 setNumMessageUpdates(numMessageUpdates + 1);
 
-                // Emit sendMessage to socket
-                socket.emit("sendMessage", { room: channelId });
+                // Emit updateMessage to socket, triggers message fetch for all current users in channel
+                socket.emit("updateMessage", { room: channelId });
             }
         }
     }

@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
+import { socket } from "../utils/socket";
 
 import MessageCardContent from "./MessageCardContent.jsx";
 import { formatDateTime } from "../utils/dates.js";
@@ -76,6 +77,9 @@ function MessageCard({
                 );
             } else {
                 setNumMessageUpdates(numMessageUpdates + 1);
+
+                // Emit updateMessage to socket, triggers message fetch for all current users in channel
+                socket.emit("updateMessage", { room: channelId });
             }
         } catch (err) {
             setError(err.message);
@@ -126,6 +130,9 @@ function MessageCard({
                 );
             } else {
                 setNumMessageUpdates(numMessageUpdates + 1);
+
+                // Emit updateMessage to socket, triggers message fetch for all current users in channel
+                socket.emit("updateMessage", { room: channelId });
             }
         } catch (err) {
             setError(err.message);

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
+import { socket } from "../utils/socket";
 
 import "./styles/MessageCardContent.css";
 
@@ -95,6 +96,9 @@ function MessageCardContent({
             } else {
                 setEditMessage(false);
                 setNumMessageUpdates(numMessageUpdates + 1);
+
+                // Emit updateMessage to socket, triggers message fetch for all current users in channel
+                socket.emit("updateMessage", { room: channelId });
             }
         } catch (err) {
             setError(err.message);
