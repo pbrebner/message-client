@@ -35,13 +35,35 @@
     width: 100%;
 }
 
-.userTabDetails div {
+.userTabDetails .userName {
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 
     overflow: hidden;
     word-wrap: break-word;
+}
+
+.userOnline {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.statusOnline {
+    height: 10px;
+    width: 10px;
+    background-color: rgb(49, 172, 94);
+    border-radius: 50%;
+}
+
+.statusOffline {
+    height: 10px;
+    width: 10px;
+    background-color: var(--grey-text);
+    opacity: 0.2;
+    border-radius: 50%;
 }
 
 .userTabAction {

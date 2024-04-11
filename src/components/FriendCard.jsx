@@ -20,9 +20,6 @@ function FriendCard({ friend }) {
     ] = useOutletContext();
     const navigate = useNavigate();
 
-    let online = "";
-    friend.online ? (online = "online") : (online = "offline");
-
     // Sends request to create new channel
     async function createNewChannel() {
         setShowLoader(true);
@@ -182,7 +179,17 @@ function FriendCard({ friend }) {
                 </div>
                 <div className="friendCardInfo">
                     <div className="friendName">{friend.targetUser.name}</div>
-                    <div className="friendOnline">{online}</div>
+                    {friend.targetUser.online ? (
+                        <div className="friendOnline">
+                            <div className="statusOnline"></div>
+                            <div>online</div>
+                        </div>
+                    ) : (
+                        <div className="friendOnline">
+                            <div className="statusOffline"></div>
+                            <div>offline</div>
+                        </div>
+                    )}
                 </div>
             </div>
             {friend.status == 3 && (

@@ -9,9 +9,6 @@ import "./styles/UserProfileTab.css";
 function UserProfileTab({ user, closeSidebar }) {
     const [userTabOpen, setUserTabOpen] = useState(false);
 
-    let online = "";
-    user.online ? (online = "online") : (online = "offline");
-
     function closeUserTab() {
         setUserTabOpen(false);
     }
@@ -23,8 +20,18 @@ function UserProfileTab({ user, closeSidebar }) {
                     <img src={user.avatarURL} />
                 </div>
                 <div className="userTabDetails">
-                    <div>{user.name}</div>
-                    <div>{online}</div>
+                    <div className="userName">{user.name}</div>
+                    {user.online ? (
+                        <div className="userOnline">
+                            <div className="statusOnline"></div>
+                            <div>online</div>
+                        </div>
+                    ) : (
+                        <div className="userOnline">
+                            <div className="statusOffline"></div>
+                            <div>offline</div>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="userTabActions">
