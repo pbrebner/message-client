@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { socket } from "../utils/socket";
 
 import ChannelSearch from "./ChannelSearch";
 import DirectMessagesHeader from "./DirectMessagesHeader";
@@ -42,7 +43,7 @@ function ChannelSidebar({
                 );
 
                 const result = await response.json();
-                //console.log(result);
+                console.log(result);
 
                 if (response.status == "401") {
                     // Invalid Token
@@ -56,12 +57,25 @@ function ChannelSidebar({
                 } else {
                     setChannels(removeChannelUser(result));
                     setError("");
+
+                    // Join the socket rooms to receive real time message updates
+                    let channelArray = result.map((channel) => channel._id);
+                    socket.emit("joinRooms", { rooms: channelArray });
                 }
             } catch (err) {
                 setError(err.message);
             }
         }
         getChannels();
+
+        // When other users update or create channel
+        socket.on("receiveChannelUpdate", getChannels);
+        socket.on("receiveChannelCreate", getChannels);
+
+        return () => {
+            socket.off("receiveChannelUpdate", getChannels);
+            socket.off("receiveChannelCreate", getChannels);
+        };
     }, [numChannels, numChannelUpdates]);
 
     // Filters the channel to remove the current user

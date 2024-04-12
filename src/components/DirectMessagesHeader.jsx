@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { socket } from "../utils/socket";
 
 import Button from "./Button";
 import "./styles/DirectMessagesHeader.css";
@@ -74,11 +75,18 @@ function DirectMessagesHeader({
                 );
             } else {
                 closeNewChannel();
+
                 if (result.newChannel) {
                     let val = numChannels + 1;
                     setNumChannels(val);
+
+                    // Emit that channel has been created
+                    socket.emit("createChannel", {
+                        users: result.channelUsers,
+                    });
                 }
                 closeSidebar();
+
                 navigate(`/message-client/channels/${result.channelId}`);
             }
         } catch (err) {

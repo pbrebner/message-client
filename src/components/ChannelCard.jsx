@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useOutletContext, useNavigate } from "react-router-dom";
+import { socket } from "../utils/socket";
 
 import "./styles/ChannelCard.css";
 
@@ -53,6 +54,10 @@ function ChannelCard({ channel, numChannels, setNumChannels, closeSidebar }) {
             } else {
                 let val = numChannels - 1;
                 setNumChannels(val);
+
+                // Emit that channel has been updated
+                socket.emit("deleteChannel", { room: channel._id });
+
                 navigate(`/message-client/channels`);
             }
         } catch (err) {

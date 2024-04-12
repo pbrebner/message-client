@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
+import { socket } from "../utils/socket";
 
 import Button from "./Button";
 import "./styles/FriendCard.css";
@@ -64,7 +65,13 @@ function FriendCard({ friend }) {
                 if (result.newChannel) {
                     let val = numChannels + 1;
                     setNumChannels(val);
+
+                    // Emit that channel has been created
+                    socket.emit("createChannel", {
+                        users: result.channelUsers,
+                    });
                 }
+
                 navigate(`/message-client/channels/${result.channelId}`);
             }
         } catch (err) {

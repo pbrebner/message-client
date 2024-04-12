@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import { socket } from "../utils/socket";
 
 import Button from "./Button";
 import "./styles/ChannelHeader.css";
@@ -86,6 +87,9 @@ function ChannelHeader({ otherUsers, channel, friends, pageLoading }) {
 
                 const val = numChannelUpdates + 1;
                 setNumChannelUpdates(val);
+
+                // Emit that channel has been updated
+                socket.emit("updateChannel", { room: channel._id });
             }
         } catch (err) {
             setError(err.message);
