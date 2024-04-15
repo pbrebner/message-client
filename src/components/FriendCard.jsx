@@ -71,7 +71,6 @@ function FriendCard({ friend }) {
                         users: result.channelUsers,
                     });
                 }
-
                 navigate(`/message-client/channels/${result.channelId}`);
             }
         } catch (err) {
@@ -118,6 +117,11 @@ function FriendCard({ friend }) {
             } else {
                 let val = numFriends + 1;
                 setNumFriends(val);
+
+                // Emit to friend that there's an update (pass the targetUser)
+                socket.emit("updateFriend", {
+                    friends: [result.targetUser],
+                });
             }
         } catch (err) {
             setError(err.message);
@@ -166,6 +170,11 @@ function FriendCard({ friend }) {
                 setNumFriends(val);
                 let val2 = numChannelUpdates + 1;
                 setNumChannelUpdates(val2);
+
+                // Emit to friend that there's an update (pass in the targetUser)
+                socket.emit("updateFriend", {
+                    friends: [result.targetUser],
+                });
             }
         } catch (err) {
             setError(err.message);

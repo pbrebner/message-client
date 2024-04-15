@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import { socket } from "../utils/socket";
 
 import Button from "./Button";
 import "./styles/AddFriend.css";
@@ -70,6 +71,11 @@ function AddFriend() {
                 let val = numFriends + 1;
                 setNumFriends(val);
                 setNewFriend("");
+
+                // Emit to friend that there's an update (pass the targetUser)
+                socket.emit("updateFriend", {
+                    friends: [result.targetUser],
+                });
             }
         } catch (err) {
             setError(err.message);
