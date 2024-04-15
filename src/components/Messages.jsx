@@ -23,7 +23,7 @@ function Messages({ otherUsers, channel }) {
     const [newMessageInfo, setNewMessageInfo] = useState(null);
 
     const [showLoader, setShowLoader] = useState(false);
-    const [pageLoading, setPageLoading] = useState(true);
+    const [pageLoading, setPageLoading] = useState(false);
     const [channelCheckId, setChannelCheckId] = useState("");
 
     const [formError, setFormError] = useState("");
