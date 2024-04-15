@@ -14,7 +14,7 @@ function ChannelSection() {
 
     const [friends, setFriends] = useState("");
 
-    const [pageLoading, setPageLoading] = useState(true);
+    const [pageLoading, setPageLoading] = useState(false);
     const { channelId } = useParams();
     const [
         user,
@@ -31,8 +31,9 @@ function ChannelSection() {
 
     //Get channel Info
     useEffect(() => {
+        setPageLoading(true);
+
         async function getChannel() {
-            setPageLoading(true);
             try {
                 const response = await fetch(
                     `https://message-api.fly.dev/api/channels/${channelId}`,
@@ -48,10 +49,6 @@ function ChannelSection() {
 
                 const data = await response.json();
                 //console.log(data);
-
-                setTimeout(() => {
-                    setPageLoading(false);
-                }, "1500");
 
                 if (response.status == "401") {
                     // Invalid Token
@@ -71,13 +68,14 @@ function ChannelSection() {
                 }
             } catch (err) {
                 setError(err.message);
-
-                setTimeout(() => {
-                    setPageLoading(false);
-                }, "1500");
             }
         }
         getChannel();
+
+        // Set timeout for page loading
+        setTimeout(() => {
+            setPageLoading(false);
+        }, "1500");
 
         // When other user updates channel
         socket.on("receiveChannelUpdate", getChannel);
@@ -134,6 +132,13 @@ function ChannelSection() {
             }
         }
         getFriends();
+
+        // When other users updates friend status
+        socket.on("receiveFriendUpdate", getFriends);
+
+        return () => {
+            socket.off("receiveFriendUpdate", getFriends);
+        };
     }, [numFriends]);
 
     return (

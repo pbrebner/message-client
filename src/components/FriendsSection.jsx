@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { socket } from "../utils/socket";
 
 import FriendsHeader from "./FriendsHeader";
 import AllFriends from "./AllFriends";
@@ -17,7 +18,7 @@ function FriendsSection() {
     const [showPending, setShowPending] = useState(false);
     const [showAdd, setShowAdd] = useState(false);
 
-    const [pageLoading, setPageLoading] = useState(true);
+    const [pageLoading, setPageLoading] = useState(false);
 
     const navigate = useNavigate();
     const [
@@ -33,8 +34,9 @@ function FriendsSection() {
 
     // Fetch user friends
     useEffect(() => {
+        setPageLoading(true);
+
         async function getFriends() {
-            setPageLoading(true);
             setError("");
 
             try {
@@ -54,10 +56,6 @@ function FriendsSection() {
 
                 const result = await response.json();
                 //console.log(result);
-
-                setTimeout(() => {
-                    setPageLoading(false);
-                }, "1500");
 
                 // Handle response
                 if (response.status == "401") {
@@ -80,13 +78,23 @@ function FriendsSection() {
                 }
             } catch (err) {
                 setError(err.message);
-
-                setTimeout(() => {
-                    setPageLoading(false);
-                }, "1500");
             }
         }
         getFriends();
+
+        // Set timeout for pageloading
+        setTimeout(() => {
+            setPageLoading(false);
+        }, "1500");
+
+        // When other users updates friend status
+        socket.on("receiveFriendUpdate", getFriends);
+        socket.on("receiveFriendOnline", getFriends);
+
+        return () => {
+            socket.off("receiveFriendUpdate", getFriends);
+            socket.off("receiveFriendOnline", getFriends);
+        };
     }, [numFriends]);
 
     // Helper function to clear state

@@ -43,7 +43,7 @@ function ChannelSidebar({
                 );
 
                 const result = await response.json();
-                console.log(result);
+                //console.log(result);
 
                 if (response.status == "401") {
                     // Invalid Token
@@ -127,6 +127,13 @@ function ChannelSidebar({
             }
         }
         getFriends();
+
+        // When other users updates friend status
+        socket.on("receiveFriendUpdate", getFriends);
+
+        return () => {
+            socket.off("receiveFriendUpdate", getFriends);
+        };
     }, [numFriends]);
 
     return (
