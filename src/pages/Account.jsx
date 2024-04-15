@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { socket } from "../utils/socket";
 
 import AccountInfo from "../components/AccountInfo";
 import PageLoader from "../components/PageLoader";
@@ -16,7 +17,7 @@ function Account() {
 
     const [pageLoading, setPageLoading] = useState(true);
 
-    const [loggedIn, setLoggedIn, setError, socket] = useOutletContext();
+    const [loggedIn, setLoggedIn, setError] = useOutletContext();
     const navigate = useNavigate();
 
     // Fetch the User. Runs on user updates
@@ -40,10 +41,6 @@ function Account() {
                 const data = await response.json();
                 //console.log(data);
 
-                setTimeout(() => {
-                    setPageLoading(false);
-                }, "2000");
-
                 // Handle fetch response
                 if (response.status == "401") {
                     // Invalid Token
@@ -62,13 +59,14 @@ function Account() {
             } catch (err) {
                 setError(err.message);
                 setUser("");
-
-                setTimeout(() => {
-                    setPageLoading(false);
-                }, "2000");
             }
         }
         getUser();
+
+        // Set timeout for page loading
+        setTimeout(() => {
+            setPageLoading(false);
+        }, "2000");
     }, [numUserUpdates]);
 
     /*
@@ -142,9 +140,6 @@ function Account() {
             const result = await response.json();
             //console.log(result);
 
-            setShowLoader(false);
-            setDeleteModalOpen(false);
-
             // Handle response
             if (response.status == "401") {
                 // Invalid Token
@@ -152,10 +147,33 @@ function Account() {
                     state: { message: "Your Session Timed Out." },
                 });
             } else if (!response.ok) {
+                setShowLoader(false);
+                setDeleteModalOpen(false);
+
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
                 );
             } else {
+                // Emit to friends that acccount was deleted in order to trigger updates
+                const friendIdArray = user.friends.map(
+                    (friend) => friend.targetUser
+                );
+                socket.emit("updateFriend", { friends: friendIdArray });
+
+                // Emit to all channels that account was deleted in order to trigger updates
+                const channelIdArray = user.channels.map(
+                    (channel) => channel._id
+                );
+                if (channelIdArray.length > 0) {
+                    channelIdArray.forEach((channelId) => {
+                        socket.emit("updatechannel", { room: channelId });
+                        socket.emit("updateMessage", { room: channelId });
+                    });
+                }
+
+                setShowLoader(false);
+                setDeleteModalOpen(false);
+
                 handleLogOut();
             }
         } catch (err) {
